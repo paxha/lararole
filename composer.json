@@ -1,7 +1,7 @@
 {
     "name": "paxha/lararole",
     "description": "Laravel Role Management",
-    "type": "Laravel Library",
+    "type": "laravel-library",
     "license": "MIT",
     "authors": [
         {
