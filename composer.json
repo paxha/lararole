@@ -1,0 +1,31 @@
+{
+    "name": "paxha/lararole",
+    "description": "Laravel Role Management",
+    "type": "Laravel Library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hassan Raza Pasha",
+            "email": "e.hassanrazapasha@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "paxha/has-many-through-deep": "^2.0",
+        "paxha/laravel-adjacency-list": "^2.1",
+        "sven/artisan-view": "^3.3"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lararole\\LararoleServiceProvider",
+                "Lararole\\LararoleViewsServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Lararole\\": "src/"
+        }
+    }
+}
