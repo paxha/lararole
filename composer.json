@@ -11,6 +11,12 @@
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/paxha/lararole"
+        }
+    ],
     "require": {
         "paxha/has-many-through-deep": "^2.0",
         "paxha/laravel-adjacency-list": "^2.1",
