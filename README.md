@@ -1,5 +1,8 @@
 ## Introduction
-The User Management System with **roles** and **permissions** also supports **(Nth level) modules**.
+Lararole is a [Laravel](https://laravel.com/) library. 
+This provides **User Management** or **Role Management** System with **roles** and **permissions** also supports **(Nth level) modules**.
+
+Lararole is accessible, powerful, and provides tools required for large, robust applications.
 
 Supports Laravel 6.x.
 
