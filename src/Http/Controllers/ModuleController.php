@@ -92,6 +92,6 @@ class ModuleController extends Controller
 
     public function access_denied()
     {
-        return view('lararole::' . 'access_denied');
+        return view('access_denied');
     }
 }
