@@ -1,7 +1,7 @@
-[![Latest Stable Version](https://poser.pugx.org/paxha/lararole/v/stable)](https://packagist.org/packages/paxha/lararole)
-[![Total Downloads](https://poser.pugx.org/paxha/lararole/downloads)](https://packagist.org/packages/paxha/lararole)
-[![Latest Unstable Version](https://poser.pugx.org/paxha/lararole/v/unstable)](https://packagist.org/packages/paxha/lararole)
-[![License](https://poser.pugx.org/paxha/lararole/license)](https://packagist.org/packages/paxha/lararole)
+<a href="https://travis-ci.org/paxha/lararole"><img src="https://travis-ci.org/paxha/lararole.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/paxha/lararole"><img src="https://poser.pugx.org/paxha/lararole/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/paxha/lararole"><img src="https://poser.pugx.org/paxha/lararole/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/paxha/lararole"><img src="https://poser.pugx.org/paxha/lararole/license.svg" alt="License"></a>
 
 ## Introduction
 Lararole is a [Laravel](https://laravel.com/) library. 
