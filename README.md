@@ -1,3 +1,8 @@
+[![Latest Stable Version](https://poser.pugx.org/paxha/lararole/v/stable)](https://packagist.org/packages/paxha/lararole)
+[![Total Downloads](https://poser.pugx.org/paxha/lararole/downloads)](https://packagist.org/packages/paxha/lararole)
+[![Latest Unstable Version](https://poser.pugx.org/paxha/lararole/v/unstable)](https://packagist.org/packages/paxha/lararole)
+[![License](https://poser.pugx.org/paxha/lararole/license)](https://packagist.org/packages/paxha/lararole)
+
 ## Introduction
 Lararole is a [Laravel](https://laravel.com/) library. 
 This provides **User Management** or **Role Management** System with **roles** and **permissions** also supports **(Nth level) modules**.
