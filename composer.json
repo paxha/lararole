@@ -10,6 +10,7 @@
         }
     ],
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "paxha/has-many-through-deep": "^2.0",
         "paxha/laravel-adjacency-list": "^2.1",
