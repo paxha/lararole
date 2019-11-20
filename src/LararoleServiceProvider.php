@@ -31,7 +31,13 @@ class LararoleServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/config/lararole.php' => config_path('lararole.php')
         ]);
+
+        $this->publishes([
+            __DIR__ . '/resources/views' => base_path('resources/views'),
+        ]);
+
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+
         $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/database/factories');
 
         $this->app['router']->aliasMiddleware('permission.read', ModuleHasReadPermission::class);
