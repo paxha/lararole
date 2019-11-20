@@ -3,6 +3,12 @@
     "description": "Laravel Role Management",
     "type": "laravel-library",
     "license": "MIT",
+    "keywords": [
+        "laravel-library",
+        "lararole",
+        "role management",
+        "user management"
+    ],
     "authors": [
         {
             "name": "Hassan Raza Pasha",
@@ -18,6 +24,7 @@
         }
     ],
     "require": {
+        "php": "^7.2",
         "paxha/has-many-through-deep": "^2.0",
         "paxha/laravel-adjacency-list": "^2.1",
         "sven/artisan-view": "^3.3"
