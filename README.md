@@ -14,10 +14,6 @@ Supports Laravel 6.x.
 ## Compatibility
 
 - MySQL 8.0+
-- MariaDB 10.2+
-- PostgreSQL 9.4+
-- SQLite 3.8.3+
-- SQL Server 2008+
 
 ## Installation
 
