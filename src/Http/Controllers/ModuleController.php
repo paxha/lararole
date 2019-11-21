@@ -21,36 +21,16 @@ class ModuleController extends Controller
     {
         $module = Module::whereSlug($module_slug)->firstOrFail();
 
-        $breadcrumbs = [
-            [
-                'link' => url('/'),
-                'name' => "Home"
-            ]
-        ];
-
         $view = 'modules';
 
         foreach ($module->ancestors->reverse() as $ancestor) {
-            $breadcrumb_object['name'] = $ancestor->name;
-
-            array_push($breadcrumbs, $breadcrumb_object);
-            $breadcrumb_object = null;
-
             $view .= '.' . $ancestor->slug;
         }
-
-        $breadcrumb_object['name'] = $module->name;
-        array_push($breadcrumbs, $breadcrumb_object);
 
         $view .= '.' . $module->slug;
 
         $data['view'] = $view;
-        $data['breadcrumbs'] = $breadcrumbs;
         $data['module'] = $module;
-
-        $breadcrumbs = [
-            ['name' => "E-Commerce"]
-        ];
 
         return $data;
     }
