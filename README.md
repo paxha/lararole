@@ -5,7 +5,7 @@
 
 ## Introduction
 Lararole is a [Laravel](https://laravel.com/) library. 
-This provides **User Management** or **Role Management** System with **roles** and **permissions** also supports **(Nth level) modules**.
+This provides **Role Management** System with **roles** and **permissions** also supports **(Nth level) modules**.
 
 Lararole is accessible, powerful, and provides tools required for large, robust applications.
 
@@ -14,10 +14,6 @@ Supports Laravel 6.x.
 ## Compatibility
 
 - MySQL 8.0+
-- MariaDB 10.2+
-- PostgreSQL 9.4+
-- SQLite 3.8.3+
-- SQL Server 2008+
 
 ## Installation
 
