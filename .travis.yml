@@ -7,14 +7,11 @@ cache:
 php:
   - 7.2
   - 7.3
-  - 7.4snapshot
 
 matrix:
   include:
     - php: 7.2
       env: COMPOSER_FLAGS="--prefer-lowest"
-  allow_failures:
-    - php: 7.4snapshot
 
 before_script:
   - travis_retry composer self-update
