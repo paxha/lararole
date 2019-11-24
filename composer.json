@@ -22,10 +22,15 @@
         }
     ],
     "require": {
+        "php": "^7.2",
+        "doctrine/dbal": "^2.10",
         "paxha/has-many-through-deep": "^2.0",
         "paxha/laravel-adjacency-list": "^2.1",
-        "sven/artisan-view": "^3.3",
-        "doctrine/dbal": "^2.10"
+        "sven/artisan-view": "^3.3"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.4",
+        "phpunit/phpunit": "^8.0"
     },
     "extra": {
         "laravel": {
@@ -45,8 +50,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require-dev": {
-        "orchestra/testbench": "^4.4"
-    }
+    "prefer-stable": true
 }
