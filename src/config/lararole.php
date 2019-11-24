@@ -12,31 +12,10 @@ return [
                         ['name' => 'SKU'],
                     ],
                 ],
-                [
-                    'name' => 'Bundle',
-                ],
-                [
-                    'name' => 'Stock Control',
-                    'modules' => [
-                        ['name' => 'Inventory Count'],
-                        ['name' => 'Purchase Request'],
-                        ['name' => 'Transfer Stock'],
-                    ],
-                ],
-                ['name' => 'Outlet'],
                 ['name' => 'Brand'],
                 ['name' => 'Category'],
                 ['name' => 'Unit'],
                 ['name' => 'Attribute'],
-            ]
-        ],
-        [
-            'name' => 'Procurement',
-            'icon' => 'feather icon-truck',
-            'modules' => [
-                ['name' => 'Procurement Request'],
-                ['name' => 'Purchase Order'],
-                ['name' => 'Supplier'],
             ]
         ],
         [
@@ -51,32 +30,18 @@ return [
             'name' => 'Order Processing',
             'icon' => 'feather icon-settings',
             'modules' => [
-                ['name' => 'Search',
+                ['name' => 'Search'],
+                [
+                    'name' => 'New',
                     'modules' => [
-                        ['name' => 'Add Order']
-                    ],
+                        ['name' => 'New Order']
+                    ]
                 ],
-                ['name' => 'New'],
-                ['name' => 'ATS'],
-                ['name' => 'In Transit'],
-                ['name' => 'AIH'],
                 ['name' => 'Dispatched'],
                 ['name' => 'Delivered'],
                 ['name' => 'Cancelled'],
-
             ]
-        ], [
-            'name' => 'Setting',
-            'icon' => 'feather icon-settings',
-            'modules' => [
-                ['name' => 'Loyalty'],
-                ['name' => 'Country'],
-            ]
-        ],
-        [
-            'name' => 'Others',
-            'icon' => 'feather icon-align-justify',
-        ],
+        ]
     ],
 
     'providers' => [

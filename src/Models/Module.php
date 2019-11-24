@@ -4,12 +4,11 @@ namespace Lararole\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Paxha\HasManyThroughDeep\HasRelationships;
-use Paxha\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class Module extends Model
 {
-    use HasRecursiveRelationships, HasRelationships;
+    use HasRecursiveRelationships;
 
     protected $fillable = [
         'name', 'icon'

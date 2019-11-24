@@ -27,13 +27,12 @@ class LararoleSeeder extends Seeder
             }
         }
 
-        $role = Role::create(['name' => 'Super Admin']);
-        $role->modules()->attach(Module::isRoot()->get()->pluck('id'), ['permission' => 'write']);
+        Role::create(['name' => 'Super Admin'])->modules()->attach(Module::isRoot()->get()->pluck('id'), ['permission' => 'write']);
 
         factory(Role::class, 10)->create();
 
         Role::where('slug', '!=', 'super_admin')->get()->each(function ($role) {
-            $role->modules()->attach(Module::all()->random(rand(0, 3))->pluck('id')->toArray());
+            $role->modules()->attach(Module::isRoot()->get()->random(rand(1, 3))->pluck('id')->toArray());
         });
     }
 }

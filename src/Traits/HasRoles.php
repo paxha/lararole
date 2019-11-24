@@ -1,14 +1,12 @@
 <?php
 
-
 namespace Lararole\Traits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Lararole\Models\Module;
 use Lararole\Models\ModuleRole;
 use Lararole\Models\Role;
-use Paxha\HasManyThroughDeep\HasManyThroughDeep;
-use Paxha\HasManyThroughDeep\HasRelationships;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 trait HasRoles
 {
@@ -27,10 +25,10 @@ trait HasRoles
     /**
      * An admin roles which are assigned to him by super admin or module admin.
      *
-     * @return HasManyThroughDeep
+     * @return \Staudenmeir\EloquentHasManyDeep\HasManyDeep
      */
     public function modules()
     {
-        return $this->hasManyThroughDeep(Module::class, ['role_user', Role::class, 'module_role'])->withPivot('module_role', ['permission'], ModuleRole::class, 'permission');
+        return $this->hasManyDeep(Module::class, ['role_user', Role::class, 'module_role'])->withPivot('module_role', ['permission'], ModuleRole::class, 'permission');
     }
 }

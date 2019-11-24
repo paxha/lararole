@@ -4,7 +4,7 @@
     "type": "laravel",
     "license": "MIT",
     "keywords": [
-        "laravel-library",
+        "laravel library",
         "lararole",
         "role management",
         "user management"
@@ -15,8 +15,6 @@
             "email": "e.hassanrazapasha@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "repositories": [
         {
             "type": "vcs",
@@ -25,11 +23,13 @@
     ],
     "require": {
         "php": "^7.2",
-        "paxha/has-many-through-deep": "^2.0",
-        "paxha/laravel-adjacency-list": "^2.1",
-        "sven/artisan-view": "^3.3"
+        "doctrine/dbal": "^2.10",
+        "sven/artisan-view": "^3.3",
+        "staudenmeir/eloquent-has-many-deep": "^1.11",
+        "staudenmeir/laravel-adjacency-list": "^1.2"
     },
     "require-dev": {
+        "orchestra/testbench": "^4.4",
         "phpunit/phpunit": "^8.0"
     },
     "extra": {
@@ -43,5 +43,15 @@
         "psr-4": {
             "Lararole\\": "src/"
         }
-    }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lararole\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --testsuite Feature"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
