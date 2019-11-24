@@ -1,4 +1,5 @@
 <a href="https://travis-ci.org/paxha/lararole"><img src="https://travis-ci.org/paxha/lararole.svg" alt="Build Status"></a>
+<a href="https://github.styleci.io/repos/222920059"><img src="https://github.styleci.io/repos/222920059/shield?branch=master" alt="StyleCI"></a>
 <a href="https://packagist.org/packages/paxha/lararole"><img src="https://poser.pugx.org/paxha/lararole/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/paxha/lararole"><img src="https://poser.pugx.org/paxha/lararole/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/paxha/lararole"><img src="https://poser.pugx.org/paxha/lararole/license.svg" alt="License"></a>
