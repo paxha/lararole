@@ -1,71 +1,46 @@
 <?php
 
-namespace Tests;
 
-use Illuminate\Database\Capsule\Manager as DB;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Schema\Blueprint;
-use Lararole\Models\Role;
-use PHPUnit\Framework\TestCase as Base;
-use Tests\Models\User;
-use Faker\Factory as Faker;
+namespace Lararole\Tests;
 
-abstract class TestCase extends Base
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Lararole\LararoleServiceProvider;
+use Lararole\Tests\Models\User;
+
+class TestCase extends \Orchestra\Testbench\TestCase
 {
-    protected $users;
+    use RefreshDatabase;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
 
-        $config = require __DIR__ . '/config/database.php';
+        $this->loadMigrationsFrom(__DIR__ . '/../src/database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
-        $db = new DB;
-        $db->addConnection($config[getenv('DB') ?: 'mysql']);
-        $db->setAsGlobal();
-        $db->bootEloquent();
+        $this->withFactories(__DIR__ . '/../src/database/factories');
+        $this->withFactories(__DIR__ . '/database/factories');
 
-        $this->migrate();
-
-        $this->seed();
+        $this->artisan('vendor:publish', ['--provider' => LararoleServiceProvider::class]);
     }
 
-    /**
-     * Migrate the database.
-     *
-     * @return void
-     */
-    protected function migrate()
+    protected function getPackageProviders($app)
     {
-        DB::schema()->dropAllTables();
-
-        DB::schema()->create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('email')->unique();
-            $table->softDeletes();
-        });
+        return [
+            LararoleServiceProvider::class,
+        ];
     }
 
-    /**
-     * Seed the database.
-     *
-     * @return void
-     */
-    protected function seed()
+    protected function getEnvironmentSetUp($app)
     {
-        Model::unguard();
+        $app['config']->set('database.default', 'test');
+        $app['config']->set('database.connections.test', [
+            'driver' => 'sqlite',
+            'database' => ':memory:'
+        ]);
 
-        $faker = Faker::create();
+        $app['config']->set('auth.providers.users.model', User::class);
 
-        User::create(['email' => $faker->unique()->safeEmail]);
-
-        Role::create(['name' => 'supper_admin']);
-        Role::create(['name' => $faker->jobTitle]);
-        Role::create(['name' => $faker->jobTitle]);
-        Role::create(['name' => $faker->jobTitle]);
-        Role::create(['name' => $faker->jobTitle]);
-        Role::create(['name' => $faker->jobTitle]);
-
-        Model::reguard();
+        $app['config']->set('lararole.providers.users.model', User::class);
     }
 }

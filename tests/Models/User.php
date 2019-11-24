@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Tests\Models;
-
+namespace Lararole\Tests\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -12,5 +10,5 @@ use Lararole\Traits\HasRoles;
 
 class User extends Model
 {
-    use SoftDeletes, HasRoles, Authorizable, Authenticatable;
+    use HasRoles, SoftDeletes, Authorizable, Authenticatable;
 }

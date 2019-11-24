@@ -22,16 +22,10 @@
         }
     ],
     "require": {
-        "php": "^7.2",
         "paxha/has-many-through-deep": "^2.0",
         "paxha/laravel-adjacency-list": "^2.1",
         "sven/artisan-view": "^3.3",
-        "illuminate/database": "^6.0"
-    },
-    "require-dev": {
-        "fzaninotto/faker": "^1.9",
-        "phpunit/phpunit": "^8.0",
-        "laravel/homestead": "^9.0"
+        "doctrine/dbal": "^2.10"
     },
     "extra": {
         "laravel": {
@@ -42,14 +36,17 @@
     },
     "autoload": {
         "psr-4": {
-            "Lararole\\LararoleServiceProvider\\": "src/"
+            "Lararole\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Lararole\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "orchestra/testbench": "^4.4"
+    }
 }
