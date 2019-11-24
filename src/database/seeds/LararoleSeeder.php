@@ -33,7 +33,7 @@ class LararoleSeeder extends Seeder
         factory(Role::class, 10)->create();
 
         Role::where('slug', '!=', 'super_admin')->get()->each(function ($role) {
-            $role->modules()->attach(Module::all()->random(rand(0, 3))->pluck('id')->toArray());
+            $role->modules()->attach(Module::all()->random(rand(1, 5))->pluck('id')->toArray());
         });
     }
 }
