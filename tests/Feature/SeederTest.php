@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Lararole\Tests\Feature;
 
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lararole\Database\Seeds\LararoleSeeder;
 use Lararole\Models\Module;
 use Lararole\Models\Role;
 use Lararole\Tests\Models\User;
@@ -17,7 +14,7 @@ class SeederTest extends TestCase
 
     public function testCase()
     {
-        $this->artisan('db:seed', ['--class' => LararoleSeeder::class]);
+        $this->artisan('db:seed', ['--class' => 'Lararole\Database\Seeds\LararoleSeeder']);
 
         factory(User::class, 10)->create()->each(function ($user) {
             $user->roles()->attach(Role::all()->random(rand(1, 3))->pluck('id')->toArray());
