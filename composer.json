@@ -24,9 +24,9 @@
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.10",
-        "paxha/has-many-through-deep": "^2.0",
-        "paxha/laravel-adjacency-list": "^2.1",
-        "sven/artisan-view": "^3.3"
+        "sven/artisan-view": "^3.3",
+        "staudenmeir/eloquent-has-many-deep": "^1.11",
+        "staudenmeir/laravel-adjacency-list": "^1.2"
     },
     "require-dev": {
         "orchestra/testbench": "^4.4",
