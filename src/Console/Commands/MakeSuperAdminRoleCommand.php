@@ -2,9 +2,9 @@
 
 namespace Lararole\Console\Commands;
 
-use Illuminate\Console\Command;
-use Lararole\Models\Module;
 use Lararole\Models\Role;
+use Lararole\Models\Module;
+use Illuminate\Console\Command;
 
 class MakeSuperAdminRoleCommand extends Command
 {
@@ -41,6 +41,7 @@ class MakeSuperAdminRoleCommand extends Command
     {
         if (Role::whereSlug('super_admin')->first()) {
             $this->error('Super Admin role already exists');
+
             return;
         }
 
@@ -48,7 +49,5 @@ class MakeSuperAdminRoleCommand extends Command
         $this->info('Super Admin role created');
 
         $role->modules()->attach(Module::where('module_id', '=', null)->pluck('id'), ['permission' => 'write']);
-
-        return;
     }
 }

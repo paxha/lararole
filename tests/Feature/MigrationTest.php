@@ -1,13 +1,10 @@
 <?php
 
-
 namespace Lararole\Tests\Feature;
 
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
-use Lararole\Tests\Models\User;
 use Lararole\Tests\TestCase;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MigrationTest extends TestCase
 {

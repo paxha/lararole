@@ -2,9 +2,9 @@
 
 namespace Lararole\Console\Commands;
 
+use Lararole\Models\Module;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Lararole\Models\Module;
 
 class MakeViewsCommand extends Command
 {
@@ -42,9 +42,9 @@ class MakeViewsCommand extends Command
         foreach (Module::isLeaf()->get() as $module) {
             $view = 'modules';
             foreach ($module->ancestors->reverse() as $ancestor) {
-                $view .= '.' . $ancestor->slug;
+                $view .= '.'.$ancestor->slug;
             }
-            $view .= '.' . $module->slug;
+            $view .= '.'.$module->slug;
 
             $this->view($view);
         }
@@ -52,11 +52,11 @@ class MakeViewsCommand extends Command
 
     private function view($view)
     {
-        if (!view()->exists($view . '.index')) {
+        if (! view()->exists($view.'.index')) {
             Artisan::call("make:view '{$view}' --resource --section=title --section=content --section=myscript");
-            $this->info('Resource View "' . $view . '" Successfully Created');
+            $this->info('Resource View "'.$view.'" Successfully Created');
         } else {
-            $this->comment($view . ' Already Exists');
+            $this->comment($view.' Already Exists');
         }
     }
 }

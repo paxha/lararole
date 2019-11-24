@@ -16,7 +16,7 @@ return [
                 ['name' => 'Category'],
                 ['name' => 'Unit'],
                 ['name' => 'Attribute'],
-            ]
+            ],
         ],
         [
             'name' => 'User Management',
@@ -24,7 +24,7 @@ return [
             'modules' => [
                 ['name' => 'User'],
                 ['name' => 'Role'],
-            ]
+            ],
         ],
         [
             'name' => 'Order Processing',
@@ -34,14 +34,14 @@ return [
                 [
                     'name' => 'New',
                     'modules' => [
-                        ['name' => 'New Order']
-                    ]
+                        ['name' => 'New Order'],
+                    ],
                 ],
                 ['name' => 'Dispatched'],
                 ['name' => 'Delivered'],
                 ['name' => 'Cancelled'],
-            ]
-        ]
+            ],
+        ],
     ],
 
     'providers' => [

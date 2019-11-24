@@ -1,11 +1,10 @@
 <?php
 
-
 namespace Lararole\Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lararole\LararoleServiceProvider;
 use Lararole\Tests\Models\User;
+use Lararole\LararoleServiceProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -15,11 +14,11 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__ . '/../src/database/migrations');
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../src/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
-        $this->withFactories(__DIR__ . '/../src/database/factories');
-        $this->withFactories(__DIR__ . '/database/factories');
+        $this->withFactories(__DIR__.'/../src/database/factories');
+        $this->withFactories(__DIR__.'/database/factories');
 
         $this->artisan('vendor:publish', ['--provider' => LararoleServiceProvider::class]);
     }
@@ -36,7 +35,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('database.default', 'test');
         $app['config']->set('database.connections.test', [
             'driver' => 'sqlite',
-            'database' => ':memory:'
+            'database' => ':memory:',
         ]);
 
         $app['config']->set('auth.providers.users.model', User::class);

@@ -1,9 +1,8 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-
-use Faker\Generator as Faker;
 use Lararole\Models\Role;
+use Faker\Generator as Faker;
 
 $factory->define(Role::class, function (Faker $faker) {
     return [

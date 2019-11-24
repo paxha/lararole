@@ -2,11 +2,11 @@
 
 namespace Lararole\Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lararole\Models\Module;
 use Lararole\Models\Role;
-use Lararole\Tests\Models\User;
+use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
+use Lararole\Tests\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SeederTest extends TestCase
 {
@@ -17,7 +17,7 @@ class SeederTest extends TestCase
         foreach (config('lararole.modules') as $module) {
             $m = Module::create([
                 'name' => $module['name'],
-                'icon' => @$module['icon']
+                'icon' => @$module['icon'],
             ]);
 
             if (@$module['modules']) {
