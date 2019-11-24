@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Lararole\Traits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

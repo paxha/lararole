@@ -14,7 +14,8 @@ class ModuleController extends Controller
     public function index($module_slug)
     {
         $data = $this->data($module_slug);
-        return view($data['view'] . '.index', $data);
+
+        return view($data['view'].'.index', $data);
     }
 
     private function data($module_slug)
@@ -24,10 +25,10 @@ class ModuleController extends Controller
         $view = 'modules';
 
         foreach ($module->ancestors->reverse() as $ancestor) {
-            $view .= '.' . $ancestor->slug;
+            $view .= '.'.$ancestor->slug;
         }
 
-        $view .= '.' . $module->slug;
+        $view .= '.'.$module->slug;
 
         $data['view'] = $view;
         $data['module'] = $module;
@@ -43,31 +44,36 @@ class ModuleController extends Controller
     public function create($module_slug)
     {
         $data = $this->data($module_slug);
-        return view($data['view'] . '.create', $data);
+
+        return view($data['view'].'.create', $data);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($module_slug, $id)
     {
         $data = $this->data($module_slug);
-        return view($data['view'] . '.show', $data)->with('id', $id);
+
+        return view($data['view'].'.show', $data)->with('id', $id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($module_slug, $id)
     {
         $data = $this->data($module_slug);
-        return view($data['view'] . '.edit', $data)->with('id', $id);
+
+        return view($data['view'].'.edit', $data)->with('id', $id);
     }
 
     public function access_denied()

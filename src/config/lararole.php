@@ -3,11 +3,11 @@
 return [
     'modules' => [
         [
-            'name' => 'Product',
-            'icon' => 'feather icon-layers',
+            'name'    => 'Product',
+            'icon'    => 'feather icon-layers',
             'modules' => [
                 [
-                    'name' => 'Inventory',
+                    'name'    => 'Inventory',
                     'modules' => [
                         ['name' => 'SKU'],
                     ],
@@ -16,7 +16,7 @@ return [
                     'name' => 'Bundle',
                 ],
                 [
-                    'name' => 'Stock Control',
+                    'name'    => 'Stock Control',
                     'modules' => [
                         ['name' => 'Inventory Count'],
                         ['name' => 'Purchase Request'],
@@ -28,32 +28,32 @@ return [
                 ['name' => 'Category'],
                 ['name' => 'Unit'],
                 ['name' => 'Attribute'],
-            ]
+            ],
         ],
         [
-            'name' => 'Procurement',
-            'icon' => 'feather icon-truck',
+            'name'    => 'Procurement',
+            'icon'    => 'feather icon-truck',
             'modules' => [
                 ['name' => 'Procurement Request'],
                 ['name' => 'Purchase Order'],
                 ['name' => 'Supplier'],
-            ]
+            ],
         ],
         [
-            'name' => 'User Management',
-            'icon' => 'feather icon-user',
+            'name'    => 'User Management',
+            'icon'    => 'feather icon-user',
             'modules' => [
                 ['name' => 'User'],
                 ['name' => 'Role'],
-            ]
+            ],
         ],
         [
-            'name' => 'Order Processing',
-            'icon' => 'feather icon-settings',
+            'name'    => 'Order Processing',
+            'icon'    => 'feather icon-settings',
             'modules' => [
-                ['name' => 'Search',
+                ['name'       => 'Search',
                     'modules' => [
-                        ['name' => 'Add Order']
+                        ['name' => 'Add Order'],
                     ],
                 ],
                 ['name' => 'New'],
@@ -64,14 +64,14 @@ return [
                 ['name' => 'Delivered'],
                 ['name' => 'Cancelled'],
 
-            ]
+            ],
         ], [
-            'name' => 'Setting',
-            'icon' => 'feather icon-settings',
+            'name'    => 'Setting',
+            'icon'    => 'feather icon-settings',
             'modules' => [
                 ['name' => 'Loyalty'],
                 ['name' => 'Country'],
-            ]
+            ],
         ],
         [
             'name' => 'Others',
@@ -82,7 +82,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model'  => App\User::class,
         ],
     ],
 ];

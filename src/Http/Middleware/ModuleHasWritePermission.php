@@ -11,7 +11,8 @@ class ModuleHasWritePermission
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -19,6 +20,7 @@ class ModuleHasWritePermission
         $module = Module::whereSlug(request()->route()->parameter('module_slug'))->first();
         if ($module->user_has_permission() and $module->user_has_permission()->permission->permission === 'write') {
             $request['module'] = $module;
+
             return $next($request);
         }
 
@@ -27,7 +29,7 @@ class ModuleHasWritePermission
         }
 
         return response()->json([
-            'message' => 'Access denied'
+            'message' => 'Access denied',
         ], 403);
     }
 }
