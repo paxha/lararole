@@ -7,6 +7,6 @@ use Lararole\Models\Role;
 
 $factory->define(Role::class, function (Faker $faker) {
     return [
-        'name' => $faker->jobTitle,
+        'name' => $faker->randomElement(['admin', 'manager', 'editor', 'author', 'contributors', 'moderator', 'member', 'subscriber', 'user']),
     ];
 });
