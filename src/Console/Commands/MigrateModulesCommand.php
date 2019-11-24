@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use Lararole\Models\Module;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Lararole\Models\Module;
 
 class MigrateModulesCommand extends Command
 {
@@ -44,7 +44,7 @@ class MigrateModulesCommand extends Command
         foreach (config('lararole.modules') as $module) {
             $m = Module::create([
                 'name' => $module['name'],
-                'icon' => @$module['icon']
+                'icon' => @$module['icon'],
             ]);
 
             if (@$module['modules']) {
@@ -53,6 +53,5 @@ class MigrateModulesCommand extends Command
         }
 
         $this->info('All modules and sub modules migrated successful!');
-        return;
     }
 }

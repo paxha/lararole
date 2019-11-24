@@ -2,9 +2,9 @@
 
 namespace Lararole\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
 
 class Role extends Model
 {
@@ -25,7 +25,7 @@ class Role extends Model
             if ($latestSlug) {
                 $pieces = explode('_', $latestSlug);
                 $number = intval(end($pieces));
-                $model->slug .= '_' . ($number + 1);
+                $model->slug .= '_'.($number + 1);
             }
 
             if (auth()->check()) {

@@ -2,9 +2,9 @@
 
 namespace Lararole\Database\Seeds;
 
-use Illuminate\Database\Seeder;
-use Lararole\Models\Module;
 use Lararole\Models\Role;
+use Lararole\Models\Module;
+use Illuminate\Database\Seeder;
 
 class LararoleSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class LararoleSeeder extends Seeder
         foreach (config('lararole.modules') as $module) {
             $m = Module::create([
                 'name' => $module['name'],
-                'icon' => @$module['icon']
+                'icon' => @$module['icon'],
             ]);
 
             if (@$module['modules']) {

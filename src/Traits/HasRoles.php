@@ -2,11 +2,11 @@
 
 namespace Lararole\Traits;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Lararole\Models\ModuleRole;
-use Lararole\Models\Role;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait HasRoles
 {
