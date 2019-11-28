@@ -4,11 +4,12 @@ namespace Lararole\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class Module extends Model
 {
-    use HasRecursiveRelationships;
+    use HasRecursiveRelationships, HasRelationships;
 
     protected $fillable = [
         'name', 'icon',
@@ -24,7 +25,7 @@ class Module extends Model
             if ($latestSlug) {
                 $pieces = explode('_', $latestSlug);
                 $number = intval(end($pieces));
-                $model->slug .= '_'.($number + 1);
+                $model->slug .= '_' . ($number + 1);
             }
         });
     }
@@ -51,6 +52,27 @@ class Module extends Model
     public function modules()
     {
         return $this->hasMany(self::class);
+    }
+
+    public function users()
+    {
+        return $this->hasManyDeep(config('lararole.providers.users.model'), ['module_role', Role::class, 'role_user'])->withPivot('module_role', ['permission'], ModuleRole::class, 'permission');
+    }
+
+    public function module_users()
+    {
+        $module_users = [];
+        $users = $this->ancestorsAndSelf()->with('users')->get()->map(function ($module) {
+            return $module->users;
+        });
+
+        foreach ($users as $user) {
+            foreach ($user as $item) {
+                $module_users[] = $item;
+            }
+        }
+
+        return $module_users;
     }
 
     public function roles()
