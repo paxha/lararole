@@ -18,7 +18,7 @@
   "repositories": [
     {
       "type": "git",
-      "url": "git@github.com:paxha/lararole.git"
+      "url": "https://github.com/paxha/lararole.git"
     }
   ],
   "require": {
