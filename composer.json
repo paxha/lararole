@@ -18,7 +18,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/paxha/lararole"
+            "url": "git@bitbucket.org:paxha/lararole.git"
         }
     ],
     "require": {
