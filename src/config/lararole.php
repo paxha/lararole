@@ -8,9 +8,6 @@ return [
             'modules' => [
                 [
                     'name' => 'Inventory',
-                    'modules' => [
-                        ['name' => 'SKU'],
-                    ],
                 ],
                 ['name' => 'Brand'],
                 ['name' => 'Category'],
@@ -30,7 +27,6 @@ return [
             'name' => 'Order Processing',
             'icon' => 'feather icon-settings',
             'modules' => [
-                ['name' => 'Search'],
                 [
                     'name' => 'New',
                     'modules' => [
