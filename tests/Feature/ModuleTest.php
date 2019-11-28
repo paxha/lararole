@@ -3,8 +3,8 @@
 namespace Lararole\Tests\Feature;
 
 use Lararole\Models\Module;
-use Lararole\Tests\Models\User;
 use Lararole\Tests\TestCase;
+use Lararole\Tests\Models\User;
 
 class ModuleTest extends TestCase
 {
