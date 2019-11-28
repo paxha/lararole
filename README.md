@@ -5,12 +5,16 @@
 <a href="https://packagist.org/packages/paxha/lararole"><img src="https://poser.pugx.org/paxha/lararole/license.svg?format=flat-square" alt="License"></a>
 
 ## Introduction
-Lararole is a [Laravel](https://laravel.com/) library. 
+[Lararole](http://lararole.com/) is a [Laravel](https://laravel.com/) library. 
 This provides **Role Management** System with **roles** and **permissions** also supports **(Nth level) modules**.
 
 Lararole is accessible, powerful, and provides tools required for large, robust applications.
 
 Supports Laravel 6.x.
+
+## Documentation, Installation, and Usage Instructions
+
+See the [lararole.com](http://lararole.com/) for detailed installation and usage instructions.
 
 ## Compatibility
 
