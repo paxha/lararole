@@ -17,13 +17,11 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/../src/database/migrations');
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../src/database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
-        $this->withFactories(__DIR__.'/../src/database/factories');
-        $this->withFactories(__DIR__.'/database/factories');
-
-        $this->artisan('vendor:publish', ['--provider' => LararoleServiceProvider::class]);
+        $this->withFactories(__DIR__ . '/../src/database/factories');
+        $this->withFactories(__DIR__ . '/database/factories');
 
         $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
 
@@ -58,7 +56,46 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function seeds()
     {
-        foreach (config('lararole.modules') as $module) {
+        $modules = [
+            [
+                'name' => 'Product',
+                'icon' => 'feather icon-layers',
+                'modules' => [
+                    [
+                        'name' => 'Inventory',
+                    ],
+                    ['name' => 'Brand'],
+                    ['name' => 'Category'],
+                    ['name' => 'Unit'],
+                    ['name' => 'Attribute'],
+                ],
+            ],
+            [
+                'name' => 'User Management',
+                'icon' => 'feather icon-user',
+                'modules' => [
+                    ['name' => 'User'],
+                    ['name' => 'Role'],
+                ],
+            ],
+            [
+                'name' => 'Order Processing',
+                'icon' => 'feather icon-settings',
+                'modules' => [
+                    [
+                        'name' => 'New',
+                        'modules' => [
+                            ['name' => 'New Order'],
+                        ],
+                    ],
+                    ['name' => 'Dispatched'],
+                    ['name' => 'Delivered'],
+                    ['name' => 'Cancelled'],
+                ],
+            ],
+        ];
+
+        foreach ($modules as $module) {
             $m = Module::create([
                 'name' => $module['name'],
                 'icon' => @$module['icon'],
