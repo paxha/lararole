@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Lararole\Tests\Feature;
-
 
 use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
