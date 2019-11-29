@@ -9,7 +9,8 @@ class ModuleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param $module_slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index($module_slug)
     {
@@ -18,6 +19,12 @@ class ModuleController extends Controller
         return view($data['view'].'.index', $data);
     }
 
+    /**
+     * Making views directory and  finding Module
+     *
+     * @param $module_slug
+     * @return mixed
+     */
     private function data($module_slug)
     {
         $module = Module::whereSlug($module_slug)->firstOrFail();
@@ -39,7 +46,8 @@ class ModuleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param $module_slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create($module_slug)
     {
@@ -51,8 +59,9 @@ class ModuleController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param $module_slug
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function show($module_slug, $id)
     {
@@ -64,8 +73,9 @@ class ModuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param $module_slug
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit($module_slug, $id)
     {
