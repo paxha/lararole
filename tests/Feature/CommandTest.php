@@ -2,6 +2,7 @@
 
 namespace Lararole\Tests\Feature;
 
+use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
 
 class CommandTest extends TestCase
@@ -13,5 +14,16 @@ class CommandTest extends TestCase
         $this->assertDatabaseHas('roles', [
             'slug' => 'super_admin',
         ]);
+    }
+
+    public function testMigrateModulesCommand()
+    {
+        $this->artisan('db:truncate');
+
+        $this->assertEmpty(Module::all(), 'Modules data should be empty');
+
+        $this->artisan('migrate:modules');
+
+        $this->assertNotEmpty(Module::all(), 'Modules data should be exist in db');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Lararole\Console\Commands;
 
 use Lararole\Models\Module;
 use Illuminate\Console\Command;
