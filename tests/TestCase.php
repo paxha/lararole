@@ -52,10 +52,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('auth.providers.users.model', User::class);
 
         $app['config']->set('lararole.providers.users.model', User::class);
-    }
 
-    protected function seeds()
-    {
         $modules = [
             [
                 'name' => 'Product',
@@ -95,7 +92,12 @@ class TestCase extends \Orchestra\Testbench\TestCase
             ],
         ];
 
-        foreach ($modules as $module) {
+        $app['config']->set('lararole.modules', $modules);
+    }
+
+    protected function seeds()
+    {
+        foreach (config('lararole.modules') as $module) {
             $m = Module::create([
                 'name' => $module['name'],
                 'icon' => @$module['icon'],

@@ -2,8 +2,10 @@
 
 namespace Lararole;
 
+use DBTruncate\Console\DBTruncate;
 use Illuminate\Support\ServiceProvider;
 use Lararole\Console\Commands\MakeViewsCommand;
+use Lararole\Console\Commands\MigrateModulesCommand;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
 use Lararole\Console\Commands\MakeSuperAdminRoleCommand;
@@ -49,6 +51,8 @@ class LararoleServiceProvider extends ServiceProvider
             $this->commands([
                 MakeSuperAdminRoleCommand::class,
                 MakeViewsCommand::class,
+                MigrateModulesCommand::class,
+                DBTruncate::class,
             ]);
         }
     }
