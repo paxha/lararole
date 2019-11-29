@@ -1,0 +1,12 @@
+{
+  "author": "Hassan Raza Pasha",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "keywords": [
+    "lararole",
+    "lararole-documentation"
+  ]
+}

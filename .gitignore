@@ -1,4 +1,11 @@
 **/.idea/**
-composer.lock
+**/node_modules/**
+**/docs/.vuepress/dist/**
 **/vendor/**
+npm-debug.log
+yarn-error.log
+package.lock
+package-lock.json
+yarn.lock
+composer.lock
 .phpunit.result.cache
