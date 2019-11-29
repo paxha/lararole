@@ -51,7 +51,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --testsuite Feature --coverage-clover=coverage.clover"
+        "test": "vendor/bin/phpunit --testsuite Feature"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
