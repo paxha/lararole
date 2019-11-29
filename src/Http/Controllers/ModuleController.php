@@ -20,7 +20,7 @@ class ModuleController extends Controller
     }
 
     /**
-     * Making views directory and  finding Module
+     * Making views directory and  finding Module.
      *
      * @param $module_slug
      * @return mixed
