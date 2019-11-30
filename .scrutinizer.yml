@@ -1,6 +1,5 @@
 tools:
     external_code_coverage: true
-        runs: 4
 
 checks:
     php:
