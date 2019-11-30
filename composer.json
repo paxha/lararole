@@ -51,7 +51,10 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit --testsuite Feature"
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
     },
     "minimum-stability": "dev",
     "prefer-stable": true
