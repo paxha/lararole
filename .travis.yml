@@ -41,6 +41,12 @@ matrix:
 
 before_install:
     - |
+        if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
+          phpenv config-rm xdebug.ini
+        else
+          echo "xdebug.ini does not exist"
+        fi
+    - |
         if [ $MYSQL == "8" ]; then
           wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
           sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
