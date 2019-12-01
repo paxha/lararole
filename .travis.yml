@@ -34,9 +34,9 @@ matrix:
           env: COMPOSER_FLAGS="--prefer-lowest" DB_CONNECTION=mysql MYSQL=8 DB_DATABASE=test DB_USERNAME=root DB_PASSWORD=
     allow_failures:
         - php: 7.2
-          env: COMPOSER_FLAGS="--prefer-lowest" DB_CONNECTION=mysql DB_DATABASE=test DB_USERNAME=root DB_PASSWORD=
+          env: DB_CONNECTION=mysql DB_DATABASE=test DB_USERNAME=root DB_PASSWORD=
         - php: 7.3
-          env: COMPOSER_FLAGS="--prefer-lowest" DB_CONNECTION=mysql DB_DATABASE=test DB_USERNAME=root DB_PASSWORD=
+          env: DB_CONNECTION=mysql DB_DATABASE=test DB_USERNAME=root DB_PASSWORD=
         - php: 7.4snapshot
 
 before_install:
