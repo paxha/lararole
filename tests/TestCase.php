@@ -7,7 +7,6 @@ use Lararole\Models\Module;
 use Lararole\Tests\Models\User;
 use Illuminate\Support\Facades\DB;
 use Lararole\LararoleServiceProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
