@@ -39,8 +39,7 @@ class MigrateModulesCommand extends Command
      */
     public function handle()
     {
-        Artisan::call('db:truncate');
-
+        Module::query()->truncate();
         foreach (config('lararole.modules') as $module) {
             $m = Module::create([
                 'name' => $module['name'],

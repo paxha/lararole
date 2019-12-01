@@ -26,8 +26,7 @@
         "doctrine/dbal": "^2.10",
         "sven/artisan-view": "^3.3",
         "staudenmeir/eloquent-has-many-deep": "^1.11",
-        "staudenmeir/laravel-adjacency-list": "^1.2",
-        "paxha/db-truncate": "^3.1"
+        "staudenmeir/laravel-adjacency-list": "^1.2"
     },
     "require-dev": {
         "orchestra/testbench": "^4.4",
