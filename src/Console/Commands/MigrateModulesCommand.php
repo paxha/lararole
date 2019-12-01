@@ -39,7 +39,6 @@ class MigrateModulesCommand extends Command
      */
     public function handle()
     {
-        Module::query()->truncate();
         foreach (config('lararole.modules') as $module) {
             $m = Module::create([
                 'name' => $module['name'],
