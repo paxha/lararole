@@ -3,6 +3,14 @@ module.exports = {
     description: 'Laravel Role Management with modules and other features',
     base: '/',
     home: true,
+    plugins: [
+        [
+            '@vuepress/google-analytics',
+            {
+                'ga': 'UA-153614881-1' // UA-00000000-0
+            }
+        ]
+    ],
     themeConfig: {
         logo: '/images/logo.png',
         nav: [
