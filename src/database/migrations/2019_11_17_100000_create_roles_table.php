@@ -24,9 +24,9 @@ class CreateRolesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('no action');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('no action');
+            $table->foreign('deleted_by')->references('id')->on('users')->onDelete('no action');
         });
     }
 

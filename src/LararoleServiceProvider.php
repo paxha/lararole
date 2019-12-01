@@ -2,7 +2,6 @@
 
 namespace Lararole;
 
-use DBTruncate\Console\DBTruncate;
 use Illuminate\Support\ServiceProvider;
 use Lararole\Console\Commands\MakeViewsCommand;
 use Lararole\Console\Commands\MigrateModulesCommand;
@@ -52,7 +51,6 @@ class LararoleServiceProvider extends ServiceProvider
                 MakeSuperAdminRoleCommand::class,
                 MakeViewsCommand::class,
                 MigrateModulesCommand::class,
-                DBTruncate::class,
             ]);
         }
     }

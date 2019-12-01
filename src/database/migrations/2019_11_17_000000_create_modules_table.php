@@ -21,7 +21,7 @@ class CreateModulesTable extends Migration
             $table->string('icon')->nullable();
             $table->timestamps();
 
-            $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
+            $table->foreign('module_id')->references('id')->on('modules')->onDelete('no action');
         });
     }
 

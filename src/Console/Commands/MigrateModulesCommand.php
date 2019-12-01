@@ -4,7 +4,6 @@ namespace Lararole\Console\Commands;
 
 use Lararole\Models\Module;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 class MigrateModulesCommand extends Command
 {
@@ -39,8 +38,6 @@ class MigrateModulesCommand extends Command
      */
     public function handle()
     {
-        Artisan::call('db:truncate');
-
         foreach (config('lararole.modules') as $module) {
             $m = Module::create([
                 'name' => $module['name'],
