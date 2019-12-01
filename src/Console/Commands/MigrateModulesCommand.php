@@ -4,7 +4,6 @@ namespace Lararole\Console\Commands;
 
 use Lararole\Models\Module;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 
 class MigrateModulesCommand extends Command
 {
