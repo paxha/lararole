@@ -77,7 +77,6 @@ script:
         if [ $DB_CONNECTION == "mysql" ]; then
             mysql --version
         fi
-    - sudo phpenmod -s cli xdebug
     - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
