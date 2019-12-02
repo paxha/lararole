@@ -28,6 +28,12 @@ class Module extends Model
                 $model->slug .= '_'.($number + 1);
             }
         });
+
+        self::deleting(function ($model) {
+            foreach ($model->modules as $module) {
+                $module->delete();
+            }
+        });
     }
 
     public function getParentKeyName()
