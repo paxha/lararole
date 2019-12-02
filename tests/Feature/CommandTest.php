@@ -18,7 +18,9 @@ class CommandTest extends TestCase
 
     public function testMigrateModulesCommand()
     {
-        Module::query()->truncate();
+        foreach (Module::all() as $module) {
+            $module->delete();
+        }
 
         $this->assertEmpty(Module::all(), 'Modules data should be empty');
 
