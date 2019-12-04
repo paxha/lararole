@@ -88,10 +88,8 @@ class Module extends Model
 
     public function user_has_permission()
     {
-        if (count(auth()->user()->modules)) {
-            return auth()->user()->modules()->whereHas('descendantsAndSelf', function ($query) {
-                $query->whereIn('id', $this->ancestorsAndSelf()->pluck('id'));
-            })->first();
-        }
+        return auth()->user()->modules()->whereHas('descendantsAndSelf', function ($query) {
+            $query->whereIn('id', $this->ancestorsAndSelf()->pluck('id'));
+        })->first();
     }
 }
