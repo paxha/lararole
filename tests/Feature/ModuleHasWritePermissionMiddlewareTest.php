@@ -4,9 +4,9 @@ namespace Lararole\Tests\Feature;
 
 use Lararole\Models\Role;
 use Lararole\Models\Module;
-use Lararole\Tests\Helper\Helper;
 use Lararole\Tests\TestCase;
 use Lararole\Tests\Models\User;
+use Lararole\Tests\Helper\Helper;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
 
 class ModuleHasWritePermissionMiddlewareTest extends TestCase
@@ -66,7 +66,7 @@ class ModuleHasWritePermissionMiddlewareTest extends TestCase
         }
 
         foreach (Module::where('id', '!=', $random_module->id)->where('module_id', '!=', $random_module->id)->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302, $module . ' - ' . $random_module);
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302, $module.' - '.$random_module);
         }
     }
 
@@ -97,7 +97,7 @@ class ModuleHasWritePermissionMiddlewareTest extends TestCase
         }
 
         foreach (Module::where('id', '!=', $random_module->id)->where('module_id', '!=', $random_module->id)->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302, $module . ' - ' . $random_module);
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302, $module.' - '.$random_module);
         }
     }
 
