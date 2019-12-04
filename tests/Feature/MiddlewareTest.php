@@ -2,14 +2,14 @@
 
 namespace Lararole\Tests\Feature;
 
+use Lararole\Models\Role;
+use Lararole\Models\Module;
 use Illuminate\Http\Request;
+use Lararole\Tests\TestCase;
 use Illuminate\Http\Response;
+use Lararole\Tests\Models\User;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
-use Lararole\Models\Module;
-use Lararole\Models\Role;
-use Lararole\Tests\Models\User;
-use Lararole\Tests\TestCase;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class MiddlewareTest extends TestCase
@@ -52,7 +52,7 @@ class MiddlewareTest extends TestCase
         $user->roles()->detach();
 
         $role = Role::create([
-            'name' => 'test'
+            'name' => 'test',
         ]);
 
         $random_module = Module::isRoot()->get()->random();
@@ -60,7 +60,7 @@ class MiddlewareTest extends TestCase
         $role->modules()->sync([
             [
                 'module_id' => $random_module->id,
-                'permission' => 'read'
+                'permission' => 'read',
             ],
         ]);
 
@@ -71,7 +71,7 @@ class MiddlewareTest extends TestCase
         }
 
         foreach (Module::where('id', '!=', $random_module->id)->where('module_id', '!=', $random_module->id)->get() as $module) {
-            $this->assertEquals($this->runMiddleware($this->moduleHasReadPermission, $module->slug), 302, $module . ' - ' . $random_module);
+            $this->assertEquals($this->runMiddleware($this->moduleHasReadPermission, $module->slug), 302, $module.' - '.$random_module);
         }
     }
 
@@ -83,7 +83,7 @@ class MiddlewareTest extends TestCase
         $user->roles()->detach();
 
         $role = Role::create([
-            'name' => 'test'
+            'name' => 'test',
         ]);
 
         $random_module = Module::hasParent()->get()->random();
@@ -91,7 +91,7 @@ class MiddlewareTest extends TestCase
         $role->modules()->sync([
             [
                 'module_id' => $random_module->id,
-                'permission' => 'read'
+                'permission' => 'read',
             ],
         ]);
 
@@ -114,7 +114,7 @@ class MiddlewareTest extends TestCase
         $user->roles()->detach();
 
         $role = Role::create([
-            'name' => 'test'
+            'name' => 'test',
         ]);
 
         $random_module = Module::hasParent()->get()->random();
@@ -122,7 +122,7 @@ class MiddlewareTest extends TestCase
         $role->modules()->sync([
             [
                 'module_id' => $random_module->id,
-                'permission' => 'read'
+                'permission' => 'read',
             ],
         ]);
 
@@ -178,7 +178,7 @@ class MiddlewareTest extends TestCase
         $user->roles()->detach();
 
         $role = Role::create([
-            'name' => 'test'
+            'name' => 'test',
         ]);
 
         $random_module = Module::isRoot()->get()->random();
@@ -186,7 +186,7 @@ class MiddlewareTest extends TestCase
         $role->modules()->sync([
             [
                 'module_id' => $random_module->id,
-                'permission' => 'write'
+                'permission' => 'write',
             ],
         ]);
 
@@ -197,7 +197,7 @@ class MiddlewareTest extends TestCase
         }
 
         foreach (Module::where('id', '!=', $random_module->id)->where('module_id', '!=', $random_module->id)->get() as $module) {
-            $this->assertEquals($this->runMiddleware($this->moduleHasWritePermission, $module->slug), 302, $module . ' - ' . $random_module);
+            $this->assertEquals($this->runMiddleware($this->moduleHasWritePermission, $module->slug), 302, $module.' - '.$random_module);
         }
     }
 
@@ -209,7 +209,7 @@ class MiddlewareTest extends TestCase
         $user->roles()->detach();
 
         $role = Role::create([
-            'name' => 'test'
+            'name' => 'test',
         ]);
 
         $random_module = Module::isRoot()->get()->random();
@@ -217,7 +217,7 @@ class MiddlewareTest extends TestCase
         $role->modules()->sync([
             [
                 'module_id' => $random_module->id,
-                'permission' => 'read'
+                'permission' => 'read',
             ],
         ]);
 
@@ -228,7 +228,7 @@ class MiddlewareTest extends TestCase
         }
 
         foreach (Module::where('id', '!=', $random_module->id)->where('module_id', '!=', $random_module->id)->get() as $module) {
-            $this->assertEquals($this->runMiddleware($this->moduleHasWritePermission, $module->slug), 302, $module . ' - ' . $random_module);
+            $this->assertEquals($this->runMiddleware($this->moduleHasWritePermission, $module->slug), 302, $module.' - '.$random_module);
         }
     }
 
@@ -240,7 +240,7 @@ class MiddlewareTest extends TestCase
         $user->roles()->detach();
 
         $role = Role::create([
-            'name' => 'test'
+            'name' => 'test',
         ]);
 
         $random_module = Module::hasParent()->get()->random();
@@ -248,7 +248,7 @@ class MiddlewareTest extends TestCase
         $role->modules()->sync([
             [
                 'module_id' => $random_module->id,
-                'permission' => 'write'
+                'permission' => 'write',
             ],
         ]);
 
@@ -271,7 +271,7 @@ class MiddlewareTest extends TestCase
         $user->roles()->detach();
 
         $role = Role::create([
-            'name' => 'test'
+            'name' => 'test',
         ]);
 
         $random_module = Module::hasParent()->get()->random();
@@ -279,7 +279,7 @@ class MiddlewareTest extends TestCase
         $role->modules()->sync([
             [
                 'module_id' => $random_module->id,
-                'permission' => 'write'
+                'permission' => 'write',
             ],
         ]);
 
@@ -314,7 +314,7 @@ class MiddlewareTest extends TestCase
             $request = new Request();
 
             $request->merge([
-                'module_slug' => $module_slug
+                'module_slug' => $module_slug,
             ]);
 
             return $middleware->handle($request, function () {

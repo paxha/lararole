@@ -17,7 +17,7 @@ class ModuleHasWritePermission
      */
     public function handle($request, Closure $next)
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             throw new HttpException(401, 'Unauthenticated!');
         }
 
@@ -25,7 +25,7 @@ class ModuleHasWritePermission
 
         $module = Module::whereSlug($module_slug)->first();
 
-        if (!$module) {
+        if (! $module) {
             throw new HttpException(404, 'Module not found');
         }
 
@@ -35,7 +35,7 @@ class ModuleHasWritePermission
             return $next($request);
         }
 
-        if (!$request->expectsJson()) {
+        if (! $request->expectsJson()) {
             return redirect()->route('access_denied');
         }
 
