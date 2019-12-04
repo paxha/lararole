@@ -25,7 +25,7 @@ class Module extends Model
             if ($latestSlug) {
                 $pieces = explode('_', $latestSlug);
                 $number = intval(end($pieces));
-                $model->slug .= '_'.($number + 1);
+                $model->slug .= '_' . ($number + 1);
             }
         });
 
@@ -88,8 +88,10 @@ class Module extends Model
 
     public function user_has_permission()
     {
-        return @auth()->user()->modules()->whereHas('descendantsAndSelf', function ($query) {
-            $query->whereIn('id', $this->ancestorsAndSelf()->pluck('id'));
-        })->first();
+        if (count(auth()->user()->modules)) {
+            return auth()->user()->modules()->whereHas('descendantsAndSelf', function ($query) {
+                $query->whereIn('id', $this->ancestorsAndSelf()->pluck('id'));
+            })->first();
+        }
     }
 }
