@@ -6,9 +6,7 @@ return [
             'name' => 'Product',
             'icon' => 'feather icon-layers',
             'modules' => [
-                [
-                    'name' => 'Inventory',
-                ],
+                ['name' => 'Inventory'],
                 ['name' => 'Brand'],
                 ['name' => 'Category'],
                 ['name' => 'Unit'],
@@ -27,12 +25,7 @@ return [
             'name' => 'Order Processing',
             'icon' => 'feather icon-settings',
             'modules' => [
-                [
-                    'name' => 'New',
-                    'modules' => [
-                        ['name' => 'New Order'],
-                    ],
-                ],
+                ['name' => 'New'],
                 ['name' => 'Dispatched'],
                 ['name' => 'Delivered'],
                 ['name' => 'Cancelled'],

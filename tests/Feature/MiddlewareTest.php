@@ -39,7 +39,7 @@ class MiddlewareTest extends TestCase
 
         $user->roles()->detach();
 
-        foreach (Module::isLeaf()->get() as $module) {
+        foreach (Module::all() as $module) {
             $this->assertEquals($this->runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
         }
     }
@@ -70,8 +70,8 @@ class MiddlewareTest extends TestCase
             $this->assertEquals($this->runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
         }
 
-        foreach (Module::isLeaf()->where('module_id', '!=', $random_module->id)->get() as $module) {
-            $this->assertEquals($this->runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
+        foreach (Module::where('id', '!=', $random_module->id)->where('module_id', '!=', $random_module->id)->get() as $module) {
+            $this->assertEquals($this->runMiddleware($this->moduleHasReadPermission, $module->slug), 302, $module . ' - ' . $random_module);
         }
     }
 
