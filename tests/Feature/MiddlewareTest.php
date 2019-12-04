@@ -135,7 +135,7 @@ class MiddlewareTest extends TestCase
         }
     }
 
-    public function testModuleHasReadPermissionWithSupperAdmin()
+    public function testModuleHasReadPermissionWithSuperAdminRole()
     {
         $user = User::all()->random();
         auth()->login($user);
@@ -292,7 +292,7 @@ class MiddlewareTest extends TestCase
         }
     }
 
-    public function testModuleHasWritePermissionWithSupperAdmin()
+    public function testModuleHasWritePermissionWithSuperAdminRole()
     {
         $user = User::all()->random();
         auth()->login($user);
