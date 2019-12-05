@@ -4,6 +4,7 @@ namespace Lararole\Http\Middleware;
 
 use Closure;
 use Lararole\Models\Module;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ModuleHasWritePermission
 {
@@ -16,7 +17,18 @@ class ModuleHasWritePermission
      */
     public function handle($request, Closure $next)
     {
-        $module = Module::whereSlug(request()->route()->parameter('module_slug'))->first();
+        if (! auth()->check()) {
+            throw new HttpException(401, 'Unauthenticated!');
+        }
+
+        $module_slug = $request->route() ? $request->route()->parameter('module_slug') : $request->module_slug;
+
+        $module = Module::whereSlug($module_slug)->first();
+
+        if (! $module) {
+            throw new HttpException(404, 'Module not found');
+        }
+
         if ($module->user_has_permission() and $module->user_has_permission()->permission->permission === 'write') {
             $request['module'] = $module;
 
@@ -27,8 +39,6 @@ class ModuleHasWritePermission
             return redirect()->route('access_denied');
         }
 
-        return response()->json([
-            'message' => 'Access denied',
-        ], 403);
+        throw new HttpException(403, 'Access Denied!');
     }
 }
