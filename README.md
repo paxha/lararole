@@ -32,4 +32,4 @@ See the [lararole.com](http://lararole.com/) for detailed installation and usage
 Thank you for considering contributing to the Laravel Lararole Library! The contribution guide can be found in the [Lararole documentation](http://lararole.com/).
 
 ## License
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Lararole library is open-sourced package licensed under the [MIT license](https://opensource.org/licenses/MIT).
