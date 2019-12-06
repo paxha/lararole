@@ -16,7 +16,7 @@ module.exports = {
         nav: [
             {text: 'Home', link: '/'},
             {text: 'Guide', link: '/guide/'},
-            {text: 'Development', link: '/development/role.md'},
+            {text: 'Development', link: '/how_to_use/'},
             {text: 'GitHub', link: 'https://github.com/paxha/lararole'}
         ],
         sidebar: [
@@ -27,10 +27,7 @@ module.exports = {
                 children: [
                     '/guide/',
                     '/guide/getting_started.md',
-                    '/guide/database_structure.md',
-                    '/guide/configuration.md',
-                    '/guide/commands.md',
-                    '/guide/views_directory.md',
+                    '/guide/how_it_works.md',
                 ]
             },
             {
@@ -38,8 +35,7 @@ module.exports = {
                 collapsable: false,
                 sidebarDepth: 2,
                 children: [
-                    '/development/role.md',
-                    '/development/user.md',
+                    '/how_to_use/',
                 ]
             }
         ]
