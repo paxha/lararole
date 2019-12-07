@@ -10,7 +10,7 @@ features:
   details: Lararole is a Laravel library. This provides Role Management System with roles and permissions also supports (Nth level) modules.
 - title: Performant
   details: Lararole is accessible, powerful, and provides tools required for large, robust applications.
-footer: MIT Licensed | Copyright © 2019-Present Hassan Raza Pasha
+footer: GNU LGPLv3 Licensed | Copyright © 2019-Present Hassan Raza Pasha
 ---
 
 ::: warning COMPATIBILITY NOTE

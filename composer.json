@@ -2,7 +2,7 @@
     "name": "paxha/lararole",
     "description": "Laravel Role Management",
     "type": "laravel",
-    "license": "MIT",
+    "license": "LGPL-3.0",
     "keywords": [
         "laravel library",
         "lararole",
