@@ -22,10 +22,10 @@ These permissions are controlled by middleware `permission.read` and `permission
 ## Features
 
 **A Quick Start Project**
-- Nth Level Modules (Sidebar/Navbar)
-- Read/Write Permission Middlewares
-- Database Structure
-- Directory Structure
+-   Nth Level Modules (Sidebar/Navbar)
+-   Read/Write Permission Middlewares
+-   Database Structure
+-   Directory Structure
 
 ## Documentation, Installation, and Usage Instructions
 
