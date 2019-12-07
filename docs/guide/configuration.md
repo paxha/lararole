@@ -1,4 +1,4 @@
-# Using Lararole
+# Configuration
 
 ## Database
 
