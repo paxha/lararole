@@ -9,27 +9,27 @@
 </p>
 
 ## Introduction
-[Lararole](http://lararole.com/) is a [Laravel](https://laravel.com/) library. 
-This provides **Role Management** System with **roles** and **permissions** also supports **(Nth level) modules**.
 
-Lararole is accessible, powerful, and provides tools required for large, robust applications.
+**Lararole** is a Laravel library, provides **Role Management** System with **roles** and **permissions**.
+Basically this library provides Modules e.g. Sidebar or Navbar. This is a basic and manageable structure of application.
 
-Supports Laravel 6.x.
+**Lararole is accessible, powerful, and provides tools required for large, robust applications.**
+
+Each module belongs to any role and that role has read or write permission.
+User can't visit module any page without any permission. Even Without write permission User can't perform any action like create, update or delete.
+These permissions are controlled by middleware `permission.read` and `permission.write`.
+
+## Features
+
+**A Quick Start Project**
+- Nth Level Modules (Sidebar/Navbar)
+- Read/Write Permission Middlewares
+- Database Structure
+- Directory Structure
 
 ## Documentation, Installation, and Usage Instructions
 
 See the [lararole.com](http://lararole.com/) for detailed installation and usage instructions.
 
-## Compatibility
-
-- MySQL 8.0+
-
-## Installation
-
-    composer require paxha/lararole
-
-## Contributing
-Thank you for considering contributing to the Laravel Lararole Library! The contribution guide can be found in the [Lararole documentation](http://lararole.com/).
-
 ## License
-The Lararole library is open-sourced package licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Lararole package is published under `GNU LGPLv3` and copyright to Hassan Raza Pasha.

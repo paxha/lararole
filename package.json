@@ -1,6 +1,6 @@
 {
     "author": "Hassan Raza Pasha",
-    "license": "MIT",
+    "license": "LGPL-3.0",
     "scripts": {
         "dev": "vuepress dev docs",
         "build": "vuepress build docs"
