@@ -1,2 +1,2 @@
-# How to User?
+# How to Use?
 

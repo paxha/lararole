@@ -1,6 +1,6 @@
 module.exports = {
-    title: 'LaraRole',
-    description: 'Laravel Role Management with modules and other features',
+    title: 'Lararole',
+    description: 'Role Management with modules and other features',
     base: '/',
     home: true,
     plugins: [
@@ -16,28 +16,28 @@ module.exports = {
         nav: [
             {text: 'Home', link: '/'},
             {text: 'Guide', link: '/guide/'},
-            {text: 'Development', link: '/how_to_use/'},
+            /*{text: 'How to use?', link: '/how_to_use/'},*/
             {text: 'GitHub', link: 'https://github.com/paxha/lararole'}
         ],
         sidebar: [
             {
                 title: 'Guide',
                 collapsable: false,
-                sidebarDepth: 2,
+                sidebarDepth: 3,
                 children: [
                     '/guide/',
                     '/guide/getting_started.md',
-                    '/guide/how_it_works.md',
+                    '/guide/using_lararole.md',
                 ]
             },
-            {
-                title: 'Development',
+            /*{
+                title: 'How to use?',
                 collapsable: false,
-                sidebarDepth: 2,
+                sidebarDepth: 3,
                 children: [
                     '/how_to_use/',
                 ]
-            }
+            }*/
         ]
     }
 };
