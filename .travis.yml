@@ -1,7 +1,5 @@
 language: php
-node_js
-node_js:
-    - lts/*
+
 services:
     - mysql
     - postgresql
@@ -73,7 +71,6 @@ before_install:
 install:
     - travis_retry composer self-update
     - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
-    - yarn install
 
 script:
     - |
@@ -81,7 +78,6 @@ script:
             mysql --version
         fi
     - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
-    - yarn build
 
 after_script:
     - |
