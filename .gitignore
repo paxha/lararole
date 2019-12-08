@@ -1,6 +1,6 @@
 **/.idea/**
 **/node_modules/**
-**/docs/.vuepress/dist/**
+#**/docs/.vuepress/dist/**
 **/vendor/**
 npm-debug.log
 yarn-error.log
