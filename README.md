@@ -10,8 +10,8 @@
 
 ## Introduction
 
-**Lararole** is a Laravel library, provides **Role Management** System with **roles** and **permissions**.
-Basically this library provides Modules e.g. Sidebar or Navbar. This is a basic and manageable structure of application.
+`Lararole` is a Laravel library, provides `Role Management` with `permissions`.
+Basically this library provides a basic structure of application and instructions to use it. Using this manageable structure you can build large and robust applications.
 
 Lararole is accessible, powerful, and provides tools required for large, robust applications.
 
