@@ -2,10 +2,8 @@
 
 namespace Lararole\Tests\Feature;
 
-use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
-use Lararole\Tests\Models\User;
 use Lararole\Tests\Helper\Helper;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 
@@ -22,127 +20,72 @@ class ModuleHasReadPermissionMiddlewareTest extends TestCase
 
     public function testModuleHasReadPermissionUnauthenticated()
     {
-        foreach (Module::isLeaf()->get() as $module) {
+        foreach (Module::all() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 401);
         }
     }
 
     public function testModuleHasReadPermissionWithNoRole()
     {
-        $user = User::all()->random();
-        auth()->login($user);
+        auth()->login($this->admin);
 
-        $user->roles()->detach();
+        $this->admin->roles()->detach();
 
         foreach (Module::all() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
         }
     }
 
-    public function testModuleHasReadPermissionWithOneRootModule()
+    public function testModuleHasReadPermission()
     {
-        $user = User::all()->random();
-        auth()->login($user);
-
-        $user->roles()->detach();
-
-        $role = Role::create([
-            'name' => 'test',
-        ]);
-
-        $random_module = Module::isRoot()->get()->random();
-
-        $role->modules()->sync([
-            [
-                'module_id' => $random_module->id,
-                'permission' => 'read',
-            ],
-        ]);
-
-        $user->roles()->attach($role);
-
-        foreach (Module::isLeaf()->where('module_id', '=', $random_module->id)->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
-        }
-
-        foreach (Module::where('id', '!=', $random_module->id)->where('module_id', '!=', $random_module->id)->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302, $module.' - '.$random_module);
-        }
-    }
-
-    public function testModuleHasReadPermissionWithOneRootChildModule()
-    {
-        $user = User::all()->random();
-        auth()->login($user);
-
-        $user->roles()->detach();
-
-        $role = Role::create([
-            'name' => 'test',
-        ]);
-
-        $random_module = Module::hasParent()->get()->random();
-
-        $role->modules()->sync([
-            [
-                'module_id' => $random_module->id,
-                'permission' => 'read',
-            ],
-        ]);
-
-        $user->roles()->attach($role);
-
-        foreach (Module::whereId($random_module->id)->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
-        }
-
-        foreach (Module::whereModuleId($random_module->id)->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
-        }
-    }
-
-    public function testModuleHasReadPermissionWithOneRootChildSiblingModule()
-    {
-        $user = User::all()->random();
-        auth()->login($user);
-
-        $user->roles()->detach();
-
-        $role = Role::create([
-            'name' => 'test',
-        ]);
-
-        $random_module = Module::hasParent()->get()->random();
-
-        $role->modules()->sync([
-            [
-                'module_id' => $random_module->id,
-                'permission' => 'read',
-            ],
-        ]);
-
-        $user->roles()->attach($role);
-
-        $siblings = $random_module->siblings;
-
-        foreach ($siblings as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
-        }
-    }
-
-    public function testModuleHasReadPermissionWithSuperAdminRole()
-    {
-        $user = User::all()->random();
-        auth()->login($user);
-
-        $this->artisan('make:super-admin-role');
-        $role = Role::whereSlug('super_admin')->first();
-
-        $user->roles()->detach();
-        $user->roles()->attach($role);
+        /*Super Admin Test*/
+        auth()->login($this->super_admin);
 
         foreach (Module::all() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
+        }
+
+        /*Admin Write Test*/
+        auth()->login($this->admin);
+
+        foreach ($this->admin_read_modules as $module) {
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
+        }
+        foreach ($this->admin_write_modules as $module) {
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
+        }
+        foreach (Module::whereNotIn('id', $this->admin_read_modules->pluck('id')->toArray())->whereNotIn('id', $this->admin_write_modules->pluck('id')->toArray())->get() as $module) {
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
+        }
+
+        /*Product Admin Test*/
+        auth()->login($this->product_admin);
+
+        foreach ($this->product_admin_module as $module) {
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
+        }
+        foreach (Module::whereNotIn('id', $this->product_admin_module->pluck('id')->toArray())->get() as $module) {
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
+        }
+
+        /*Product Editor Test*/
+        auth()->login($this->product_editor);
+
+        foreach ($this->product_editor_modules as $module) {
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
+        }
+        foreach (Module::whereNotIn('id', $this->product_editor_modules->pluck('id')->toArray())->get() as $module) {
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
+        }
+
+        /*Order Manager Test*/
+        auth()->login($this->order_manager);
+
+        foreach ($this->order_manager_modules as $module) {
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
+        }
+        foreach (Module::whereNotIn('id', $this->order_manager_modules->pluck('id')->toArray())->get() as $module) {
+            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
         }
     }
 }

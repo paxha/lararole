@@ -29,7 +29,7 @@ class ModuleHasWritePermission
             throw new HttpException(404, 'Module not found');
         }
 
-        if ($module->user_has_permission() and $module->user_has_permission()->permission->permission === 'write') {
+        if ($module->user() and $module->user()->permission->permission === 'write') {
             $request['module'] = $module;
 
             return $next($request);

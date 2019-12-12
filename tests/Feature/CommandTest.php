@@ -3,12 +3,15 @@
 namespace Lararole\Tests\Feature;
 
 use Lararole\Models\Module;
+use Lararole\Models\Role;
 use Lararole\Tests\TestCase;
 
 class CommandTest extends TestCase
 {
     public function testMakeSuperAdminCommand()
     {
+        Role::query()->truncate();
+
         $this->artisan('make:super-admin-role');
 
         $this->assertDatabaseHas('roles', [
@@ -21,8 +24,6 @@ class CommandTest extends TestCase
         foreach (Module::all() as $module) {
             $module->delete();
         }
-
-        $this->assertEmpty(Module::all(), 'Modules data should be empty');
 
         $this->artisan('migrate:modules');
 

@@ -2,13 +2,17 @@
 
 namespace Lararole\Models;
 
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, PivotEventTrait;
+
+    private static $pivotIdsAttributes;
+    private static $role;
 
     protected $fillable = [
         'name',
@@ -25,7 +29,7 @@ class Role extends Model
             if ($latestSlug) {
                 $pieces = explode('_', $latestSlug);
                 $number = intval(end($pieces));
-                $model->slug .= '_'.($number + 1);
+                $model->slug .= '_' . ($number + 1);
             }
 
             if (auth()->check()) {
@@ -50,6 +54,32 @@ class Role extends Model
                 $model->save();
             }
         });
+
+        self::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
+            foreach ($pivotIdsAttributes as $key => $pivotIdsAttribute) {
+                if (Module::find($key)->descendants()->count()) {
+                    self::attachAllChildModules($model, $key, $pivotIdsAttribute['permission']);
+                }
+            }
+        });
+
+        self::pivotDetached(function ($model, $relationName, $pivotIds) {
+            foreach ($pivotIds as $pivotId) {
+                if (Module::find($pivotId)->descendants()->count()) {
+                    self::detachAllChildModules($model, $pivotId);
+                }
+            }
+        });
+    }
+
+    private static function attachAllChildModules($model, $moduleId, $permission)
+    {
+        $model->modules()->attach(Module::find($moduleId)->descendants, ['permission' => $permission]);
+    }
+
+    private static function detachAllChildModules($model, $moduleId)
+    {
+        $model->modules()->detach(Module::find($moduleId)->descendants);
     }
 
     public function users()

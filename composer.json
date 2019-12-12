@@ -24,9 +24,10 @@
     "require": {
         "php": "^7.2",
         "doctrine/dbal": "^2.10",
-        "sven/artisan-view": "^3.3",
+        "fico7489/laravel-pivot": "^3.0",
+        "paxha/laravel-recursive-relationships": "dev-master",
         "staudenmeir/eloquent-has-many-deep": "^1.11",
-        "staudenmeir/laravel-adjacency-list": "^1.2"
+        "sven/artisan-view": "^3.3"
     },
     "require-dev": {
         "orchestra/testbench": "^4.4",

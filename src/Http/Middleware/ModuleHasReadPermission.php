@@ -29,7 +29,7 @@ class ModuleHasReadPermission
             throw new HttpException(404, 'Module not found');
         }
 
-        if ($module->user_has_permission()) {
+        if ($module->user()) {
             $request['module'] = $module;
 
             return $next($request);
