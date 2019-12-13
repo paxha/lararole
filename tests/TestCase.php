@@ -117,7 +117,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         }
 
         $this->super_admin = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->super_admin->roles()->attach($this->super_admin_role);
@@ -167,7 +167,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         }
 
         $this->admin = User::create([
-            'name' => 'Admin'
+            'name' => 'Admin',
         ]);
 
         $this->admin->roles()->attach($this->admin_read_modules_role);
@@ -198,7 +198,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         }
 
         $this->product_admin = User::create([
-            'name' => 'Product Admin'
+            'name' => 'Product Admin',
         ]);
 
         $this->product_admin->roles()->attach($this->product_admin_role);
@@ -228,9 +228,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
         }
 
         $this->product_editor = User::create([
-            'name' => 'Product Editor'
+            'name' => 'Product Editor',
         ]);
-
 
         $this->product_editor->roles()->attach($this->product_editor_role);
 
@@ -259,7 +258,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
         }
 
         $this->order_manager = User::create([
-            'name' => 'Order Manager'
+            'name' => 'Order Manager',
         ]);
 
         $this->order_manager->roles()->attach($this->order_manager_role);
