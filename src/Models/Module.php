@@ -4,8 +4,8 @@ namespace Lararole\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use RecursiveRelationships\Traits\HasRecursiveRelationships;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
+use RecursiveRelationships\Traits\HasRecursiveRelationships;
 
 class Module extends Model
 {
@@ -25,7 +25,7 @@ class Module extends Model
             if ($latestSlug) {
                 $pieces = explode('_', $latestSlug);
                 $number = intval(end($pieces));
-                $model->slug .= '_' . ($number + 1);
+                $model->slug .= '_'.($number + 1);
             }
         });
 

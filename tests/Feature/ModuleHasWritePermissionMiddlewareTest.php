@@ -3,8 +3,8 @@
 namespace Lararole\Tests\Feature;
 
 use Lararole\Models\Module;
-use Lararole\Tests\Helper\Helper;
 use Lararole\Tests\TestCase;
+use Lararole\Tests\Helper\Helper;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
 
 class ModuleHasWritePermissionMiddlewareTest extends TestCase
