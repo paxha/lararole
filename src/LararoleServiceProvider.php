@@ -39,7 +39,7 @@ class LararoleServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/database/factories');
+        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/../database/factories');
 
         $this->app['router']->aliasMiddleware('permission.read', ModuleHasReadPermission::class);
         $this->app['router']->aliasMiddleware('permission.write', ModuleHasWritePermission::class);
