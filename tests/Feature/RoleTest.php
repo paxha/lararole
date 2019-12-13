@@ -129,7 +129,7 @@ class RoleTest extends TestCase
 
         $role->modules()->attach($modules, ['permission' => 'write']);
 
-        $this->assertEquals(['order_processing', 'product', 'new_orders', 'dispatched', 'inventory', 'brand', 'product_listing', 'settings', 'user_management', 'user', 'role'], $role->modules()->pluck('slug')->toArray());
+        $this->assertCount(11, $role->modules);
     }
 
     public function testDetachModule()
