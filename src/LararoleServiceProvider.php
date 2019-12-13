@@ -3,12 +3,12 @@
 namespace Lararole;
 
 use Illuminate\Support\ServiceProvider;
+use Sven\ArtisanView\Commands\MakeView;
 use Lararole\Console\Commands\MakeViewsCommand;
 use Lararole\Console\Commands\MigrateModulesCommand;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
 use Lararole\Console\Commands\MakeSuperAdminRoleCommand;
-use Sven\ArtisanView\Commands\MakeView;
 
 class LararoleServiceProvider extends ServiceProvider
 {

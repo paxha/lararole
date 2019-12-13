@@ -2,10 +2,10 @@
 
 namespace Lararole\Tests\Helper;
 
-use Illuminate\Support\Facades\Artisan;
-use Lararole\Models\Module;
 use Lararole\Models\Role;
+use Lararole\Models\Module;
 use Lararole\Tests\Models\User;
+use Illuminate\Support\Facades\Artisan;
 
 class Admin
 {
@@ -16,10 +16,10 @@ class Admin
         Artisan::call('migrate:modules');
 
         $this->readRole = Role::create([
-            'name' => 'Read Role'
+            'name' => 'Read Role',
         ]);
         $this->writeRole = Role::create([
-            'name' => 'Write Role'
+            'name' => 'Write Role',
         ]);
 
         $this->readModule = Module::root()->whereSlug('product')->first();
@@ -29,7 +29,7 @@ class Admin
         $this->writeRole->modules()->attach($this->writeModule, ['permission' => 'write']);
 
         $this->user = User::create([
-            'name' => 'Admin'
+            'name' => 'Admin',
         ]);
 
         $this->user->roles()->attach($this->readRole);
