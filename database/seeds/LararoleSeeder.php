@@ -1,5 +1,7 @@
 <?php
 
+namespace Lararole\Database\Seeds;
+
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Illuminate\Database\Seeder;
