@@ -11,9 +11,6 @@ class Role extends Model
 {
     use SoftDeletes, PivotEventTrait;
 
-    private static $pivotIdsAttributes;
-    private static $role;
-
     protected $fillable = [
         'name',
     ];
