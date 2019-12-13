@@ -132,36 +132,6 @@ class RoleTest extends TestCase
         $this->assertEquals(['order_processing', 'product', 'new_orders', 'dispatched', 'inventory', 'brand', 'product_listing', 'settings', 'user_management', 'user', 'role'], $role->modules()->pluck('slug')->toArray());
     }
 
-    public function testSyncModule()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testSyncModules()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testSyncModulesWithPivot()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testSyncModulesWithoutPivot()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testSyncModuleWithOldModules()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function testSyncModulesWithOldModules()
-    {
-        $this->assertTrue(true);
-    }
-
     public function testDetachModule()
     {
         $role = Role::create([
