@@ -13,4 +13,8 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 class User extends Model implements AuthorizableContract, AuthenticatableContract
 {
     use HasRoles, SoftDeletes, Authorizable, Authenticatable;
+
+    protected $fillable = [
+        'name',
+    ];
 }

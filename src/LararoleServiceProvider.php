@@ -3,6 +3,7 @@
 namespace Lararole;
 
 use Illuminate\Support\ServiceProvider;
+use Sven\ArtisanView\Commands\MakeView;
 use Lararole\Console\Commands\MakeViewsCommand;
 use Lararole\Console\Commands\MigrateModulesCommand;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
@@ -49,6 +50,7 @@ class LararoleServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 MakeSuperAdminRoleCommand::class,
+                MakeView::class,
                 MakeViewsCommand::class,
                 MigrateModulesCommand::class,
             ]);

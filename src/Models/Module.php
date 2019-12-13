@@ -5,7 +5,7 @@ namespace Lararole\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
-use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
+use RecursiveRelationships\Traits\HasRecursiveRelationships;
 
 class Module extends Model
 {
@@ -30,7 +30,7 @@ class Module extends Model
         });
 
         self::deleting(function ($model) {
-            foreach ($model->modules as $module) {
+            foreach ($model->children as $module) {
                 $module->delete();
             }
         });
@@ -41,23 +41,18 @@ class Module extends Model
         return 'module_id';
     }
 
-    public function create_modules(array $modules)
+    public function createModules(array $modules)
     {
         foreach ($modules as $module) {
-            $sub_module = $this->modules()->create([
+            $subModule = $this->children()->create([
                 'name' => $module['name'],
                 'icon' => @$module['icon'],
             ]);
 
             if (@$module['modules']) {
-                $sub_module->create_modules($module['modules']);
+                $subModule->createModules($module['modules']);
             }
         }
-    }
-
-    public function modules()
-    {
-        return $this->hasMany(self::class);
     }
 
     public function users()
@@ -65,31 +60,13 @@ class Module extends Model
         return $this->hasManyDeep(config('lararole.providers.users.model'), ['module_role', Role::class, 'role_user'])->withPivot('module_role', ['permission'], ModuleRole::class, 'permission');
     }
 
-    public function module_users()
-    {
-        $module_users = [];
-        $users = $this->ancestorsAndSelf()->with('users')->get()->map(function ($module) {
-            return $module->users;
-        });
-
-        foreach ($users as $user) {
-            foreach ($user as $item) {
-                $module_users[] = $item;
-            }
-        }
-
-        return $module_users;
-    }
-
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withPivot('permission')->as('permission')->withTimestamps();
     }
 
-    public function user_has_permission()
+    public function user()
     {
-        return auth()->user()->modules()->whereHas('descendantsAndSelf', function ($query) {
-            $query->whereIn('id', $this->ancestorsAndSelf()->pluck('id'));
-        })->first();
+        return $this->users->where('id', auth()->user()->id)->first();
     }
 }

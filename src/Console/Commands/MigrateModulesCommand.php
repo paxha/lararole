@@ -45,7 +45,7 @@ class MigrateModulesCommand extends Command
             ]);
 
             if (@$module['modules']) {
-                $m->create_modules(@$module['modules']);
+                $m->createModules(@$module['modules']);
             }
         }
 

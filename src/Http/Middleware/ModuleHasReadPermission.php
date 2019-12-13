@@ -21,22 +21,22 @@ class ModuleHasReadPermission
             throw new HttpException(401, 'Unauthenticated!');
         }
 
-        $module_slug = $request->route() ? $request->route()->parameter('module_slug') : $request->module_slug;
+        $moduleSlug = $request->route() ? $request->route()->parameter('moduleSlug') : $request->moduleSlug;
 
-        $module = Module::whereSlug($module_slug)->first();
+        $module = Module::whereSlug($moduleSlug)->first();
 
         if (! $module) {
             throw new HttpException(404, 'Module not found');
         }
 
-        if ($module->user_has_permission()) {
+        if ($module->user()) {
             $request['module'] = $module;
 
             return $next($request);
         }
 
         if (! $request->expectsJson()) {
-            return redirect()->route('access_denied');
+            return redirect()->route('access.denied');
         }
 
         throw new HttpException(403, 'Access Denied!');
