@@ -106,7 +106,11 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->super_admin_modules = $this->super_admin_role->modules;
 
-        $this->assertEquals(['product', 'user_management', 'order_processing', 'inventory', 'brand', 'product_listing', 'user', 'role', 'new_orders', 'dispatched'], $this->super_admin_modules->pluck('slug')->toArray());
+        if (env('DB_CONNECTION') === 'mysql') {
+            $this->assertEquals(['product', 'inventory', 'product_listing', 'brand', 'user_management', 'user', 'role', 'order_processing', 'new_orders', 'dispatched'], $this->super_admin_modules->pluck('slug')->toArray());
+        } else {
+            $this->assertEquals(['product', 'user_management', 'order_processing', 'inventory', 'brand', 'product_listing', 'user', 'role', 'new_orders', 'dispatched'], $this->super_admin_modules->pluck('slug')->toArray());
+        }
 
         foreach ($this->super_admin_role->modules as $module) {
             $this->assertEquals('write', $module->permission->permission);

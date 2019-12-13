@@ -8,9 +8,11 @@ use Lararole\Tests\TestCase;
 
 class CommandTest extends TestCase
 {
-    public function testMakeSuperAdminCommand()
+    public function testMakeSuperAdminRoleCommand()
     {
-        Role::query()->truncate();
+        foreach (Role::all() as $role) {
+            $role->forceDelete();
+        }
 
         $this->artisan('make:super-admin-role');
 
