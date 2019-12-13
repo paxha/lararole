@@ -42,7 +42,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Lararole\\": "src/"
+            "Lararole\\": "src/",
+            "Lararole\\Database\\Seeds\\": "database/seeds/"
         }
     },
     "autoload-dev": {

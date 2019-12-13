@@ -31,21 +31,21 @@ class LararoleServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/lararole.php' => config_path('lararole.php'),
+            __DIR__.'/../config/lararole.php' => config_path('lararole.php'),
         ]);
 
         $this->publishes([
-            __DIR__.'/resources/views' => base_path('resources/views'),
+            __DIR__.'/../resources/views' => base_path('resources/views'),
         ]);
 
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/database/factories');
+        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/../database/factories');
 
         $this->app['router']->aliasMiddleware('permission.read', ModuleHasReadPermission::class);
         $this->app['router']->aliasMiddleware('permission.write', ModuleHasWritePermission::class);
 
-        $this->loadRoutesFrom(__DIR__.'/routes/web.module.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.module.php');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
