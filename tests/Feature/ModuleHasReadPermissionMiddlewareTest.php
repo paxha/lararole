@@ -3,6 +3,8 @@
 namespace Lararole\Tests\Feature;
 
 use Lararole\Models\Module;
+use Lararole\Tests\Helper\Admin;
+use Lararole\Tests\Helper\SuperAdmin;
 use Lararole\Tests\TestCase;
 use Lararole\Tests\Helper\Helper;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
@@ -20,6 +22,8 @@ class ModuleHasReadPermissionMiddlewareTest extends TestCase
 
     public function testModuleHasReadPermissionUnauthenticated()
     {
+        $this->artisan('migrate:modules');
+
         foreach (Module::all() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 401);
         }
@@ -27,72 +31,41 @@ class ModuleHasReadPermissionMiddlewareTest extends TestCase
 
     public function testModuleHasReadPermissionWithNoRole()
     {
-        auth()->login($this->admin);
+        $this->artisan('migrate:modules');
 
-        $this->admin->roles()->detach();
+        $superAdmin = new SuperAdmin();
 
-        foreach (Module::all() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
-        }
-    }
+        auth()->login($superAdmin->user);
 
-    public function testSuperAdminModuleHasReadPermission()
-    {
-        auth()->login($this->super_admin);
+        $superAdmin->user->roles()->detach();
 
         foreach (Module::all() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
-        }
-    }
-
-    public function testModuleHasReadPermissionAdmin()
-    {
-        auth()->login($this->admin);
-
-        foreach ($this->admin_read_modules as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
-        }
-        foreach ($this->admin_write_modules as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
-        }
-        foreach (Module::whereNotIn('id', $this->admin_read_modules->pluck('id')->toArray())->whereNotIn('id', $this->admin_write_modules->pluck('id')->toArray())->get() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
         }
     }
 
-    public function testModuleHasReadPermissionProductAdmin()
+    public function testModuleHasReadPermission()
     {
-        auth()->login($this->product_admin);
+        $superAdmin = new SuperAdmin();
 
-        foreach ($this->product_admin_module as $module) {
+        auth()->login($superAdmin->user);
+
+        foreach (Module::all() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
-        }
-        foreach (Module::whereNotIn('id', $this->product_admin_module->pluck('id')->toArray())->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
         }
     }
 
-    public function testModuleHasReadPermissionProductEditor()
+    public function testModuleHasReadWritePermission()
     {
-        auth()->login($this->product_editor);
+        $admin = new Admin();
 
-        foreach ($this->product_editor_modules as $module) {
+        auth()->login($admin->user);
+
+        foreach ($admin->readRole->modules as $module){
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
         }
-        foreach (Module::whereNotIn('id', $this->product_editor_modules->pluck('id')->toArray())->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
-        }
-    }
-
-    public function testModuleHasReadPermissionOrderManager()
-    {
-        auth()->login($this->order_manager);
-
-        foreach ($this->order_manager_modules as $module) {
+        foreach ($admin->writeRole->modules as $module){
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
-        }
-        foreach (Module::whereNotIn('id', $this->order_manager_modules->pluck('id')->toArray())->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 302);
         }
     }
 }

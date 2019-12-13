@@ -9,12 +9,12 @@ class ModuleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param $module_slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @param $moduleSlug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($module_slug)
+    public function index($moduleSlug)
     {
-        $data = $this->data($module_slug);
+        $data = $this->data($moduleSlug);
 
         return view($data['view'].'.index', $data);
     }
@@ -22,12 +22,12 @@ class ModuleController extends Controller
     /**
      * Making views directory and  finding Module.
      *
-     * @param $module_slug
+     * @param $moduleSlug
      * @return mixed
      */
-    private function data($module_slug)
+    private function data($moduleSlug)
     {
-        $module = Module::whereSlug($module_slug)->firstOrFail();
+        $module = Module::whereSlug($moduleSlug)->firstOrFail();
 
         $view = 'modules';
 
@@ -46,12 +46,12 @@ class ModuleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param $module_slug
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @param $moduleSlug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($module_slug)
+    public function create($moduleSlug)
     {
-        $data = $this->data($module_slug);
+        $data = $this->data($moduleSlug);
 
         return view($data['view'].'.create', $data);
     }
@@ -59,13 +59,13 @@ class ModuleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $module_slug
+     * @param $moduleSlug
      * @param int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($module_slug, $id)
+    public function show($moduleSlug, $id)
     {
-        $data = $this->data($module_slug);
+        $data = $this->data($moduleSlug);
 
         return view($data['view'].'.show', $data)->with('id', $id);
     }
@@ -73,18 +73,18 @@ class ModuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $module_slug
+     * @param $moduleSlug
      * @param int $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($module_slug, $id)
+    public function edit($moduleSlug, $id)
     {
-        $data = $this->data($module_slug);
+        $data = $this->data($moduleSlug);
 
         return view($data['view'].'.edit', $data)->with('id', $id);
     }
 
-    public function access_denied()
+    public function accessDenied()
     {
         return view('access_denied');
     }

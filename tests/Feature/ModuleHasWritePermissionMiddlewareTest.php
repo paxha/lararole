@@ -3,6 +3,8 @@
 namespace Lararole\Tests\Feature;
 
 use Lararole\Models\Module;
+use Lararole\Tests\Helper\Admin;
+use Lararole\Tests\Helper\SuperAdmin;
 use Lararole\Tests\TestCase;
 use Lararole\Tests\Helper\Helper;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
@@ -20,6 +22,8 @@ class ModuleHasWritePermissionMiddlewareTest extends TestCase
 
     public function testModuleHasWritePermissionUnauthenticated()
     {
+        $this->artisan('migrate:modules');
+
         foreach (Module::all() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 401);
         }
@@ -27,69 +31,39 @@ class ModuleHasWritePermissionMiddlewareTest extends TestCase
 
     public function testModuleHasWritePermissionWithNoRole()
     {
-        auth()->login($this->admin);
+        $superAdmin = new SuperAdmin();
 
-        $this->admin->roles()->detach();
+        auth()->login($superAdmin->user);
 
-        foreach (Module::all() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302);
-        }
-    }
-
-    public function testModuleHasWritePermissionSuperAdmin()
-    {
-        auth()->login($this->super_admin);
+        $superAdmin->user->roles()->detach();
 
         foreach (Module::all() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 200);
-        }
-    }
-
-    public function testModuleHasWritePermissionAdmin()
-    {
-        auth()->login($this->admin);
-
-        foreach ($this->admin_write_modules as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 200);
-        }
-        foreach (Module::whereNotIn('id', $this->admin_write_modules->pluck('id')->toArray())->get() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302);
         }
     }
 
-    public function testModuleHasWritePermissionProductAdmin()
+    public function testModuleHasWritePermission()
     {
-        auth()->login($this->product_admin);
+        $superAdmin = new SuperAdmin();
 
-        foreach ($this->product_admin_module as $module) {
+        auth()->login($superAdmin->user);
+
+        foreach (Module::all() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 200);
-        }
-        foreach (Module::whereNotIn('id', $this->product_admin_module->pluck('id')->toArray())->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302);
         }
     }
 
-    public function testModuleHasWritePermissionProductEditor()
+    public function testModuleHasReadWritePermission()
     {
-        auth()->login($this->product_editor);
+        $admin = new Admin();
 
-        foreach ($this->product_editor_modules as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 200);
-        }
-        foreach (Module::whereNotIn('id', $this->product_editor_modules->pluck('id')->toArray())->get() as $module) {
+        auth()->login($admin->user);
+
+        foreach ($admin->readRole->modules as $module){
             $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302);
         }
-    }
-
-    public function testModuleHasWritePermissionOrderManager()
-    {
-        auth()->login($this->order_manager);
-
-        foreach ($this->order_manager_modules as $module) {
+        foreach ($admin->writeRole->modules as $module){
             $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 200);
-        }
-        foreach (Module::whereNotIn('id', $this->order_manager_modules->pluck('id')->toArray())->get() as $module) {
-            $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302);
         }
     }
 }

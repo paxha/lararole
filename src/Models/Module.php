@@ -41,16 +41,16 @@ class Module extends Model
         return 'module_id';
     }
 
-    public function create_modules(array $modules)
+    public function createModules(array $modules)
     {
         foreach ($modules as $module) {
-            $sub_module = $this->children()->create([
+            $subModule = $this->children()->create([
                 'name' => $module['name'],
                 'icon' => @$module['icon'],
             ]);
 
             if (@$module['modules']) {
-                $sub_module->create_modules($module['modules']);
+                $subModule->createModules($module['modules']);
             }
         }
     }

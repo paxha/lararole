@@ -2,6 +2,7 @@
 
 namespace Lararole\Database\Seeds;
 
+use Faker\Factory;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Illuminate\Database\Seeder;
@@ -23,16 +24,17 @@ class LararoleSeeder extends Seeder
             ]);
 
             if (@$module['modules']) {
-                $m->create_modules(@$module['modules']);
+                $m->createModules(@$module['modules']);
             }
         }
 
-        Role::create(['name' => 'Super Admin'])->modules()->attach(Module::isRoot()->get()->pluck('id'), ['permission' => 'write']);
+        Role::create(['name' => 'Super Admin'])->modules()->attach(Module::root()->get()->pluck('id'), ['permission' => 'write']);
 
-        factory(Role::class, 10)->create();
+        factory(Role::class, 3)->create();
 
         Role::where('slug', '!=', 'super_admin')->get()->each(function ($role) {
-            $role->modules()->attach(Module::isRoot()->get()->random(rand(1, 3))->pluck('id')->toArray());
+            $faker = Factory::create();
+            $role->modules()->attach(Module::root()->get()->random()->pluck('id')->toArray(), ['permission' => $faker->randomElement(['read', 'write'])]);
         });
     }
 }

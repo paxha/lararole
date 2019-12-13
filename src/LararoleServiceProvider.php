@@ -8,6 +8,7 @@ use Lararole\Console\Commands\MigrateModulesCommand;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
 use Lararole\Console\Commands\MakeSuperAdminRoleCommand;
+use Sven\ArtisanView\Commands\MakeView;
 
 class LararoleServiceProvider extends ServiceProvider
 {
@@ -49,6 +50,7 @@ class LararoleServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 MakeSuperAdminRoleCommand::class,
+                MakeView::class,
                 MakeViewsCommand::class,
                 MigrateModulesCommand::class,
             ]);

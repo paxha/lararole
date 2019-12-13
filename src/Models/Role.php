@@ -26,7 +26,7 @@ class Role extends Model
             if ($latestSlug) {
                 $pieces = explode('_', $latestSlug);
                 $number = intval(end($pieces));
-                $model->slug .= '_'.($number + 1);
+                $model->slug .= '_' . ($number + 1);
             }
 
             if (auth()->check()) {
@@ -55,7 +55,7 @@ class Role extends Model
         self::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
             foreach ($pivotIdsAttributes as $key => $pivotIdsAttribute) {
                 if (Module::find($key)->descendants()->count()) {
-                    self::attachAllChildModules($model, $key, $pivotIdsAttribute['permission']);
+                    self::attachAllChildModules($model, $key, @$pivotIdsAttribute['permission']);
                 }
             }
         });
@@ -71,7 +71,7 @@ class Role extends Model
 
     private static function attachAllChildModules($model, $moduleId, $permission)
     {
-        $model->modules()->attach(Module::find($moduleId)->descendants, ['permission' => $permission]);
+        $model->modules()->attach(Module::find($moduleId)->descendants, ['permission' => $permission ? $permission : 'read']);
     }
 
     private static function detachAllChildModules($model, $moduleId)
