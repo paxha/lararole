@@ -35,6 +35,7 @@ class CommandTest extends TestCase
 
     public function testMakeViewsCommand()
     {
+        $this->artisan('migrate:modules');
         $this->artisan('make:views');
 
         foreach ($this->moduleViews as $moduleView) {
