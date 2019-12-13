@@ -2,8 +2,8 @@
 
 namespace Lararole\Tests\Feature;
 
-use Lararole\Models\Module;
 use Lararole\Models\Role;
+use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
 
 class RoleTest extends TestCase
@@ -11,7 +11,7 @@ class RoleTest extends TestCase
     public function testCreateRole()
     {
         Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->assertDatabaseHas('roles', [
@@ -23,7 +23,7 @@ class RoleTest extends TestCase
     public function testAttachModule()
     {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('migrate:modules');
@@ -38,7 +38,7 @@ class RoleTest extends TestCase
     public function testAttachModules()
     {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('migrate:modules');
@@ -53,7 +53,7 @@ class RoleTest extends TestCase
     public function testAttachModulesWithPivot()
     {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('migrate:modules');
@@ -78,7 +78,7 @@ class RoleTest extends TestCase
     public function testAttachModulesWithoutPivot()
     {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('migrate:modules');
@@ -97,7 +97,7 @@ class RoleTest extends TestCase
     public function testAttachModuleWithOldModules()
     {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('migrate:modules');
@@ -116,7 +116,7 @@ class RoleTest extends TestCase
     public function testAttachModulesWithOldModules()
     {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('migrate:modules');
@@ -135,7 +135,7 @@ class RoleTest extends TestCase
     public function testDetachModule()
     {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('migrate:modules');
@@ -156,7 +156,7 @@ class RoleTest extends TestCase
     public function testDetachModules()
     {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('migrate:modules');
@@ -177,7 +177,7 @@ class RoleTest extends TestCase
     public function testDetachAllModule()
     {
         $role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('migrate:modules');

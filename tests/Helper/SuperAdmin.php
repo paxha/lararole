@@ -2,10 +2,10 @@
 
 namespace Lararole\Tests\Helper;
 
-use Illuminate\Support\Facades\Artisan;
-use Lararole\Models\Module;
 use Lararole\Models\Role;
+use Lararole\Models\Module;
 use Lararole\Tests\Models\User;
+use Illuminate\Support\Facades\Artisan;
 
 class SuperAdmin
 {
@@ -16,7 +16,7 @@ class SuperAdmin
         Artisan::call('migrate:modules');
 
         $this->role = Role::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->modules = Module::root()->get();
@@ -24,7 +24,7 @@ class SuperAdmin
         $this->role->modules()->attach($this->modules, ['permission' => 'write']);
 
         $this->user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->user->roles()->attach($this->role);

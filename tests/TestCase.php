@@ -2,8 +2,6 @@
 
 namespace Lararole\Tests;
 
-use Illuminate\Support\Facades\DB;
-use Lararole\Models\Module;
 use Lararole\Tests\Models\User;
 use Lararole\LararoleServiceProvider;
 

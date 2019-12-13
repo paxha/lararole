@@ -46,7 +46,7 @@ class MakeViewsCommand extends Command
                 $this->ancestorPath($module->ancestor);
             }
 
-            $path = 'modules.' . $this->ancestorPath . $module->slug;
+            $path = 'modules.'.$this->ancestorPath.$module->slug;
 
             $this->view($path);
 
@@ -56,7 +56,7 @@ class MakeViewsCommand extends Command
 
     private function ancestorPath($ancestor)
     {
-        $this->ancestorPath = $ancestor->slug . '.' . $this->ancestorPath;
+        $this->ancestorPath = $ancestor->slug.'.'.$this->ancestorPath;
         if ($ancestor->ancestor) {
             $this->ancestorPath($ancestor->ancestor);
         }
@@ -64,11 +64,11 @@ class MakeViewsCommand extends Command
 
     private function view($view)
     {
-        if (!view()->exists($view . '.index')) {
+        if (! view()->exists($view.'.index')) {
             Artisan::call("make:view '{$view}' --resource --section=title --section=content --section=myscript");
-            $this->info('Resource View "' . $view . '" Successfully Created');
+            $this->info('Resource View "'.$view.'" Successfully Created');
         } else {
-            $this->comment($view . ' Already Exists');
+            $this->comment($view.' Already Exists');
         }
     }
 }

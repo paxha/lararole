@@ -3,10 +3,10 @@
 namespace Lararole\Tests\Feature;
 
 use Lararole\Models\Module;
-use Lararole\Tests\Helper\Admin;
-use Lararole\Tests\Helper\SuperAdmin;
 use Lararole\Tests\TestCase;
+use Lararole\Tests\Helper\Admin;
 use Lararole\Tests\Helper\Helper;
+use Lararole\Tests\Helper\SuperAdmin;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 
 class ModuleHasReadPermissionMiddlewareTest extends TestCase
@@ -61,10 +61,10 @@ class ModuleHasReadPermissionMiddlewareTest extends TestCase
 
         auth()->login($admin->user);
 
-        foreach ($admin->readRole->modules as $module){
+        foreach ($admin->readRole->modules as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
         }
-        foreach ($admin->writeRole->modules as $module){
+        foreach ($admin->writeRole->modules as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasReadPermission, $module->slug), 200);
         }
     }
