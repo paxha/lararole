@@ -110,7 +110,7 @@ class RoleTest extends TestCase
 
         $role->modules()->attach($module, ['permission' => 'write']);
 
-        $this->assertCount(7, $role->modules);
+        $this->assertCount(8, $role->modules);
     }
 
     public function testAttachModulesWithOldModules()
