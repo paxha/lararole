@@ -36,16 +36,17 @@ class ModuleHasWritePermissionMiddlewareTest extends TestCase
         }
     }
 
-    public function testModuleHasWritePermission()
+    public function testModuleHasWritePermissionSuperAdmin()
     {
-        /*Super Admin Test*/
         auth()->login($this->super_admin);
 
         foreach (Module::all() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 200);
         }
+    }
 
-        /*Admin Write Test*/
+    public function testModuleHasWritePermissionAdmin()
+    {
         auth()->login($this->admin);
 
         foreach ($this->admin_write_modules as $module) {
@@ -54,8 +55,10 @@ class ModuleHasWritePermissionMiddlewareTest extends TestCase
         foreach (Module::whereNotIn('id', $this->admin_write_modules->pluck('id')->toArray())->get() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302);
         }
+    }
 
-        /*Product Admin Test*/
+    public function testModuleHasWritePermissionProductAdmin()
+    {
         auth()->login($this->product_admin);
 
         foreach ($this->product_admin_module as $module) {
@@ -64,8 +67,10 @@ class ModuleHasWritePermissionMiddlewareTest extends TestCase
         foreach (Module::whereNotIn('id', $this->product_admin_module->pluck('id')->toArray())->get() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302);
         }
+    }
 
-        /*Product Editor Test*/
+    public function testModuleHasWritePermissionProductEditor()
+    {
         auth()->login($this->product_editor);
 
         foreach ($this->product_editor_modules as $module) {
@@ -74,8 +79,10 @@ class ModuleHasWritePermissionMiddlewareTest extends TestCase
         foreach (Module::whereNotIn('id', $this->product_editor_modules->pluck('id')->toArray())->get() as $module) {
             $this->assertEquals(Helper::runMiddleware($this->moduleHasWritePermission, $module->slug), 302);
         }
+    }
 
-        /*Order Manager Test*/
+    public function testModuleHasWritePermissionOrderManager()
+    {
         auth()->login($this->order_manager);
 
         foreach ($this->order_manager_modules as $module) {
