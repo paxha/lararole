@@ -6,8 +6,6 @@ use Lararole\Models\Module;
 
 class ModuleController extends Controller
 {
-    private $ancestorPath;
-
     /**
      * Display a listing of the resource.
      *
@@ -31,26 +29,18 @@ class ModuleController extends Controller
     {
         $module = Module::whereSlug($moduleSlug)->firstOrFail();
 
-        if ($module->ancestor) {
-            $this->ancestorPath($module->ancestor);
+        $view = 'modules.';
+
+        foreach (array_reverse($module->ancestors()->toArray()) as $ancestor) {
+            $view .= $ancestor['slug'].'.';
         }
 
-        $view = 'modules.'.$this->ancestorPath.$module->slug;
-
-        $this->ancestorPath = null;
+        $view .= $module->slug;
 
         $data['view'] = $view;
         $data['module'] = $module;
 
         return $data;
-    }
-
-    private function ancestorPath($ancestor)
-    {
-        $this->ancestorPath = $ancestor->slug.'.'.$this->ancestorPath;
-        if ($ancestor->ancestor) {
-            $this->ancestorPath($ancestor->ancestor);
-        }
     }
 
     /**
