@@ -42,7 +42,7 @@ class MakeViewsCommand extends Command
         foreach (Module::leaf()->get() as $module) {
             $path = 'modules.';
 
-            foreach ($module->ancestors() as $ancestor){
+            foreach ($module->ancestors() as $ancestor) {
                 $path .= $ancestor->slug;
             }
 
