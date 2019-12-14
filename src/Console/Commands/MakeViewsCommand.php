@@ -42,11 +42,11 @@ class MakeViewsCommand extends Command
         foreach (Module::leaf()->get() as $module) {
             $path = 'modules.';
 
-            foreach ($module->ancestors() as $ancestor) {
-                $path .= $ancestor->slug;
+            foreach (array_reverse($module->ancestors()->toArray()) as $ancestor) {
+                $path .= $ancestor['slug'] .'.';
             }
 
-            $path .= '.'.$module->slug;
+            $path .= $module->slug;
 
             $this->view($path);
 
