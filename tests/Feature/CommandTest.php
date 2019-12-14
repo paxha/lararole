@@ -2,9 +2,9 @@
 
 namespace Lararole\Tests\Feature;
 
+use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
-use Illuminate\Support\Facades\DB;
 
 class CommandTest extends TestCase
 {
@@ -29,7 +29,7 @@ class CommandTest extends TestCase
     {
         $this->artisan('migrate:modules');
 
-        $this->assertEquals(['Product', 'Inventory', 'Product Listing', 'Brand', 'User Management', 'User', 'Role', 'Order Processing', 'New Orders', 'Dispatched', 'Settings'], Module::all()->pluck('name')->toArray());
+        $this->assertCount(11, Module::all());
     }
 
     public function testMakeViewsCommand()
@@ -54,24 +54,34 @@ class CommandTest extends TestCase
 
     public function testMakeSuperAdminRoleCommand()
     {
+        $this->artisan('migrate:modules');
         $this->artisan('make:super-admin-role');
-
-        $this->assertDatabaseHas('roles', [
-            'slug' => 'super_admin',
-        ]);
-    }
-
-    public function testDBSeed()
-    {
-        $this->artisan('db:seed', ['--class' => '\Lararole\Database\Seeds\LararoleSeeder']);
-
-        $this->assertEquals(['Product', 'Inventory', 'Product Listing', 'Brand', 'User Management', 'User', 'Role', 'Order Processing', 'New Orders', 'Dispatched', 'Settings'], Module::all()->pluck('name')->toArray());
 
         $this->assertDatabaseHas('roles', [
             'name' => 'Super Admin',
             'slug' => 'super_admin',
         ]);
 
-        $this->assertCount(4, DB::table('roles')->get());
+        $superAdminRole = Role::whereSlug('super_admin')->first();
+
+        $this->assertCount(11, $superAdminRole->modules);
+    }
+
+    public function testDBSeed()
+    {
+        $this->artisan('db:seed', ['--class' => '\Lararole\Database\Seeds\LararoleSeeder']);
+
+        $this->assertCount(11, Module::all());
+
+        $this->assertDatabaseHas('roles', [
+            'name' => 'Super Admin',
+            'slug' => 'super_admin',
+        ]);
+
+        $superAdminRole = Role::whereSlug('super_admin')->first();
+
+        $this->assertCount(11, $superAdminRole->modules);
+
+        $this->assertCount(4, Role::all());
     }
 }
