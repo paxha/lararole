@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Artisan;
 
 class MakeViewsCommand extends Command
 {
-    private $ancestorPath;
-
     /**
      * The name and signature of the console command.
      *
@@ -42,23 +40,17 @@ class MakeViewsCommand extends Command
     public function handle()
     {
         foreach (Module::leaf()->get() as $module) {
-            if ($module->ancestor) {
-                $this->ancestorPath($module->ancestor);
+            $path = 'modules.';
+
+            foreach ($module->ancestors() as $ancestor){
+                $path .= $ancestor->slug;
             }
 
-            $path = 'modules.'.$this->ancestorPath.$module->slug;
+            $path .= '.'.$module->slug;
 
             $this->view($path);
 
             $this->ancestorPath = null;
-        }
-    }
-
-    private function ancestorPath($ancestor)
-    {
-        $this->ancestorPath = $ancestor->slug.'.'.$this->ancestorPath;
-        if ($ancestor->ancestor) {
-            $this->ancestorPath($ancestor->ancestor);
         }
     }
 
