@@ -54,7 +54,7 @@ class Role extends Model
 
         self::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
             foreach ($pivotIdsAttributes as $key => $pivotIdsAttribute) {
-                if (Module::find($key)->descendants()->count()) {
+                if (Module::find($key)->nestedChildren()->count()) {
                     self::attachAllChildModules($model, $key, @$pivotIdsAttribute['permission']);
                 }
             }
@@ -62,7 +62,7 @@ class Role extends Model
 
         self::pivotDetached(function ($model, $relationName, $pivotIds) {
             foreach ($pivotIds as $pivotId) {
-                if (Module::find($pivotId)->descendants()->count()) {
+                if (Module::find($pivotId)->nestedChildren()->count()) {
                     self::detachAllChildModules($model, $pivotId);
                 }
             }
@@ -71,12 +71,12 @@ class Role extends Model
 
     private static function attachAllChildModules($model, $moduleId, $permission)
     {
-        $model->modules()->attach(Module::find($moduleId)->descendants, ['permission' => $permission ? $permission : 'read']);
+        $model->modules()->attach(Module::find($moduleId)->nestedChildren, ['permission' => $permission ? $permission : 'read']);
     }
 
     private static function detachAllChildModules($model, $moduleId)
     {
-        $model->modules()->detach(Module::find($moduleId)->descendants);
+        $model->modules()->detach(Module::find($moduleId)->nestedChildren);
     }
 
     public function users()
