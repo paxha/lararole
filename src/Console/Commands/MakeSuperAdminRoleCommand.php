@@ -46,8 +46,9 @@ class MakeSuperAdminRoleCommand extends Command
         }
 
         $role = Role::create(['name' => 'Super Admin']);
-        $this->info('Super Admin role created');
+        $this->info('Super admin role created');
 
-        $role->modules()->attach(Module::where('module_id', '=', null)->pluck('id'), ['permission' => 'write']);
+        $role->modules()->attach(Module::root()->get(), ['permission' => 'write']);
+        $this->info('Root modules are assigned to super admin role with write permission.');
     }
 }
