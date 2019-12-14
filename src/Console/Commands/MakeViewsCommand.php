@@ -43,7 +43,7 @@ class MakeViewsCommand extends Command
             $path = 'modules.';
 
             foreach (array_reverse($module->ancestors()->toArray()) as $ancestor) {
-                $path .= $ancestor['slug'] .'.';
+                $path .= $ancestor['slug'].'.';
             }
 
             $path .= $module->slug;
