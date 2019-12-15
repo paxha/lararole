@@ -1,6 +1,6 @@
 {
     "name": "paxha/lararole",
-    "description": "Laravel Role Management",
+    "description": "Lararole is a Laravel library, provides Role Management with permissions.",
     "type": "laravel",
     "license": "LGPL-3.0",
     "keywords": [
