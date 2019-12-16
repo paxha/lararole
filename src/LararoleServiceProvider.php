@@ -3,9 +3,9 @@
 namespace Lararole;
 
 use Illuminate\Support\ServiceProvider;
-use Lararole\Containers\ModuleServiceContainer;
 use Sven\ArtisanView\Commands\MakeView;
 use Lararole\Console\Commands\MakeViewsCommand;
+use Lararole\Containers\ModuleServiceContainer;
 use Lararole\Console\Commands\MigrateModulesCommand;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
