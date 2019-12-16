@@ -5,6 +5,7 @@ namespace Lararole;
 use Illuminate\Support\ServiceProvider;
 use Sven\ArtisanView\Commands\MakeView;
 use Lararole\Console\Commands\MakeViewsCommand;
+use Lararole\Containers\ModuleServiceContainer;
 use Lararole\Console\Commands\MigrateModulesCommand;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
@@ -19,7 +20,9 @@ class LararoleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('module', function () {
+            return new ModuleServiceContainer();
+        });
     }
 
     /**
