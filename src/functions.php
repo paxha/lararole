@@ -6,3 +6,10 @@ if (! function_exists('module')) {
         return app('module');
     }
 }
+
+if (!function_exists('role')) {
+    function role()
+    {
+        return app('role');
+    }
+}

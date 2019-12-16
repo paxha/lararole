@@ -3,13 +3,14 @@
 namespace Lararole;
 
 use Illuminate\Support\ServiceProvider;
-use Sven\ArtisanView\Commands\MakeView;
+use Lararole\Console\Commands\MakeSuperAdminRoleCommand;
 use Lararole\Console\Commands\MakeViewsCommand;
-use Lararole\Containers\ModuleServiceContainer;
 use Lararole\Console\Commands\MigrateModulesCommand;
+use Lararole\Containers\ModuleServiceContainer;
+use Lararole\Containers\RoleServiceContainer;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
-use Lararole\Console\Commands\MakeSuperAdminRoleCommand;
+use Sven\ArtisanView\Commands\MakeView;
 
 class LararoleServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,10 @@ class LararoleServiceProvider extends ServiceProvider
     {
         $this->app->bind('module', function () {
             return new ModuleServiceContainer();
+        });
+
+        $this->app->bind('role', function () {
+            return new RoleServiceContainer();
         });
     }
 
