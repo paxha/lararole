@@ -8,30 +8,36 @@ use Lararole\Models\Role;
 
 class RoleServiceContainer
 {
-    public function create(Request $request)
+    public function create($name)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'min:3', 'max:191'],
-            'modules' => ['required', 'array', 'min:1'],
-            'modules.*.module_id' => ['required', 'exists:modules,id'],
-            'modules.*.permission' => ['required', 'in:read,write'],
-        ]);
-
-        $role = Role::create($request->all());
-        foreach ($request->modules as $module) {
-            $m = Module::find($module['module_id']);
-            $role->modules()->attach($m, ['permission' => $module['permission']]);
-        }
-
-        return $role;
+        return Role::create(['name' => $name]);
     }
 
-    public function removeModule(Request $request){
-        $request->validate([
-            'modules' => ['required', 'array', 'min:1'],
-            'modules.*.module_id' => ['required', 'exists:modules,id'],
-        ]);
+    public function all()
+    {
+        return Role::all();
+    }
 
+    public function find($id)
+    {
+        return Role::find($id);
+    }
 
+    public function trashed($id = null)
+    {
+        if ($id) {
+            return Role::onlyTrashed()->find($id);
+        }
+
+        return Role::onlyTrashed()->get();
+    }
+
+    public function withTrashed($id = null)
+    {
+        if ($id) {
+            return Role::withTrashed()->find($id);
+        }
+
+        return Role::withTrashed()->get();
     }
 }
