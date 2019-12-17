@@ -11,86 +11,56 @@ meta:
 
 # Module Model
 
-## Relationships
+### Relationships
 
--   `ancestors()`: The module recursive parents.
--   `ancestorsAndSelf()`: The module recursive parents and itself.
--   `children()`: The module direct children.
--   `childrenAndSelf()`: The module direct children and itself.
--   `descendants()`: The module recursive children.
--   `descendantsAndSelf()`: The module recursive children and itself.
--   `parent()`: The module direct parent.
--   `parentAndSelf()`: The module direct parent and itself.
--   `siblings()`: The parent's other children.
--   `siblingsAndSelf()`: All the parent's children.
+The trait provides various relationships:
+
+-   `children()`: The model's direct children.
+-   `nestedChildren()`: The model's nested children.
+-   `parent()`: The model's direct parent.
+-   `nestedParents()`: The model's nested parents by object.
 
 ```php
-$ancestors = \Lararole\Models\Module::find($id)->ancestors;
+$modules = Module::with('children')->get();
 
-$users = \Lararole\Models\Module::with('descendants')->get();
+$modules = Module::with('nestedChildren')->get();
 
-$users = \Lararole\Models\Module::whereHas('siblings', function ($query) {
-    $query->where('name', '=', 'Product');
-})->get();
+$modules = Module::with('parent')->get();
 
-$total = \Lararole\Models\Module::find($id)->descendants()->count();
+$modules = Module::with('nestedParents')->get();
 ```
 
-### Tree
+### Scopes
 
-```php
-$tree = \Lararole\Models\Module::tree()->get();
-```
-
-### Filters
+The trait provides query scopes to filter models by their position in the tree:
 
 -   `hasChildren()`: Models with children.
 -   `hasParent()`: Models with a parent.
--   `isLeaf()`: Models without children.
--   `isRoot()`: Models without a parent.
+-   `leaf()`: Models without children.
+-   `root()`: Models without a parent.
 
 ```php
-$noLeaves = \Lararole\Models\Module::hasChildren()->get();
+$noLeaves = Module::hasChildren()->get();
 
-$noRoots = \Lararole\Models\Module::hasParent()->get();
+$noRoots = Module::hasParent()->get();
 
-$leaves = \Lararole\Models\Module::isLeaf()->get();
+$leaves = Module::leaf()->get();
 
-$roots = \Lararole\Models\Module::isRoot()->get();
+$roots = Module::root()->get();
 ```
 
-### Order
+### Functions
 
--   `breadthFirst()`: Get siblings before children.
--   `depthFirst()`: Get children before siblings.
+The trait provides helper functions:
 
-```php
-$tree = \Lararole\Models\Module::tree()->breadthFirst()->get();
-
-$descendants = \Lararole\Models\Module::find($id)->descendants()->depthFirst()->get();
-```
-
-## Other Relationships
-
--   `roles()`: The module roles in which this module is attached.
+-   `descendents()`: The model's all Children in single array.
+-   `ancestors()`: The model's all parents in single array.
+-   `siblings()`: The parent's other children.
 
 ```php
-/*it will return Roles with permission*/
-$roles = \Lararole\Models\Module::find($id)->roles;
-```
+$descendents = Module::find($id)->descendents();
 
--   `users()`: The module users through roles.
+$ancestors = Module::find($id)->ancestors();
 
-```php
-/*it will return User array with permission of this module*/
-$users = \Lararole\Models\Module::find($id)->users;
-```
-
-## Functions
-
--   `module_users()`: The module users through roles.
-
-```php
-/*it will return all the admin and simple User array without permission*/
-$all_users = \Lararole\Models\Module::find($id)->module_users();
+$siblings = Module::find($id)->siblings();
 ```

@@ -35,7 +35,7 @@ $role = \Lararole\Models\Role::create([
 ]);
 
 // Assigning module with permission to role
-$role->modules()->sync([
+$role->modules()->attach([
     [
         'module_id' => 1,
         'permission' => 'write'

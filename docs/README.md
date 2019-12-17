@@ -22,10 +22,19 @@ features:
 footer: GNU LGPLv3 Licensed | Copyright © 2019-Present Hassan Raza Pasha
 ---
 
-::: warning COMPATIBILITY NOTE
-MySQL 8.0+
+::: warning PLEASE NOTE
+  This package will assume you are already using laravel authentication system and you have already users table in your database.
 :::
 
 ## Installation
 
     composer install paxha/lararole
+    
+## Publish Configuration File
+
+Before start development, lararole need configurations which will define Modules and User provider.
+
+    php artisan vendor:publish --provider="Lararole\LararoleServiceProvider"
+    
+This will export `lararole.php` in config. Setup modules with nesting modules. Example modules and nested modules are exported by default.
+There are also providers setup.
