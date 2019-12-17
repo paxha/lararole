@@ -2,9 +2,9 @@
 
 namespace Lararole\Tests\Feature;
 
-use Illuminate\Http\Request;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
+use Illuminate\Http\Request;
 use Lararole\Tests\TestCase;
 
 class RoleTest extends TestCase

@@ -2,8 +2,8 @@
 
 namespace Lararole\Traits;
 
-use Illuminate\Http\Request;
 use Lararole\Models\Module;
+use Illuminate\Http\Request;
 
 trait HasModules
 {
