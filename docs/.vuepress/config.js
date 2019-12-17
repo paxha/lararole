@@ -2,7 +2,7 @@ module.exports = {
     title: 'Lararole',
     description: 'Lararole is a Laravel library, provides Role Management with permissions. Basically this library provides a basic structure of application and instructions to use it. Using this manageable structure you can build large and robust applications.',
     author: 'Hassan Raza Pasha',
-    base: '/lararole/',
+    base: '/',
     home: true,
     plugins: {
         'seo': {

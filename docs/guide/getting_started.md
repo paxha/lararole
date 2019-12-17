@@ -11,12 +11,8 @@ meta:
 
 # Getting Started
 
-::: warning COMPATIBILITY NOTE
-MySQL 8.0+
-:::
-
-::: warning NOTE
-There must be exist **users** table with its model in project.
+::: warning PLEASE NOTE
+  This package will assume you are already using laravel authentication system and you have already users table in your database.
 :::
 
 ## Installation
@@ -41,7 +37,7 @@ After adding these lines run composer update
 
 ## Publish Configuration File
 
-Before start development lararole need configurations which will define Modules and User provider.
+Before start development, lararole need configurations which will define Modules and User provider.
 
     php artisan vendor:publish --provider="Lararole\LararoleServiceProvider"
     
