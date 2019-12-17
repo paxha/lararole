@@ -2,8 +2,6 @@
 
 namespace Lararole\Containers;
 
-use Illuminate\Http\Request;
-use Lararole\Models\Module;
 use Lararole\Models\Role;
 
 class RoleServiceContainer
