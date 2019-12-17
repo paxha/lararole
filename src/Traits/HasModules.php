@@ -2,15 +2,22 @@
 
 namespace Lararole\Traits;
 
+use Illuminate\Http\Request;
 use Lararole\Models\Module;
 
 trait HasModules
 {
-    public function assignModules(array $modules, array $permissions = null)
+    public function assignModules(Request $request)
     {
-        foreach ($modules as $index => $module) {
-            $module1 = Module::find($module);
-            $this->modules()->attach($module1, ['permission' => @$permissions[$index] ? $permissions[$index] : 'read']);
+        $request->validate([
+            'modules' => ['required', 'array', 'min:1'],
+            'modules.*.module_id' => ['required', 'exists:modules,id'],
+            'modules.*.permission' => ['required', 'in:read,write'],
+        ]);
+
+        foreach ($request->modules as $module) {
+            $module1 = Module::find($module['module_id']);
+            $this->modules()->attach($module1, ['permission' => $module['permission']]);
         }
 
         return $this;

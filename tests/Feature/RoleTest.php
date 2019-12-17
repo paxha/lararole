@@ -2,6 +2,7 @@
 
 namespace Lararole\Tests\Feature;
 
+use Illuminate\Http\Request;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
@@ -16,9 +17,16 @@ class RoleTest extends TestCase
 
         $this->artisan('migrate:modules');
 
-        $modules = Module::whereIn('slug', ['product', 'user_management'])->get()->pluck('id')->toArray();
+        $modules[0]['module_id'] = 1;
+        $modules[0]['permission'] = 'read';
+        $modules[1]['module_id'] = 5;
+        $modules[1]['permission'] = 'write';
 
-        $role->assignModules($modules, ['read', 'write']);
+        $request = new Request([
+            'modules' => $modules,
+        ]);
+
+        $role->assignModules($request);
 
         $this->assertCount(7, $role->modules);
 
