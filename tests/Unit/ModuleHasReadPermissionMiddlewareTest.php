@@ -2,11 +2,11 @@
 
 namespace Lararole\Tests\Unit;
 
-use Illuminate\Http\Request;
-use Lararole\Models\Module;
 use Lararole\Models\Role;
-use Lararole\Tests\Models\User;
+use Lararole\Models\Module;
+use Illuminate\Http\Request;
 use Lararole\Tests\TestCase;
+use Lararole\Tests\Models\User;
 use Lararole\Tests\Helper\Helper;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 
@@ -35,7 +35,7 @@ class ModuleHasReadPermissionMiddlewareTest extends TestCase
         $this->artisan('migrate:modules');
 
         $user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         auth()->login($user);
@@ -61,7 +61,7 @@ class ModuleHasReadPermissionMiddlewareTest extends TestCase
         $role->assignModules($request);
 
         $user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $user->assignRoles([$role->id]);
@@ -89,7 +89,7 @@ class ModuleHasReadPermissionMiddlewareTest extends TestCase
         $role->assignModules($request);
 
         $user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $user->assignRoles([$role->id]);

@@ -2,10 +2,10 @@
 
 namespace Lararole\Tests\Unit;
 
-use Illuminate\Http\Request;
 use Lararole\Models\Role;
-use Lararole\Tests\Models\User;
+use Illuminate\Http\Request;
 use Lararole\Tests\TestCase;
+use Lararole\Tests\Models\User;
 
 class UserTest extends TestCase
 {
@@ -20,7 +20,7 @@ class UserTest extends TestCase
         ]);
 
         $user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $user->assignRoles(\role()->all()->pluck('id')->toArray());
@@ -39,7 +39,7 @@ class UserTest extends TestCase
         ]);
 
         $user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $user->removeRoles(\role()->all()->pluck('id')->toArray());
@@ -58,7 +58,7 @@ class UserTest extends TestCase
         ]);
 
         $user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $user->removeAllRoles();
@@ -90,7 +90,6 @@ class UserTest extends TestCase
         $modules[0]['module_id'] = 1;
         $modules[0]['permission'] = 'read';
 
-
         $request = new Request([
             'modules' => $modules,
         ]);
@@ -98,7 +97,7 @@ class UserTest extends TestCase
         $roleProductEditor->assignModules($request);
 
         $user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $user->assignRoles([$roleUserAdmin->id, $roleProductEditor->id]);
