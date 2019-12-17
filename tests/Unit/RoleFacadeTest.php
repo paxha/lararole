@@ -1,6 +1,6 @@
 <?php
 
-namespace Lararole\Tests\Feature;
+namespace Lararole\Tests\Unit;
 
 use Lararole\Tests\TestCase;
 
