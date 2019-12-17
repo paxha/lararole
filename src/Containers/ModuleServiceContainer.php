@@ -11,6 +11,11 @@ class ModuleServiceContainer
         return Module::all();
     }
 
+    public function find($id)
+    {
+        return Module::find($id);
+    }
+
     public function root()
     {
         return Module::root()->get();
