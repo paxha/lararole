@@ -2,7 +2,6 @@
 
 namespace Lararole\Tests\Feature;
 
-use Illuminate\Http\Request;
 use Lararole\Tests\TestCase;
 
 class RoleFacadeTest extends TestCase

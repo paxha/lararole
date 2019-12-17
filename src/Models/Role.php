@@ -2,11 +2,11 @@
 
 namespace Lararole\Models;
 
-use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Lararole\Traits\HasModules;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 
 class Role extends Model
 {

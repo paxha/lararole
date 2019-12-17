@@ -7,7 +7,7 @@ if (! function_exists('module')) {
     }
 }
 
-if (!function_exists('role')) {
+if (! function_exists('role')) {
     function role()
     {
         return app('role');
