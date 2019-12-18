@@ -1,6 +1,6 @@
 <?php
 
-namespace Lararole\Tests\Feature;
+namespace Lararole\Tests\Unit;
 
 use Lararole\Models\Role;
 use Lararole\Models\Module;
@@ -17,9 +17,9 @@ class RoleTest extends TestCase
 
         $this->artisan('migrate:modules');
 
-        $modules[0]['module_id'] = 1;
+        $modules[0]['module_id'] = Module::whereSlug('product')->first()->id;
         $modules[0]['permission'] = 'read';
-        $modules[1]['module_id'] = 5;
+        $modules[1]['module_id'] = Module::whereSlug('user_management')->first()->id;
         $modules[1]['permission'] = 'write';
 
         $request = new Request([
@@ -42,17 +42,20 @@ class RoleTest extends TestCase
 
         $this->artisan('migrate:modules');
 
-        $modules = Module::whereIn('slug', ['product', 'order_processing'])->get()->pluck('id')->toArray();
+        $modules[0]['module_id'] = Module::whereSlug('product')->first()->id;
+        $modules[0]['permission'] = 'read';
+        $modules[1]['module_id'] = Module::whereSlug('user_management')->first()->id;
+        $modules[1]['permission'] = 'write';
 
-        $role->modules()->attach($modules, ['permission' => 'write']);
+        $request = new Request([
+            'modules' => $modules,
+        ]);
 
-        $module = Module::whereSlug('settings')->first();
+        $role->assignModules($request);
 
-        $role->modules()->attach($module, ['permission' => 'write']);
+        $role->removeModules([Module::whereSlug('product')->first()->id]);
 
-        $role->removeModules($modules);
-
-        $this->assertCount(1, $role->modules);
+        $this->assertCount(3, $role->modules);
     }
 
     public function testDetachAllModules()
@@ -63,13 +66,16 @@ class RoleTest extends TestCase
 
         $this->artisan('migrate:modules');
 
-        $modules = Module::whereIn('slug', ['product', 'order_processing'])->get()->pluck('id')->toArray();
+        $modules[0]['module_id'] = Module::whereSlug('product')->first()->id;
+        $modules[0]['permission'] = 'read';
+        $modules[1]['module_id'] = Module::whereSlug('user_management')->first()->id;
+        $modules[1]['permission'] = 'write';
 
-        $role->modules()->attach($modules, ['permission' => 'write']);
+        $request = new Request([
+            'modules' => $modules,
+        ]);
 
-        $module = Module::whereSlug('settings')->first();
-
-        $role->modules()->attach($module, ['permission' => 'write']);
+        $role->assignModules($request);
 
         $role->removeAllModules($modules);
 

@@ -31,4 +31,25 @@ trait HasRoles
     {
         return $this->hasManyDeep(Module::class, ['role_user', Role::class, 'module_role'])->withPivot('module_role', ['permission'], ModuleRole::class, 'permission');
     }
+
+    public function assignRoles(array $roles)
+    {
+        $this->roles()->attach($roles);
+
+        return $this;
+    }
+
+    public function removeRoles(array $roles)
+    {
+        $this->roles()->detach($roles);
+
+        return $this;
+    }
+
+    public function removeAllRoles()
+    {
+        $this->roles()->detach();
+
+        return $this;
+    }
 }
