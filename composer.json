@@ -7,7 +7,9 @@
         "laravel library",
         "lararole",
         "role management",
-        "user management"
+        "user management",
+        "laravel role management",
+        "laravel user management"
     ],
     "authors": [
         {
@@ -53,9 +55,6 @@
         "psr-4": {
             "Lararole\\Tests\\": "tests/"
         }
-    },
-    "scripts": {
-        "test": "phpunit"
     },
     "config": {
         "sort-packages": true
