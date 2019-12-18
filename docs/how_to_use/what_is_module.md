@@ -9,11 +9,14 @@ meta:
     content: lararole, laravel role management, laravel user management, laravel library, laravel package, laravel management system
 ---
 
-# Module Model
+# What is module
 
-### Relationships
+Module is like a specific portion contains specific CRUDs like a `Inventory` is module and it has CRUD related `Brand`, `Category` and `Product`.' 
+Lararole has Module model which provide some relationships and functions etc...
 
-The trait provides various relationships:
+## Relationships
+
+The Module provides various relationships:
 
 -   `children()`: The model's direct children.
 -   `nestedChildren()`: The model's nested children.
@@ -30,7 +33,7 @@ $modules = Module::with('parent')->get();
 $modules = Module::with('nestedParents')->get();
 ```
 
-### Scopes
+## Scopes
 
 The trait provides query scopes to filter models by their position in the tree:
 
@@ -49,7 +52,7 @@ $leaves = Module::leaf()->get();
 $roots = Module::root()->get();
 ```
 
-### Functions
+## Functions
 
 The trait provides helper functions:
 

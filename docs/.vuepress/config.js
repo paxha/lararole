@@ -24,7 +24,6 @@ module.exports = {
         nav: [
             {text: 'Home', link: '/'},
             {text: 'Guide', link: '/guide/'},
-            {text: 'How to use', link: '/how_to_use/'},
             {text: 'Tutorial', link: '/tutorial/'},
             {text: 'GitHub', link: 'https://github.com/paxha/lararole'}
         ],
@@ -44,19 +43,11 @@ module.exports = {
                 collapsable: false,
                 sidebarDepth: 3,
                 children: [
-                    '/how_to_use/',
-                    '/how_to_use/module.md',
-                    '/how_to_use/role.md',
+                    '/how_to_use/how_to_create_role.md',
+                    '/how_to_use/how_to_assign_role',
+                    '/how_to_use/what_is_module.md',
                 ]
             },
-            // {
-            //     title: 'Tutorial',
-            //     collapsable: false,
-            //     sidebarDepth: 3,
-            //     children: [
-            //         '/tutorial/',
-            //     ]
-            // },
         ]
     }
 };
