@@ -2,7 +2,6 @@
 
 namespace Lararole\Console\Commands;
 
-use Lararole\Models\Module;
 use Illuminate\Console\Command;
 
 class AssignSuperAdminRoleCommand extends Command

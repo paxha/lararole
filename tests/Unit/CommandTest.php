@@ -4,8 +4,8 @@ namespace Lararole\Tests\Unit;
 
 use Lararole\Models\Role;
 use Lararole\Models\Module;
-use Lararole\Tests\Models\User;
 use Lararole\Tests\TestCase;
+use Lararole\Tests\Models\User;
 
 class CommandTest extends TestCase
 {
@@ -74,7 +74,7 @@ class CommandTest extends TestCase
         $this->artisan('make:super-admin-role');
 
         $user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $this->artisan('assign-super-admin-role --user='.$user->id);
