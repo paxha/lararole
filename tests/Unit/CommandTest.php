@@ -5,6 +5,7 @@ namespace Lararole\Tests\Unit;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
+use Lararole\Tests\Models\User;
 
 class CommandTest extends TestCase
 {
@@ -65,6 +66,20 @@ class CommandTest extends TestCase
         $superAdminRole = Role::whereSlug('super_admin')->first();
 
         $this->assertCount(11, $superAdminRole->modules);
+    }
+
+    public function testAssignSuperAdminRoleCommand()
+    {
+        $this->artisan('migrate:modules');
+        $this->artisan('make:super-admin-role');
+
+        $user = User::create([
+            'name' => 'Super Admin',
+        ]);
+
+        $this->artisan('assign-super-admin-role --user='.$user->id);
+
+        $this->assertCount(1, $user->roles);
     }
 
     public function testDBSeed()
