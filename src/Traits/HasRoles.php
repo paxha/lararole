@@ -39,6 +39,13 @@ trait HasRoles
         return $this;
     }
 
+    public function assignSuperAdminRole()
+    {
+        $this->roles()->attach(Role::whereSlug('super_admin')->first());
+
+        return $this;
+    }
+
     public function removeRoles(array $roles)
     {
         $this->roles()->detach($roles);

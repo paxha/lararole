@@ -3,6 +3,7 @@
 namespace Lararole;
 
 use Illuminate\Support\ServiceProvider;
+use Lararole\Console\Commands\AssignSuperAdminRoleCommand;
 use Sven\ArtisanView\Commands\MakeView;
 use Lararole\Containers\RoleServiceContainer;
 use Lararole\Console\Commands\MakeViewsCommand;
@@ -61,6 +62,7 @@ class LararoleServiceProvider extends ServiceProvider
                 MakeView::class,
                 MakeViewsCommand::class,
                 MigrateModulesCommand::class,
+                AssignSuperAdminRoleCommand::class,
             ]);
         }
     }

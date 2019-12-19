@@ -22,6 +22,7 @@ class User extends Authenticatable
 
 ## Helper Functions
 
+-   `assignSuperAdminRole()` To assign Super Admin Role.
 -   `assignRoles(array $roles)` To assign roles.
 -   `removeRoles(array $roles)` To remove roles.
 -   `removeAllRoles()` To remove all roles.

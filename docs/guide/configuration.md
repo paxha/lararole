@@ -11,15 +11,9 @@ meta:
 
 # Configuration
 
-## Database
+## Migrations
 
 Lararole provides role management db structure. Your application must migrate it before use it.
-
-### ER Diagram
-
-![ER Diagram](../.vuepress/public/images/erd.png)
-
-### Migrations
 
 - 2019_11_17_000000_create_modules_table
 - 2019_11_17_100000_create_roles_table
@@ -29,35 +23,20 @@ Lararole provides role management db structure. Your application must migrate it
 To migrate these migrations.
     
     php artisan migrate
+    
+### ER Diagram
 
-## Seeder
-
-For development generate dummy roles with some modules.
-Call LararoleSeeder in `DatabaseSeeder.php` class.
-
-```php
-$this->call(\Lararole\Database\Seeds\LararoleSeeder::class);
-```
-
-After seeder setup run
-
-    php artisan db:seed
-
-## Super Admin Role
-
-To create a super admin role which has every module write access.
-
-    php artisan make:super-admin-role
+![ER Diagram](../.vuepress/public/images/erd.png)
 
 ## Make Views
 
 To generate basic blade views with exact directory path run
 
     php artisan make:views
-
+    
 All the views will generate in specific folders with sequence of module and nested modules like this.
 
-## Views Directory Structure
+### Views Directory Structure
 
 ```
 modules
@@ -93,6 +72,31 @@ modules
 │   │   show.blade.php
 ```
 
+## Make Super Admin Role
+
+To create a super admin role which has every module write access.
+
+    php artisan make:super-admin-role
+    
+## Assign Super Admin Role to User
+
+To assign super admin role to any user by user id.
+
+    php artisan assign-super-admin-role --user={$id}
+    
+## Seeder
+
+For development generate dummy roles with some modules.
+Call LararoleSeeder in `DatabaseSeeder.php` class.
+
+```php
+$this->call(\Lararole\Database\Seeds\LararoleSeeder::class);
+```
+
+After seeder setup run
+
+    php artisan db:seed
+    
 ## Routes
 
 There are default 4 routes 

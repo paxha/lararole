@@ -9,6 +9,20 @@ use Lararole\Tests\Models\User;
 
 class UserTest extends TestCase
 {
+    public function testAssignSuperAdminRole()
+    {
+        $this->artisan('migrate:modules');
+        $this->artisan('make:super-admin-role');
+
+        $user = User::create([
+            'name' => 'Super Admin'
+        ]);
+
+        $user->assignSuperAdminRole();
+
+        $this->assertCount(1, $user->roles);
+    }
+
     public function testAssignRoles()
     {
         Role::create([
