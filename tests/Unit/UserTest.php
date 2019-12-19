@@ -15,7 +15,7 @@ class UserTest extends TestCase
         $this->artisan('make:super-admin-role');
 
         $user = User::create([
-            'name' => 'Super Admin'
+            'name' => 'Super Admin',
         ]);
 
         $user->assignSuperAdminRole();
