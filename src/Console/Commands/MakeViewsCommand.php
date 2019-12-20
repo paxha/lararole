@@ -57,7 +57,7 @@ class MakeViewsCommand extends Command
     private function view($view)
     {
         if (! view()->exists($view.'.index')) {
-            Artisan::call("make:view '{$view}' --resource --extends=layouts.app --section='title:This is my title' --section=content");
+            Artisan::call("make:view '{$view}' --resource --extends=app --section='title:This is my title' --section=content");
             $this->info('Resource View "'.$view.'" Successfully Created');
         } else {
             $this->comment($view.' Already Exists');
