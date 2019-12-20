@@ -16,7 +16,7 @@ class CommandTest extends TestCase
         'modules.user_management.role',
         'modules.order_processing.new_orders',
         'modules.order_processing.dispatched',
-        'modules.settings',
+        'modules.others',
     ];
 
     private $excludeModuleViews = [
