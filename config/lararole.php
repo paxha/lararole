@@ -3,10 +3,10 @@
 return [
     'modules' => [
         [
-            'name' => 'Product',
-            'icon' => 'feather icon-layers',
+            'name' => 'Inventory',
+            'icon' => 'icon-inventory',
             'modules' => [
-                ['name' => 'Inventory'],
+                ['name' => 'Product'],
                 ['name' => 'Brand'],
                 ['name' => 'Category'],
                 ['name' => 'Unit'],
@@ -15,21 +15,29 @@ return [
         ],
         [
             'name' => 'User Management',
-            'icon' => 'feather icon-user',
+            'icon' => 'icon-user',
             'modules' => [
-                ['name' => 'User'],
-                ['name' => 'Role'],
+                [
+                    'name' => 'User',
+                    'icon' => 'icon-user',
+                ],
+                [
+                    'name' => 'Role',
+                    'icon' => 'icon-role',
+                ],
             ],
         ],
         [
             'name' => 'Order Processing',
-            'icon' => 'feather icon-settings',
+            'icon' => 'icon-order',
             'modules' => [
-                ['name' => 'New'],
+                ['name' => 'New Orders'],
                 ['name' => 'Dispatched'],
-                ['name' => 'Delivered'],
-                ['name' => 'Cancelled'],
             ],
+        ],
+        [
+            'name' => 'Others',
+            'icon' => 'icon-others',
         ],
     ],
 

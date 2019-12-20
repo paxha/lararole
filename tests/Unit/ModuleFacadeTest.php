@@ -10,7 +10,7 @@ class ModuleFacadeTest extends TestCase
     {
         $this->artisan('migrate:modules');
 
-        $this->assertEquals(['Product', 'Inventory', 'Product Listing', 'Brand', 'User Management', 'User', 'Role', 'Order Processing', 'New Orders', 'Dispatched', 'Settings'], module()->all()->pluck('name')->toArray());
+        $this->assertCount(11, module()->all());
     }
 
     public function testFindModuleFacade()
