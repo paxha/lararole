@@ -27,7 +27,7 @@
         "php": "^7.2",
         "doctrine/dbal": "^2.10",
         "fico7489/laravel-pivot": "^3.0",
-        "paxha/laravel-recursive-relationships": "v1.0",
+        "paxha/laravel-recursive-relationships": "^1.0",
         "staudenmeir/eloquent-has-many-deep": "^1.11",
         "sven/artisan-view": "^3.3"
     },

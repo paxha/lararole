@@ -44,8 +44,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
             ],
         ],
         [
-            'name' => 'Settings',
-            'icon' => 'icon-settings',
+            'name' => 'Others',
+            'icon' => 'icon-others',
         ],
     ];
 
