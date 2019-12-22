@@ -41,11 +41,11 @@ class LararoleServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/lararole.php' => config_path('lararole.php'),
-        ]);
+        ], 'config');
 
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views'),
-        ]);
+        ], 'views');
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 

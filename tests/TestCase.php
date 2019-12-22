@@ -5,7 +5,7 @@ namespace Lararole\Tests;
 use Lararole\Tests\Models\User;
 use Lararole\LararoleServiceProvider;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+class TestCase extends \Orchestra\Testbench\Dusk\TestCase
 {
     protected $modules = [
         [
