@@ -32,7 +32,7 @@
         "sven/artisan-view": "^3.3"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.4",
+        "orchestra/testbench-dusk": "^4.0",
         "phpunit/phpunit": "^8.0"
     },
     "extra": {
