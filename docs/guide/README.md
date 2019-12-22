@@ -20,18 +20,20 @@ Each module belongs to any role and that role has read or write permission.
 User can't visit module any page without any permission. Even Without write permission User can't perform any action like create, update or delete.
 These permissions are controlled by middleware `permission.read` and `permission.write`.
 
-## How It Works
-
--   Create Role
--   Assign modules or nested modules to that Role with read/write permission
--   Assign that role to User
--   Enjoy!
-
 ## Features
 
 **A Quick Start Project**
--   Nth Level Modules (Sidebar/Navbar)
--   Read/Write Permission Middlewares
--   Directory Structure
--   Module Model
--   Role Model
+-   Built-in Migrations
+-   Built-in Routes
+-   Built-in Models
+-   Built-in Controller
+-   Built in Seed
+-   Read/Write permission middleware
+-   Manageable directory structure
+
+## How It Works
+
+-   Create a role
+-   Assign modules to role with read/write permission
+-   Assign role to user
+-   :)
