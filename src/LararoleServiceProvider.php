@@ -44,27 +44,17 @@ class LararoleServiceProvider extends ServiceProvider
         ], 'lararole-config');
 
         $this->publishes([
-            __DIR__.'/../database/migrations' => database_path('migrations'),
-        ], 'lararole-migrations');
-
-        $this->publishes([
-            __DIR__.'/../database/factories' => database_path('factories'),
-        ], 'lararole-factories');
-
-        $this->publishes([
-            __DIR__.'/../routes' => base_path('routes'),
-        ], 'lararole-routes');
-
-        $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views'),
         ], 'lararole-views');
 
-        $this->publishes([
-            __DIR__.'./Http/Controllers' => app_path('Http/Controllers/ModuleController.php'),
-        ], 'lararole-controller');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/../database/factories');
 
         $this->app['router']->aliasMiddleware('permission.read', ModuleHasReadPermission::class);
         $this->app['router']->aliasMiddleware('permission.write', ModuleHasWritePermission::class);
+
+        $this->loadRoutesFrom(__DIR__.'/../routes/module.web.php');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
