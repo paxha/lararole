@@ -41,11 +41,11 @@ class LararoleServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/lararole.php' => config_path('lararole.php'),
-        ], 'config');
+        ], 'lararole-config');
 
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views'),
-        ], 'views');
+        ], 'lararole-views');
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
@@ -54,7 +54,7 @@ class LararoleServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('permission.read', ModuleHasReadPermission::class);
         $this->app['router']->aliasMiddleware('permission.write', ModuleHasWritePermission::class);
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.module.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/module.web.php');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
