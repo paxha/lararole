@@ -26,7 +26,7 @@ These permissions are controlled by middleware `permission.read` and `permission
 -   Built-in Routes
 -   Built-in Models
 -   Built-in Controller
--   Built in Seed
+-   Built-in Seeder
 -   Read/Write permission middleware
 -   Manageable directory structure
 
