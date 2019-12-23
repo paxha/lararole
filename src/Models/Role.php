@@ -16,6 +16,12 @@ class Role extends Model
         'name',
     ];
 
+    protected $guarded = [
+        'active',
+    ];
+
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
     public static function boot()
     {
         parent::boot();
@@ -78,6 +84,18 @@ class Role extends Model
     private static function detachAllChildModules($model, $moduleId)
     {
         $model->modules()->detach(Module::find($moduleId)->nestedChildren);
+    }
+
+    public function markAsActive()
+    {
+        $this->active = true;
+        $this->save();
+    }
+
+    public function markAsInactive()
+    {
+        $this->active = false;
+        $this->save();
     }
 
     public function users()
