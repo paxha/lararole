@@ -17,7 +17,7 @@ class Role extends Model
     ];
 
     protected $guarded = [
-        'active'
+        'active',
     ];
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
@@ -86,12 +86,14 @@ class Role extends Model
         $model->modules()->detach(Module::find($moduleId)->nestedChildren);
     }
 
-    public function markAsActive(){
+    public function markAsActive()
+    {
         $this->active = true;
         $this->save();
     }
 
-    public function markAsInactive(){
+    public function markAsInactive()
+    {
         $this->active = false;
         $this->save();
     }
