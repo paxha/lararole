@@ -23,7 +23,8 @@ class Role extends Model
         self::creating(function ($model) {
             $model->slug = Str::slug($model->name, '_');
 
-            $latestSlug = self::whereRaw("slug = '$model->slug'")->latest('id')->value('slug');
+            $latestSlug = static::whereRaw("slug = '$model->slug' or slug LIKE '$model->slug%'")->latest('id')->value('slug');
+
             if ($latestSlug) {
                 $pieces = explode('_', $latestSlug);
                 $number = intval(end($pieces));

@@ -81,4 +81,33 @@ class RoleTest extends TestCase
 
         $this->assertCount(0, $role->modules);
     }
+
+    public function testRoleSlug(){
+        Role::create([
+            'name' => 'Super Admin'
+        ]);
+
+        $this->assertDatabaseHas('roles', [
+            'name' => 'Super Admin',
+            'slug' => 'super_admin'
+        ]);
+
+        Role::create([
+            'name' => 'Super Admin'
+        ]);
+
+        $this->assertDatabaseHas('roles', [
+            'name' => 'Super Admin',
+            'slug' => 'super_admin_1'
+        ]);
+
+        Role::create([
+            'name' => 'Super Admin'
+        ]);
+
+        $this->assertDatabaseHas('roles', [
+            'name' => 'Super Admin',
+            'slug' => 'super_admin_2'
+        ]);
+    }
 }
