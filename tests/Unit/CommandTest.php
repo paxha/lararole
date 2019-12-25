@@ -60,10 +60,10 @@ class CommandTest extends TestCase
 
         $this->assertDatabaseHas('roles', [
             'name' => 'Super Admin',
-            'slug' => 'super_admin',
+            'slug' => 'super-admin',
         ]);
 
-        $superAdminRole = Role::whereSlug('super_admin')->first();
+        $superAdminRole = Role::whereSlug('super-admin')->first();
 
         $this->assertCount(11, $superAdminRole->modules);
     }
@@ -90,10 +90,10 @@ class CommandTest extends TestCase
 
         $this->assertDatabaseHas('roles', [
             'name' => 'Super Admin',
-            'slug' => 'super_admin',
+            'slug' => 'super-admin',
         ]);
 
-        $superAdminRole = Role::whereSlug('super_admin')->first();
+        $superAdminRole = Role::whereSlug('super-admin')->first();
 
         $this->assertCount(11, $superAdminRole->modules);
 

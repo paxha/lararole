@@ -2,15 +2,15 @@
 
 namespace Lararole\Models;
 
-use Illuminate\Support\Str;
 use Lararole\Traits\HasModules;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
+use Sluggable\Traits\Sluggable;
 
 class Role extends Model
 {
-    use SoftDeletes, PivotEventTrait, HasModules;
+    use SoftDeletes, Sluggable, PivotEventTrait, HasModules;
 
     protected $fillable = [
         'name',
@@ -27,16 +27,6 @@ class Role extends Model
         parent::boot();
 
         self::creating(function ($model) {
-            $model->slug = Str::slug($model->name, '_');
-
-            $latestSlug = static::whereRaw("slug = '$model->slug' or slug LIKE '$model->slug%'")->latest('id')->value('slug');
-
-            if ($latestSlug) {
-                $pieces = explode('_', $latestSlug);
-                $number = intval(end($pieces));
-                $model->slug .= '_'.($number + 1);
-            }
-
             if (auth()->check()) {
                 $user = auth()->user();
                 $model->created_by = $user->id;

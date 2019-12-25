@@ -39,7 +39,7 @@ class MakeSuperAdminRoleCommand extends Command
      */
     public function handle()
     {
-        if (Role::whereSlug('super_admin')->first()) {
+        if (Role::whereSlug('super-admin')->first()) {
             $this->error('Super Admin role already exists');
 
             return;
