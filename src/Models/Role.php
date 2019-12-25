@@ -3,10 +3,10 @@
 namespace Lararole\Models;
 
 use Lararole\Traits\HasModules;
+use Sluggable\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
-use Sluggable\Traits\Sluggable;
 
 class Role extends Model
 {
