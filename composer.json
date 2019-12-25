@@ -4,6 +4,7 @@
     "type": "laravel",
     "license": "LGPL-3.0",
     "keywords": [
+        "laravel",
         "laravel library",
         "lararole",
         "role management",
