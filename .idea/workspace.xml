@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4abed7f3-fe4b-4ed2-8b1a-06811a049dd5" name="Default Changelist" comment="assign" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.3">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/vendor/opis/closure" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/orchestra/testbench-core" />
+      <path value="$PROJECT_DIR$/vendor/orchestra/testbench" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/staudenmeir/eloquent-has-many-deep" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/sven/artisan-view" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/erusev/parsedown" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/paxha/laravel-recursive-relationships" />
+      <path value="$PROJECT_DIR$/vendor/fico7489/laravel-pivot" />
+      <path value="$PROJECT_DIR$/vendor/facebook/webdriver" />
+      <path value="$PROJECT_DIR$/vendor/orchestra/dusk-updater" />
+      <path value="$PROJECT_DIR$/vendor/laravel/dusk" />
+      <path value="$PROJECT_DIR$/vendor/orchestra/testbench-dusk" />
+      <path value="$PROJECT_DIR$/vendor/konsulting/project-root" />
+      <path value="$PROJECT_DIR$/vendor/paxha/laravel-sluggable" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="1UGoyIv59lvvORbgr3ZPF564Qyt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Console/Commands" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laravel\lararole\src\Console\Commands" />
+      <recent name="C:\laravel\lararole\src\Facades" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.dev">
+    <configuration name="RoleTest.testAssignModules" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Lararole\Tests\Unit\RoleTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Unit/RoleTest.php" method="testAssignModules" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RoleTest.testRoleSlug" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Lararole\Tests\Unit\RoleTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Unit/RoleTest.php" method="testRoleSlug" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ViewsTest.testAccessDeniedView" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Lararole\Tests\Browser\ViewsTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Browser/ViewsTest.php" method="testAccessDeniedView" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+        <item itemvalue="PHPUnit.RoleTest.testAssignModules" />
+        <item itemvalue="PHPUnit.RoleTest.testRoleSlug" />
+        <item itemvalue="PHPUnit.ViewsTest.testAccessDeniedView" />
+        <item itemvalue="npm.build" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4abed7f3-fe4b-4ed2-8b1a-06811a049dd5" name="Default Changelist" comment="" />
+      <created>1574992546491</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1574992546491</updated>
+      <workItem from="1574992550346" duration="25000" />
+      <workItem from="1575043339562" duration="4461000" />
+      <workItem from="1575177356121" duration="5656000" />
+      <workItem from="1575187046397" duration="2675000" />
+      <workItem from="1575204157614" duration="10820000" />
+      <workItem from="1575781569919" duration="12552000" />
+      <workItem from="1575820877043" duration="679000" />
+      <workItem from="1575821578536" duration="2230000" />
+      <workItem from="1576254501385" duration="1702000" />
+      <workItem from="1576256340508" duration="10000" />
+      <workItem from="1576256352824" duration="32000" />
+      <workItem from="1576256387465" duration="2310000" />
+      <workItem from="1576336629185" duration="9000" />
+      <workItem from="1576341347819" duration="296000" />
+      <workItem from="1576385843274" duration="26000" />
+      <workItem from="1576423200883" duration="315000" />
+      <workItem from="1576423519583" duration="2063000" />
+      <workItem from="1576462116304" duration="4990000" />
+      <workItem from="1576485626728" duration="513000" />
+      <workItem from="1576596618529" duration="8714000" />
+      <workItem from="1576721356103" duration="7000" />
+      <workItem from="1576724733928" duration="6234000" />
+      <workItem from="1576938765567" duration="12377000" />
+      <workItem from="1577121735054" duration="892000" />
+      <workItem from="1577257935679" duration="1080000" />
+      <workItem from="1577259061898" duration="235000" />
+      <workItem from="1577259473349" duration="4210000" />
+      <workItem from="1577274819696" duration="1654000" />
+      <workItem from="1577280313349" duration="1357000" />
+      <workItem from="1581152569014" duration="166000" />
+      <workItem from="1581152837690" duration="2467000" />
+    </task>
+    <task id="LOCAL-00001" summary="indents changed">
+      <created>1575046521166</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1575046521166</updated>
+    </task>
+    <task id="LOCAL-00002" summary="--coverage-clover=coverage.clover removed">
+      <created>1575046842484</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1575046842484</updated>
+    </task>
+    <task id="LOCAL-00003" summary="google analytics added">
+      <created>1575183834605</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1575183834605</updated>
+    </task>
+    <task id="LOCAL-00004" summary="multi db test">
+      <created>1575204438247</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1575204438247</updated>
+    </task>
+    <task id="LOCAL-00005" summary="xdebug">
+      <created>1575204719698</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1575204719698</updated>
+    </task>
+    <task id="LOCAL-00006" summary="db-truncate package removed">
+      <created>1575206143001</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575206143001</updated>
+    </task>
+    <task id="LOCAL-00007" summary="truncate command removed">
+      <created>1575207089877</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1575207089877</updated>
+    </task>
+    <task id="LOCAL-00008" summary="refresh database removed">
+      <created>1575210765476</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1575210765476</updated>
+    </task>
+    <task id="LOCAL-00009" summary="failures allowed">
+      <created>1575212304154</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1575212304154</updated>
+    </task>
+    <task id="LOCAL-00010" summary="no action applied">
+      <created>1575213450341</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1575213450341</updated>
+    </task>
+    <task id="LOCAL-00011" summary="mysql 5 travis test removed">
+      <created>1575215117222</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1575215117222</updated>
+    </task>
+    <task id="LOCAL-00012" summary="coverage yes">
+      <created>1575218712861</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1575218712861</updated>
+    </task>
+    <task id="LOCAL-00013" summary="coverage yes">
+      <created>1575219199455</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1575219199455</updated>
+    </task>
+    <task id="LOCAL-00014" summary="travis script added">
+      <created>1575824183181</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1575824183182</updated>
+    </task>
+    <task id="LOCAL-00015" summary="deployment added">
+      <created>1575824810427</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1575824810427</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Merge branch 'master' into recursive-relationships-patch&#10;&#10;# Conflicts:&#10;#&#9;tests/TestCase.php">
+      <created>1576256473690</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1576256473690</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Make Views Command Updated">
+      <created>1576257162392</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1576257162392</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Sync Tests Removed">
+      <created>1576257228904</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1576257228904</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/docs/.vuepress/dist" />
+    </ignored-roots>
+    <MESSAGE value="indents changed" />
+    <MESSAGE value="--coverage-clover=coverage.clover removed" />
+    <MESSAGE value="google analytics added" />
+    <MESSAGE value="multi db test" />
+    <MESSAGE value="xdebug" />
+    <MESSAGE value="db-truncate package removed" />
+    <MESSAGE value="truncate command removed" />
+    <MESSAGE value="refresh database removed" />
+    <MESSAGE value="failures allowed" />
+    <MESSAGE value="no action applied" />
+    <MESSAGE value="mysql 5 travis test removed" />
+    <MESSAGE value="coverage yes" />
+    <MESSAGE value="travis script added" />
+    <MESSAGE value="deployment added" />
+    <MESSAGE value="Merge branch 'master' into recursive-relationships-patch&#10;&#10;# Conflicts:&#10;#&#9;tests/TestCase.php" />
+    <MESSAGE value="Make Views Command Updated" />
+    <MESSAGE value="Sync Tests Removed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sync Tests Removed" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="516" y="54" width="620" height="716" key="#CommandTest.testMigrateModulesCommand" timestamp="1575219871047">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="516" y="54" width="620" height="716" key="#CommandTest.testMigrateModulesCommand/0.0.1638.824@0.0.1638.824" timestamp="1575219871047" />
+    <state x="550" y="18" key="#PHP" timestamp="1575219840315">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="550" y="18" key="#PHP/0.0.1638.824@0.0.1638.824" timestamp="1575219840315" />
+    <state x="412" y="73" key="#YAML" timestamp="1575179970716">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="412" y="73" key="#YAML/0.0.1638.824@0.0.1638.824" timestamp="1575179970716" />
+    <state x="98" y="154" width="1453" height="638" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1576257853880">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="98" y="154" width="1453" height="638" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1638.824@0.0.1638.824" timestamp="1576257853880" />
+    <state x="705" y="295" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1581152620693">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="705" y="295" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.2048.1112/-1920.0.1536.920@0.0.2048.1112" timestamp="1581152620693" />
+    <state x="574" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1576999547248">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="574" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1638.824@0.0.1638.824" timestamp="1576999547248" />
+    <state x="550" y="170" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576605261838">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="550" y="170" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1638.824@0.0.1638.824" timestamp="1576605261838" />
+    <state x="571" y="0" key="CommitChangelistDialog2" timestamp="1581153365337">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="457" y="0" key="CommitChangelistDialog2/0.0.1638.824@0.0.1638.824" timestamp="1577259014443" />
+    <state x="571" y="0" key="CommitChangelistDialog2/0.0.2048.1112/-1920.0.1536.920@0.0.2048.1112" timestamp="1581153365337" />
+    <state x="600" y="170" key="FileChooserDialogImpl" timestamp="1575187839927">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="600" y="170" key="FileChooserDialogImpl/0.0.1638.824@0.0.1638.824" timestamp="1575187839927" />
+    <state width="2005" height="487" key="GridCell.Tab.0.bottom" timestamp="1581157351390">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1596" height="341" key="GridCell.Tab.0.bottom/0.0.1638.824@0.0.1638.824" timestamp="1577278602695" />
+    <state width="2005" height="487" key="GridCell.Tab.0.bottom/0.0.2048.1112/-1920.0.1536.920@0.0.2048.1112" timestamp="1581157351390" />
+    <state width="2005" height="487" key="GridCell.Tab.0.center" timestamp="1581157351390">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1596" height="341" key="GridCell.Tab.0.center/0.0.1638.824@0.0.1638.824" timestamp="1577278602695" />
+    <state width="2005" height="487" key="GridCell.Tab.0.center/0.0.2048.1112/-1920.0.1536.920@0.0.2048.1112" timestamp="1581157351390" />
+    <state width="2005" height="487" key="GridCell.Tab.0.left" timestamp="1581157351389">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1596" height="341" key="GridCell.Tab.0.left/0.0.1638.824@0.0.1638.824" timestamp="1577278602695" />
+    <state width="2005" height="487" key="GridCell.Tab.0.left/0.0.2048.1112/-1920.0.1536.920@0.0.2048.1112" timestamp="1581157351389" />
+    <state width="2005" height="487" key="GridCell.Tab.0.right" timestamp="1581157351390">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state width="1596" height="341" key="GridCell.Tab.0.right/0.0.1638.824@0.0.1638.824" timestamp="1577278602695" />
+    <state width="2005" height="487" key="GridCell.Tab.0.right/0.0.2048.1112/-1920.0.1536.920@0.0.2048.1112" timestamp="1581157351390" />
+    <state width="1596" height="261" key="GridCell.Tab.1.bottom" timestamp="1576606286884">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state width="1596" height="261" key="GridCell.Tab.1.bottom/0.0.1638.824@0.0.1638.824" timestamp="1576606286884" />
+    <state width="1596" height="261" key="GridCell.Tab.1.center" timestamp="1576606286884">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state width="1596" height="261" key="GridCell.Tab.1.center/0.0.1638.824@0.0.1638.824" timestamp="1576606286884" />
+    <state width="1596" height="261" key="GridCell.Tab.1.left" timestamp="1576606286884">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state width="1596" height="261" key="GridCell.Tab.1.left/0.0.1638.824@0.0.1638.824" timestamp="1576606286884" />
+    <state width="1596" height="261" key="GridCell.Tab.1.right" timestamp="1576606286884">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state width="1596" height="261" key="GridCell.Tab.1.right/0.0.1638.824@0.0.1638.824" timestamp="1576606286884" />
+    <state x="636" y="246" key="NewPhpClassDialog" timestamp="1576999511532">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="636" y="246" key="NewPhpClassDialog/0.0.1638.824@0.0.1638.824" timestamp="1576999511532" />
+    <state x="655" y="343" key="NewPhpFileDialog" timestamp="1576462587711">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="655" y="343" key="NewPhpFileDialog/0.0.1638.824@0.0.1638.824" timestamp="1576462587711" />
+    <state x="200" y="117" width="929" height="707" key="SettingsEditor" timestamp="1577000357928">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="200" y="117" width="929" height="707" key="SettingsEditor/0.0.1638.824@0.0.1638.824" timestamp="1577000357928" />
+    <state x="412" y="136" key="Vcs.Push.Dialog.v2" timestamp="1576257230230">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="412" y="136" key="Vcs.Push.Dialog.v2/0.0.1638.824@0.0.1638.824" timestamp="1576257230230" />
+    <state x="790" y="447" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581152576120">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="632" y="331" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1638.824@0.0.1638.824" timestamp="1576423302441" />
+    <state x="790" y="447" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2048.1112/-1920.0.1536.920@0.0.2048.1112" timestamp="1581152576120" />
+    <state x="524" y="173" width="590" height="478" key="find.popup" timestamp="1577280996753">
+      <screen x="0" y="0" width="1638" height="824" />
+    </state>
+    <state x="524" y="173" width="590" height="478" key="find.popup/0.0.1638.824@0.0.1638.824" timestamp="1577280996753" />
+  </component>
+</project>
