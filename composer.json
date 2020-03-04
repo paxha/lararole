@@ -31,7 +31,7 @@
         "paxha/laravel-recursive-relationships": "^1.0",
         "paxha/laravel-sluggable": "^1.1",
         "staudenmeir/eloquent-has-many-deep": "^1.11",
-        "sven/artisan-view": "^3.3"
+        "paxha/artisan-view": "^3.4"
     },
     "require-dev": {
         "orchestra/testbench-dusk": "^4.0",
