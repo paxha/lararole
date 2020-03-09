@@ -60,8 +60,8 @@ class LararoleServiceProvider extends ServiceProvider
 
             $this->registerRoutes();
             $this->publishes([
-                __DIR__.'/../routes/web.php' => base_path('routes'),
                 __DIR__.'/Http/Controllers/ModuleController.php' => app_path('Http/Controllers/ModuleController.php'),
+                __DIR__.'/../routes/web.php' => base_path('routes/web.php'),
             ], 'lararole-routes');
 
             $this->commands([
