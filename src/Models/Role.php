@@ -51,7 +51,7 @@ class Role extends Model
         });
 
         self::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
-            if (config('lararole.attach_all_children')) {
+            if (config('lararole.attach_all_children', false)) {
                 foreach ($pivotIdsAttributes as $key => $pivotIdsAttribute) {
                     if (Module::find($key)->nestedChildren()->count()) {
                         self::attachAllChildModules($model, $key, @$pivotIdsAttribute['permission']);
@@ -61,7 +61,7 @@ class Role extends Model
         });
 
         self::pivotDetached(function ($model, $relationName, $pivotIds) {
-            if (config('lararole.attach_all_children')) {
+            if (config('lararole.attach_all_children', false)) {
                 foreach ($pivotIds as $pivotId) {
                     if (Module::find($pivotId)->nestedChildren()->count()) {
                         self::detachAllChildModules($model, $pivotId);
