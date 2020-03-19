@@ -74,5 +74,7 @@ class TestCase extends \Orchestra\Testbench\Dusk\TestCase
         $app['config']->set('lararole.providers.users.model', User::class);
 
         $app['config']->set('lararole.modules', $this->modules);
+
+        $app['config']->set('lararole.attach_all_children', true);
     }
 }

@@ -47,4 +47,6 @@ return [
             'model' => App\User::class,
         ],
     ],
+
+    'attach_all_children' => true,
 ];

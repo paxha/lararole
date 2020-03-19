@@ -51,17 +51,21 @@ class Role extends Model
         });
 
         self::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
-            foreach ($pivotIdsAttributes as $key => $pivotIdsAttribute) {
-                if (Module::find($key)->nestedChildren()->count()) {
-                    self::attachAllChildModules($model, $key, @$pivotIdsAttribute['permission']);
+            if (config('lararole.attach_all_children')) {
+                foreach ($pivotIdsAttributes as $key => $pivotIdsAttribute) {
+                    if (Module::find($key)->nestedChildren()->count()) {
+                        self::attachAllChildModules($model, $key, @$pivotIdsAttribute['permission']);
+                    }
                 }
             }
         });
 
         self::pivotDetached(function ($model, $relationName, $pivotIds) {
-            foreach ($pivotIds as $pivotId) {
-                if (Module::find($pivotId)->nestedChildren()->count()) {
-                    self::detachAllChildModules($model, $pivotId);
+            if (config('lararole.attach_all_children')) {
+                foreach ($pivotIds as $pivotId) {
+                    if (Module::find($pivotId)->nestedChildren()->count()) {
+                        self::detachAllChildModules($model, $pivotId);
+                    }
                 }
             }
         });
