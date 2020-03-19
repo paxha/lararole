@@ -28,7 +28,7 @@ class LararoleSeeder extends Seeder
             }
         }
 
-        Role::create(['name' => 'Super Admin'])->modules()->attach(Module::root()->get(), ['permission' => 'write']);
+        Role::create(['name' => 'Super Admin'])->modules()->attach(config('lararole.attach_all_children') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
 
         factory(Role::class, 3)->create();
 
