@@ -1,15 +1,15 @@
 {
-    "author": "Hassan Raza Pasha",
-    "license": "LGPL-3.0",
-    "scripts": {
-        "dev": "vuepress dev docs",
-        "build": "vuepress build docs"
-    },
-    "keywords": [
-        "lararole",
-        "lararole-documentation"
-    ],
-    "devDependencies": {
-        "vuepress-plugin-seo": "^0.1.2"
-    }
+  "author": "Hassan Raza Pasha",
+  "license": "LGPL-3.0",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "keywords": [
+    "lararole",
+    "lararole-documentation"
+  ],
+  "devDependencies": {
+    "vuepress-plugin-seo": "^0.1.2"
+  }
 }

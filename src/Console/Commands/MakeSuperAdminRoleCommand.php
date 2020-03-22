@@ -48,7 +48,7 @@ class MakeSuperAdminRoleCommand extends Command
         $role = Role::create(['name' => 'Super Admin']);
         $this->info('Super admin role created');
 
-        $role->modules()->attach(config('lararole.attach_all_children') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
+        $role->modules()->attach(config('lararole.attachAllChildren') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
         $this->info('Root modules are assigned to super admin role with write permission.');
     }
 }

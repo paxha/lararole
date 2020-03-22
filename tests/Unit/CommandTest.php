@@ -2,6 +2,7 @@
 
 namespace Lararole\Tests\Unit;
 
+use Illuminate\Support\Facades\Config;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
@@ -26,11 +27,70 @@ class CommandTest extends TestCase
         'modules.order_processing',
     ];
 
+    private $new_modules = [
+        [
+            'name' => 'Product',
+            'icon' => 'icon-product',
+            'modules' => [
+                [
+                    'name' => 'Inventory',
+                    'modules' => [
+                        ['name' => 'Product Listing'],
+                    ],
+                ],
+                ['name' => 'Brand'],
+                ['name' => 'Supplier'],
+            ],
+        ],
+        [
+            'name' => 'User Management',
+            'icon' => 'icon-user',
+            'modules' => [
+                [
+                    'name' => 'User',
+                    'icon' => 'icon-user',
+                ],
+                [
+                    'name' => 'Role',
+                    'icon' => 'icon-role',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Order Processing',
+            'icon' => 'icon-order',
+            'modules' => [
+                ['name' => 'New Orders'],
+                ['name' => 'Dispatched'],
+            ],
+        ],
+        [
+            'name' => 'Others',
+            'icon' => 'icon-others',
+        ],
+    ];
+
     public function testMigrateModulesCommand()
     {
         $this->artisan('migrate:modules');
 
         $this->assertCount(11, Module::all());
+    }
+
+    public function testMigrateModulesWithSyncCommand()
+    {
+        $this->artisan('migrate:modules');
+        $this->artisan('make:super-admin-role');
+
+        Config::set('lararole.modules', $this->new_modules);
+
+        $this->artisan('migrate:modules --sync');
+
+        $this->assertEquals(12, Module::whereSlug('supplier')->first()->id);
+
+        $superAdminRole = Role::whereSlug('super-admin')->first();
+
+        $this->assertCount(12, $superAdminRole->modules);
     }
 
     public function testMakeViewsCommand()
@@ -39,17 +99,17 @@ class CommandTest extends TestCase
         $this->artisan('make:views');
 
         foreach ($this->moduleViews as $moduleView) {
-            $this->assertTrue(view()->exists($moduleView.'.create'));
-            $this->assertTrue(view()->exists($moduleView.'.edit'));
-            $this->assertTrue(view()->exists($moduleView.'.index'));
-            $this->assertTrue(view()->exists($moduleView.'.show'));
+            $this->assertTrue(view()->exists($moduleView . '.create'));
+            $this->assertTrue(view()->exists($moduleView . '.edit'));
+            $this->assertTrue(view()->exists($moduleView . '.index'));
+            $this->assertTrue(view()->exists($moduleView . '.show'));
         }
 
         foreach ($this->excludeModuleViews as $excludeModuleView) {
-            $this->assertFalse(view()->exists($excludeModuleView.'.create'));
-            $this->assertFalse(view()->exists($excludeModuleView.'.edit'));
-            $this->assertFalse(view()->exists($excludeModuleView.'.index'));
-            $this->assertFalse(view()->exists($excludeModuleView.'.show'));
+            $this->assertFalse(view()->exists($excludeModuleView . '.create'));
+            $this->assertFalse(view()->exists($excludeModuleView . '.edit'));
+            $this->assertFalse(view()->exists($excludeModuleView . '.index'));
+            $this->assertFalse(view()->exists($excludeModuleView . '.show'));
         }
     }
 
@@ -77,7 +137,7 @@ class CommandTest extends TestCase
             'name' => 'Super Admin',
         ]);
 
-        $this->artisan('assign-super-admin-role --user='.$user->id);
+        $this->artisan('assign-super-admin-role --user=' . $user->id);
 
         $this->assertCount(1, $user->roles);
     }

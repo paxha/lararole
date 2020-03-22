@@ -53,11 +53,11 @@ class TestCase extends \Orchestra\Testbench\Dusk\TestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        $this->withFactories(__DIR__.'/database/factories');
-        $this->withFactories(__DIR__.'/../database/factories');
+        $this->withFactories(__DIR__ . '/database/factories');
+        $this->withFactories(__DIR__ . '/../database/factories');
     }
 
     protected function getPackageProviders($app)
@@ -75,6 +75,8 @@ class TestCase extends \Orchestra\Testbench\Dusk\TestCase
 
         $app['config']->set('lararole.modules', $this->modules);
 
-        $app['config']->set('lararole.attach_all_children', true);
+        $app['config']->set('lararole.role.loggable', true);
+
+        $app['config']->set('lararole.attachAllChildren', true);
     }
 }
