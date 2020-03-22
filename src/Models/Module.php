@@ -3,13 +3,13 @@
 namespace Lararole\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Sluggable\Traits\Sluggable;
+use Illuminate\Support\Str;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 use RecursiveRelationships\Traits\HasRecursiveRelationships;
 
 class Module extends Model
 {
-    use HasRecursiveRelationships, HasRelationships, Sluggable;
+    use HasRecursiveRelationships, HasRelationships;
 
     protected $fillable = [
         'name', 'alias', 'icon',
@@ -19,14 +19,20 @@ class Module extends Model
     {
         parent::boot();
 
+        self::creating(function ($model) {
+            $model->slug = Str::slug($model->name, '_');
+
+            $latestSlug = self::whereRaw("slug = '$model->slug'")->latest('id')->value('slug');
+            if ($latestSlug) {
+                $pieces = explode('_', $latestSlug);
+                $number = intval(end($pieces));
+                $model->slug .= '_'.($number + 1);
+            }
+        });
+
         self::deleting(function ($model) {
             $model->children()->delete();
         });
-    }
-
-    public static function separator(): string
-    {
-        return '_';
     }
 
     public function getParentKeyName()

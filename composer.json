@@ -34,7 +34,7 @@
     "staudenmeir/eloquent-has-many-deep": "^1.11"
   },
   "require-dev": {
-    "orchestra/testbench-dusk": "^4.0",
+    "orchestra/testbench": "^5.1",
     "phpunit/phpunit": "^8.5"
   },
   "extra": {
