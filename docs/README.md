@@ -30,11 +30,18 @@ footer: GNU LGPLv3 Licensed | Copyright © 2019-Present Hassan Raza Pasha
 
     composer install paxha/lararole
     
-## Publish Configuration File
+## Publishables
 
 Before start development, lararole need configurations which will define Modules and User provider.
 
-    php artisan vendor:publish --provider="Lararole\LararoleServiceProvider"
-    
+    php artisan vendor:publish --tag="lararole-config"
+        
 This will export `lararole.php` in config. Setup modules with nesting modules. Example modules and nested modules are exported by default.
-There are also providers setup.
+
+### Optional Publishables
+
+    php artisan vendor:publish --tag="lararole-migrations"
+    
+    php artisan vendor:publish --tag="lararole-routes"
+    
+    php artisan vendor:publish --tag="lararole-views"

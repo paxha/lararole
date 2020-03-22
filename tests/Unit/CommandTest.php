@@ -6,6 +6,7 @@ use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Lararole\Tests\TestCase;
 use Lararole\Tests\Models\User;
+use Illuminate\Support\Facades\Config;
 
 class CommandTest extends TestCase
 {
@@ -26,11 +27,70 @@ class CommandTest extends TestCase
         'modules.order_processing',
     ];
 
+    private $new_modules = [
+        [
+            'name' => 'Product',
+            'icon' => 'icon-product',
+            'modules' => [
+                [
+                    'name' => 'Inventory',
+                    'modules' => [
+                        ['name' => 'Product Listing'],
+                    ],
+                ],
+                ['name' => 'Brand'],
+                ['name' => 'Supplier'],
+            ],
+        ],
+        [
+            'name' => 'User Management',
+            'icon' => 'icon-user',
+            'modules' => [
+                [
+                    'name' => 'User',
+                    'icon' => 'icon-user',
+                ],
+                [
+                    'name' => 'Role',
+                    'icon' => 'icon-role',
+                ],
+            ],
+        ],
+        [
+            'name' => 'Order Processing',
+            'icon' => 'icon-order',
+            'modules' => [
+                ['name' => 'New Orders'],
+                ['name' => 'Dispatched'],
+            ],
+        ],
+        [
+            'name' => 'Others',
+            'icon' => 'icon-others',
+        ],
+    ];
+
     public function testMigrateModulesCommand()
     {
         $this->artisan('migrate:modules');
 
         $this->assertCount(11, Module::all());
+    }
+
+    public function testMigrateModulesWithSyncCommand()
+    {
+        $this->artisan('migrate:modules');
+        $this->artisan('make:super-admin-role');
+
+        Config::set('lararole.modules', $this->new_modules);
+
+        $this->artisan('migrate:modules --sync');
+
+        $this->assertEquals(12, Module::whereSlug('supplier')->first()->id);
+
+        $superAdminRole = Role::whereSlug('super-admin')->first();
+
+        $this->assertCount(12, $superAdminRole->modules);
     }
 
     public function testMakeViewsCommand()

@@ -1,12 +1,19 @@
 <?php
 
 return [
+    /*
+     * Name should be unique otherwise it will cause error during sync modules you can put your short hand alias for display
+     * */
     'modules' => [
         [
             'name' => 'Inventory',
             'icon' => 'icon-inventory',
+            'alias' => 'Products',
             'modules' => [
-                ['name' => 'Product'],
+                [
+                    'name' => 'Product',
+                    'alias' => 'Products',
+                ],
                 ['name' => 'Brand'],
                 ['name' => 'Category'],
                 ['name' => 'Unit'],
@@ -48,5 +55,9 @@ return [
         ],
     ],
 
-    'attach_all_children' => true,
+    'role' => [
+        'loggable' => false,
+    ],
+
+    'attachAllChildren' => true,
 ];

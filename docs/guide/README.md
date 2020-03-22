@@ -23,10 +23,10 @@ These permissions are controlled by middleware `permission.read` and `permission
 ## Features
 
 **A Quick Start Project**
--   Built-in Migrations
--   Built-in Routes
+-   Built-in and Publishable Migrations
+-   Built-in and Publishable Routes
 -   Built-in Models
--   Built-in Controller
+-   Built-in and Publishable Controller
 -   Built in Seed
 -   Read/Write permission middleware
 -   Manageable directory structure

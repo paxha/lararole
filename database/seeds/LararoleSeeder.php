@@ -6,6 +6,7 @@ use Faker\Factory;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class LararoleSeeder extends Seeder
 {
@@ -17,18 +18,9 @@ class LararoleSeeder extends Seeder
     public function run()
     {
         // Modules
-        foreach (config('lararole.modules') as $module) {
-            $m = Module::create([
-                'name' => $module['name'],
-                'icon' => @$module['icon'],
-            ]);
+        Artisan::call('migrate:modules');
 
-            if (@$module['modules']) {
-                $m->createModules(@$module['modules']);
-            }
-        }
-
-        Role::create(['name' => 'Super Admin'])->modules()->attach(config('lararole.attach_all_children') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
+        Role::create(['name' => 'Super Admin'])->modules()->attach(config('lararole.attachAllChildren') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
 
         factory(Role::class, 3)->create();
 

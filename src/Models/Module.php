@@ -12,12 +12,13 @@ class Module extends Model
     use HasRecursiveRelationships, HasRelationships;
 
     protected $fillable = [
-        'name', 'icon',
+        'name', 'alias', 'icon',
     ];
 
     public static function boot()
     {
         parent::boot();
+
         self::creating(function ($model) {
             $model->slug = Str::slug($model->name, '_');
 
@@ -30,9 +31,7 @@ class Module extends Model
         });
 
         self::deleting(function ($model) {
-            foreach ($model->children as $module) {
-                $module->delete();
-            }
+            $model->children()->delete();
         });
     }
 
@@ -47,10 +46,27 @@ class Module extends Model
             $subModule = $this->children()->create([
                 'name' => $module['name'],
                 'icon' => @$module['icon'],
+                'alias' => @$module['alias'] ?? $module['name'],
             ]);
 
             if (@$module['modules']) {
                 $subModule->createModules($module['modules']);
+            }
+        }
+    }
+
+    public function updateOrCreateModules(array $modules)
+    {
+        foreach ($modules as $module) {
+            $subModule = $this->children()->updateOrCreate([
+                'name' => $module['name'],
+            ], [
+                'icon' => @$module['icon'],
+                'alias' => @$module['alias'] ?? $module['name'],
+            ]);
+
+            if (@$module['modules']) {
+                $subModule->updateOrCreateModules($module['modules']);
             }
         }
     }

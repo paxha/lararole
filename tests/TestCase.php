@@ -5,7 +5,7 @@ namespace Lararole\Tests;
 use Lararole\Tests\Models\User;
 use Lararole\LararoleServiceProvider;
 
-class TestCase extends \Orchestra\Testbench\Dusk\TestCase
+class TestCase extends \Orchestra\Testbench\TestCase
 {
     protected $modules = [
         [
@@ -75,6 +75,8 @@ class TestCase extends \Orchestra\Testbench\Dusk\TestCase
 
         $app['config']->set('lararole.modules', $this->modules);
 
-        $app['config']->set('lararole.attach_all_children', true);
+        $app['config']->set('lararole.role.loggable', true);
+
+        $app['config']->set('lararole.attachAllChildren', true);
     }
 }
