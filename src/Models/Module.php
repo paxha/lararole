@@ -2,8 +2,8 @@
 
 namespace Lararole\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Sluggable\Traits\Sluggable;
+use Illuminate\Database\Eloquent\Model;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 use RecursiveRelationships\Traits\HasRecursiveRelationships;
 
@@ -53,10 +53,10 @@ class Module extends Model
     {
         foreach ($modules as $module) {
             $subModule = $this->children()->updateOrCreate([
-                'name' => $module['name']
+                'name' => $module['name'],
             ], [
                 'icon' => @$module['icon'],
-                'alias' => @$module['alias'] ?? $module['name']
+                'alias' => @$module['alias'] ?? $module['name'],
             ]);
 
             if (@$module['modules']) {

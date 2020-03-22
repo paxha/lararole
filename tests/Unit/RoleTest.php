@@ -2,12 +2,12 @@
 
 namespace Lararole\Tests\Unit;
 
-use Illuminate\Support\Facades\Config;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Illuminate\Http\Request;
-use Lararole\Tests\Models\User;
 use Lararole\Tests\TestCase;
+use Lararole\Tests\Models\User;
+use Illuminate\Support\Facades\Config;
 
 class RoleTest extends TestCase
 {
@@ -213,7 +213,7 @@ class RoleTest extends TestCase
         ]);
 
         $role->update([
-            'name' => 'Super Admin Updated'
+            'name' => 'Super Admin Updated',
         ]);
 
         $this->assertEquals(auth()->user()->name, $role->updater->name);
