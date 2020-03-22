@@ -2,9 +2,9 @@
 
 namespace Lararole\Console\Commands;
 
+use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Illuminate\Console\Command;
-use Lararole\Models\Role;
 
 class MigrateModulesCommand extends Command
 {
@@ -39,12 +39,12 @@ class MigrateModulesCommand extends Command
      */
     public function handle()
     {
-        if (!$this->option('sync')) {
+        if (! $this->option('sync')) {
             foreach (config('lararole.modules') as $module) {
                 $m = Module::create([
                     'name' => $module['name'],
                     'icon' => @$module['icon'],
-                    'alias' => @$module['alias'] ?? $module['name']
+                    'alias' => @$module['alias'] ?? $module['name'],
                 ]);
 
                 if (@$module['modules']) {
@@ -56,10 +56,10 @@ class MigrateModulesCommand extends Command
         } else {
             foreach (config('lararole.modules') as $module) {
                 $m = Module::updateOrCreate([
-                    'name' => $module['name']
+                    'name' => $module['name'],
                 ], [
                     'icon' => @$module['icon'],
-                    'alias' => @$module['alias'] ?? $module['name']
+                    'alias' => @$module['alias'] ?? $module['name'],
                 ]);
 
                 if (@$module['modules']) {

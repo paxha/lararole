@@ -59,10 +59,10 @@ class Module extends Model
     {
         foreach ($modules as $module) {
             $subModule = $this->children()->updateOrCreate([
-                'name' => $module['name']
+                'name' => $module['name'],
             ], [
                 'icon' => @$module['icon'],
-                'alias' => @$module['alias'] ?? $module['name']
+                'alias' => @$module['alias'] ?? $module['name'],
             ]);
 
             if (@$module['modules']) {

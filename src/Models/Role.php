@@ -2,9 +2,9 @@
 
 namespace Lararole\Models;
 
+use Lararole\Traits\Loggable;
 use Lararole\Traits\Activable;
 use Lararole\Traits\HasModules;
-use Lararole\Traits\Loggable;
 use Sluggable\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +15,7 @@ class Role extends Model
     use SoftDeletes, Activable, Sluggable, PivotEventTrait, HasModules, Loggable;
 
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     protected $guarded = [
