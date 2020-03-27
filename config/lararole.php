@@ -12,7 +12,7 @@ return [
             'modules' => [
                 [
                     'name' => 'Product',
-                    'alias' => 'Products'
+                    'alias' => 'Products',
                 ],
                 ['name' => 'Brand'],
                 ['name' => 'Category'],

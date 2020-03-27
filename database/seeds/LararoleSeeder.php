@@ -3,10 +3,10 @@
 namespace Lararole\Database\Seeds;
 
 use Faker\Factory;
-use Illuminate\Support\Facades\Artisan;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class LararoleSeeder extends Seeder
 {

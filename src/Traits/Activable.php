@@ -6,7 +6,7 @@ trait Activable
 {
     public function toggleActive()
     {
-        $this->active = !$this->active;
+        $this->active = ! $this->active;
         $this->save();
     }
 
