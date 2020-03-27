@@ -103,6 +103,32 @@ class RoleTest extends TestCase
         $this->assertEquals(true, $role->active);
     }
 
+    public function testMarkAsActive()
+    {
+        Role::create([
+            'name' => 'Super Admin',
+        ]);
+
+        $role = Role::whereSlug('super-admin')->first();
+
+        $role->markAsActive();
+
+        $this->assertEquals(true, $role->active);
+    }
+
+    public function testMarkAsInactive()
+    {
+        Role::create([
+            'name' => 'Super Admin',
+        ]);
+
+        $role = Role::whereSlug('super-admin')->first();
+
+        $role->markAsInactive();
+
+        $this->assertEquals(false, $role->active);
+    }
+
     public function testAttachAllChildrenTrue()
     {
         Config::set('lararole.attachAllChildren', true);
