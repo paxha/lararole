@@ -26,6 +26,8 @@
   ],
   "require": {
     "php": "^7.2.5",
+    "ext-json": "*",
+    "laravel/framework": "^6.0|^7.0",
     "doctrine/dbal": "^2.10",
     "fico7489/laravel-pivot": "^3.0",
     "paxha/artisan-view": "^3.4",
@@ -34,7 +36,8 @@
     "staudenmeir/eloquent-has-many-deep": "^1.11"
   },
   "require-dev": {
-    "orchestra/testbench": "^5.1",
+    "ext-gd": "*",
+    "orchestra/testbench": "^4.0|^5.0",
     "phpunit/phpunit": "^8.5"
   },
   "extra": {
