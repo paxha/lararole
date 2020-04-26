@@ -1,4 +1,4 @@
-<p align="center"><a href="https://lararole.com"><img src="https://www.lararole.com/images/logo.png" alt="logo" width="100"></a></p>
+<p align="center"><a href="https://lararole.com"><img src="https://i.pinimg.com/originals/7e/99/b7/7e99b7012ebfe2234d5e7545f48e32c2.png" alt="logo" width="100"></a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/paxha/lararole"><img src="https://img.shields.io/travis/paxha/lararole/master.svg?style=flat-square" alt="Build Status"></a>
