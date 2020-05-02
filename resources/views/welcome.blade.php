@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset(mix('app.css', 'vendor/telescope')) }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset(mix('app.css', 'vendor/lararole')) }}" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
 <div id="app">

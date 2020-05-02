@@ -4,6 +4,7 @@ namespace Lararole;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Lararole\Console\Commands\InstallCommand;
 use Sven\ArtisanView\Commands\MakeView;
 use Lararole\Containers\RoleServiceContainer;
 use Lararole\Console\Commands\MakeViewsCommand;
@@ -42,14 +43,12 @@ class LararoleServiceProvider extends ServiceProvider
     {
         $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/../database/factories');
 
-        $this->loadViews();
-
         if ($this->app->runningInConsole()) {
             /*Migrations Publishable*/
-            $this->registerMigrations();
             $this->publishes([
                 __DIR__.'/../database/migrations' => database_path('migrations'),
             ], 'lararole-migrations');
+            $this->registerMigrations();
 
             /*Config Publishable*/
             $this->publishes([
@@ -60,15 +59,23 @@ class LararoleServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../resources/views/access_denied.blade.php' => base_path('resources/views'),
             ], 'lararole-views');
+            $this->registerViews();
 
-            $this->registerRoutes();
+            /*Routes Publishable*/
             $this->publishes([
                 __DIR__.'/Http/Controllers/ModuleController.php' => app_path('Http/Controllers/ModuleController.php'),
                 __DIR__.'/../routes/web.php' => base_path('routes/module.web.php'),
             ], 'lararole-routes');
+            $this->registerRoutes();
+
+            /*Assets Publishable*/
+            $this->publishes([
+                __DIR__.'/../public' => public_path('vendor/lararole'),
+            ], 'lararole-assets');
 
             $this->commands([
                 MakeSuperAdminRoleCommand::class,
+                InstallCommand::class,
                 MakeView::class,
                 MakeViewsCommand::class,
                 MigrateModulesCommand::class,
@@ -142,7 +149,7 @@ class LararoleServiceProvider extends ServiceProvider
     protected function registerViews()
     {
         if (Lararole::shouldRunViews()) {
-            $this->loadViewsFrom(__DIR__.'/../resources/views');
+            $this->loadViewsFrom(__DIR__.'/../resources/views', 'lararole');
         }
     }
 
