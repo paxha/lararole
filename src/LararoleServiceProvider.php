@@ -42,6 +42,8 @@ class LararoleServiceProvider extends ServiceProvider
     {
         $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/../database/factories');
 
+        $this->loadViews();
+
         if ($this->app->runningInConsole()) {
             /*Migrations Publishable*/
             $this->registerMigrations();
@@ -56,8 +58,8 @@ class LararoleServiceProvider extends ServiceProvider
 
             /*Views Publishable*/
             $this->publishes([
-                __DIR__.'/../resources/views' => base_path('resources/views'),
-            ], 'lararole-views/access_denied.blade.php');
+                __DIR__.'/../resources/views/access_denied.blade.php' => base_path('resources/views'),
+            ], 'lararole-views');
 
             $this->registerRoutes();
             $this->publishes([
@@ -75,6 +77,11 @@ class LararoleServiceProvider extends ServiceProvider
         }
 
         $this->configureMiddleware();
+    }
+
+    protected function loadViews()
+    {
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'lararole');
     }
 
     /**
