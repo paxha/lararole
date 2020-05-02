@@ -2,12 +2,12 @@
 
 namespace Lararole\Models;
 
+use Illuminate\Support\Str;
+use Sluggable\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Str;
-use RecursiveRelationships\Traits\HasRecursiveRelationships;
-use Sluggable\Traits\Sluggable;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
+use RecursiveRelationships\Traits\HasRecursiveRelationships;
 
 class Module extends Model
 {
