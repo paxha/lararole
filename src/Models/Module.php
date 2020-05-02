@@ -2,14 +2,16 @@
 
 namespace Lararole\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Staudenmeir\EloquentHasManyDeep\HasRelationships;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use RecursiveRelationships\Traits\HasRecursiveRelationships;
+use Sluggable\Traits\Sluggable;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class Module extends Model
 {
-    use HasRecursiveRelationships, HasRelationships;
+    use SoftDeletes, Sluggable, HasRecursiveRelationships, HasRelationships;
 
     protected $fillable = [
         'name', 'alias', 'icon',

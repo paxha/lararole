@@ -14,7 +14,7 @@ class CreateModuleRoleTable extends Migration
     public function up()
     {
         Schema::create('module_role', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id('id');
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('module_id');
             $table->enum('permission', ['read', 'write'])->default('read');
