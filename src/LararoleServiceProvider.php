@@ -4,8 +4,8 @@ namespace Lararole;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Lararole\Console\Commands\InstallCommand;
 use Sven\ArtisanView\Commands\MakeView;
+use Lararole\Console\Commands\InstallCommand;
 use Lararole\Containers\RoleServiceContainer;
 use Lararole\Console\Commands\MakeViewsCommand;
 use Lararole\Containers\ModuleServiceContainer;
