@@ -2,6 +2,8 @@
 
 namespace Lararole\Http\Controllers;
 
+use Illuminate\Routing\Controller;
+
 use Lararole\Models\Module;
 
 class ModuleController extends Controller
@@ -16,7 +18,7 @@ class ModuleController extends Controller
     {
         $data = $this->data($moduleSlug);
 
-        return view($data['view'].'.index', $data);
+        return view($data['view'] . '.index', $data);
     }
 
     /**
@@ -32,7 +34,7 @@ class ModuleController extends Controller
         $view = 'modules.';
 
         foreach (array_reverse($module->ancestors()->toArray()) as $ancestor) {
-            $view .= $ancestor['slug'].'.';
+            $view .= $ancestor['slug'] . '.';
         }
 
         $view .= $module->slug;
@@ -53,7 +55,7 @@ class ModuleController extends Controller
     {
         $data = $this->data($moduleSlug);
 
-        return view($data['view'].'.create', $data);
+        return view($data['view'] . '.create', $data);
     }
 
     /**
@@ -67,7 +69,7 @@ class ModuleController extends Controller
     {
         $data = $this->data($moduleSlug);
 
-        return view($data['view'].'.show', $data)->with('id', $id);
+        return view($data['view'] . '.show', $data)->with('id', $id);
     }
 
     /**
@@ -81,7 +83,7 @@ class ModuleController extends Controller
     {
         $data = $this->data($moduleSlug);
 
-        return view($data['view'].'.edit', $data)->with('id', $id);
+        return view($data['view'] . '.edit', $data)->with('id', $id);
     }
 
     public function accessDenied()
