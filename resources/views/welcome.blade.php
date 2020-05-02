@@ -7,20 +7,18 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <title>{{ config('app.name', 'Lararole') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset(mix('app.css', 'vendor/telescope')) }}" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
 <div id="app">
 </div>
+<script src="{{asset(mix('app.js', 'vendor/lararole'))}}"></script>
 </body>
 </html>
