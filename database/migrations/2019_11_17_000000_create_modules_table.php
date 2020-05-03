@@ -18,8 +18,8 @@ class CreateModulesTable extends Migration
             $table->unsignedBigInteger('module_id')->nullable();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('alias');
-            $table->integer('order')->nullable();
+            $table->string('alias')->nullable();
+            $table->string('icon')->nullable();
 
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
