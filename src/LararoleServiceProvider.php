@@ -2,11 +2,11 @@
 
 namespace Lararole;
 
+use Lararole\Services\Role;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Sven\ArtisanView\Commands\MakeView;
 use Lararole\Console\Commands\InstallCommand;
-use Lararole\Services\Role;
 use Lararole\Console\Commands\MakeViewsCommand;
 use Lararole\Console\Commands\MigrateModulesCommand;
 use Lararole\Http\Middleware\ModuleHasReadPermission;

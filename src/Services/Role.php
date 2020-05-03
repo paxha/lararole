@@ -16,7 +16,8 @@ class Role
         return $this->superAdminRole() !== null;
     }
 
-    public function syncSuperAdminRoleModules(){
+    public function syncSuperAdminRoleModules()
+    {
         $this->superAdminRole()->modules()->sync(config('lararole.attachAllChildren') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
     }
 }
