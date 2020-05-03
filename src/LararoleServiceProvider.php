@@ -118,7 +118,6 @@ class LararoleServiceProvider extends ServiceProvider
             Route::group($this->webRoutesConfiguration(), function () {
                 $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
             });
-
         }
     }
 
