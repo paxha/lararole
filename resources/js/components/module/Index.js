@@ -9,6 +9,7 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
+        fixed: 'left',
         render: (text, record) => <Link to={{pathname: '/lararole/module/' + record.id + '/edit'}}>{text}</Link>,
     },
     {
@@ -22,6 +23,11 @@ const columns = [
         key: 'alias',
     },
     {
+        title: 'Last Update',
+        dataIndex: 'updated_at',
+        key: 'last_update',
+    },
+    {
         title: 'Created',
         dataIndex: 'created_at',
         key: 'created',
@@ -29,6 +35,7 @@ const columns = [
     {
         title: '',
         key: 'action',
+        fixed: 'right',
         render: (text, record) => (
             <span>
                 <Link to={{pathname: '/lararole/module/' + record.id + '/create'}} style={{marginRight: 16}}>
@@ -107,7 +114,7 @@ function Index() {
         <div>
             <Breadcrumb style={{margin: '16px 0'}}>
                 <Breadcrumb.Item>
-                    <Link to="/">
+                    <Link to="/lararole">
                         <HomeOutlined/> Home
                     </Link>
                 </Breadcrumb.Item>
@@ -142,7 +149,7 @@ function Index() {
                         {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
                     </span>
 
-            <Table columns={columns} rowSelection={rowSelection} dataSource={modules}/>
+            <Table columns={columns} rowSelection={rowSelection} dataSource={modules} scroll={{x: 1640}}/>
         </div>
     );
 }

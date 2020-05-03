@@ -43,7 +43,8 @@ const NewModuleForm = (id) => {
     const onFinish = values => {
         axios.post('/lararole/api/module/' + (id.id ? id.id + '/' : '') + 'create', {
             name: values.name,
-            alias: values.alias
+            alias: values.alias,
+            icon: values.icon
         }).then((response) => {
             window.location = "/lararole/module"
         })
@@ -67,7 +68,7 @@ const NewModuleForm = (id) => {
                 label={
                     <span>
                         Alias&nbsp;
-                        <Tooltip title="What do you want show alternate of module?">
+                        <Tooltip title="What do you want to show alternate of module name?">
                             <QuestionCircleOutlined/>
                         </Tooltip>
                     </span>
@@ -76,11 +77,24 @@ const NewModuleForm = (id) => {
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your nickname!',
+                        message: 'Please input your alias!',
                     },
                 ]}>
                 <Input placeholder="Product Management, Order Processing etc..."/>
             </Form.Item>
+
+            <Form.Item
+                label="Icon"
+                name="icon"
+                rules={[
+                    {
+                        required: false,
+                        message: 'Please input your icon name or icon path!',
+                    },
+                ]}>
+                <Input placeholder="fa fa-users etc..."/>
+            </Form.Item>
+
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">
                     Create Module

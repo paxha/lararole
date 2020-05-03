@@ -20,7 +20,9 @@ class Module extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'alias' => $this->alias,
+            'icon' => $this->icon,
             'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
 
         if ($this->children->count()) {

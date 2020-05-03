@@ -40,11 +40,13 @@ const tailFormItemLayout = {
 const EditModuleForm = (id) => {
     const [name, setName] = useState(null);
     const [alias, setAlias] = useState(null);
+    const [icon, setIcon] = useState(null);
 
     useEffect(() => {
         axios.get('/lararole/api/module/' + id.id + '/edit').then((response) => {
             setName(response.data.module.name);
             setAlias(response.data.module.alias);
+            setIcon(response.data.module.icon);
         });
     }, []);
 
@@ -69,7 +71,7 @@ const EditModuleForm = (id) => {
                 onFinish={onFinish}
             >
                 <Form.Item label="Module Name" rules={[
-                    {required: true, message: 'Module name is required'}
+                    {required: true, message: 'Please input you module name'}
                 ]}>
                     <Input placeholder="Product Management, Order Processing etc..." value={name} allowClear
                            onChange={event => {
@@ -81,16 +83,15 @@ const EditModuleForm = (id) => {
                     label={
                         <span>
                             Alias&nbsp;
-                            <Tooltip title="What do you want show alternate of module?">
+                            <Tooltip title="What do you want to show alternate of module name?">
                                 <QuestionCircleOutlined/>
                             </Tooltip>
                         </span>
                     }
                     rules={[
                         {
-                            required: false,
-                            message: 'Please input your nickname!',
-                            whitespace: true,
+                            required: true,
+                            message: 'Please input your module alias!',
                         },
                     ]}>
                     <Input placeholder="Product Management, Order Processing etc..." value={alias} allowClear
@@ -98,6 +99,21 @@ const EditModuleForm = (id) => {
                                setAlias(event.target.value)
                            }}/>
                 </Form.Item>
+
+                <Form.Item
+                    label="Icon"
+                    rules={[
+                        {
+                            required: false,
+                            message: 'Please input your icon name or icon path!',
+                        },
+                    ]}>
+                    <Input placeholder="fa fa-users etc..." value={icon} allowClear
+                           onChange={event => {
+                               setIcon(event.target.value)
+                           }}/>
+                </Form.Item>
+
                 <Form.Item {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit">
                         Update Module
