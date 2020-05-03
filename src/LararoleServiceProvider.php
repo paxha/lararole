@@ -111,13 +111,14 @@ class LararoleServiceProvider extends ServiceProvider
         if (Lararole::shouldRunRoutes()) {
             $this->loadRoutesFrom(__DIR__.'/../routes/module.php');
 
+            Route::group($this->apiRoutesConfiguration(), function () {
+                $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+            });
+
             Route::group($this->webRoutesConfiguration(), function () {
                 $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
             });
 
-            Route::group($this->apiRoutesConfiguration(), function () {
-                $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
-            });
         }
     }
 
