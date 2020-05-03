@@ -43,5 +43,4 @@ class RoleFacadeTest extends TestCase
 
         $this->assertCount(11, $role->modules);
     }
-
 }
