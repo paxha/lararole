@@ -6,9 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Sven\ArtisanView\Commands\MakeView;
 use Lararole\Console\Commands\InstallCommand;
-use Lararole\Containers\RoleServiceContainer;
+use Lararole\Services\Role;
 use Lararole\Console\Commands\MakeViewsCommand;
-use Lararole\Containers\ModuleServiceContainer;
 use Lararole\Console\Commands\MigrateModulesCommand;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
@@ -24,12 +23,8 @@ class LararoleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('module', function () {
-            return new ModuleServiceContainer();
-        });
-
         $this->app->bind('role', function () {
-            return new RoleServiceContainer();
+            return new Role();
         });
     }
 

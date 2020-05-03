@@ -2,6 +2,7 @@
 
 namespace Lararole\Http\Controllers\Api;
 
+use Lararole\Facades\Role;
 use Lararole\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -48,6 +49,8 @@ class ModuleController extends Controller
 
         $module = Module::create($request->all());
 
+        \role()->syncSuperAdminRoleModules();
+
         return response()->json([
             'message' => $module->name . ' successfully created.'
         ], 201);
@@ -74,12 +77,16 @@ class ModuleController extends Controller
             $trashedModule->restore();
             $trashedModule->update($request->all());
 
+            \role()->syncSuperAdminRoleModules();
+
             return response()->json([
                 'message' => $module->name . ' successfully restored.'
             ]);
         }
 
         $module = $module->children()->create($request->all());
+
+        \role()->syncSuperAdminRoleModules();
 
         return response()->json([
             'message' => $module->name . ' successfully created.'
@@ -122,6 +129,8 @@ class ModuleController extends Controller
 
         $module->update($request->all());
 
+        \role()->syncSuperAdminRoleModules();
+
         return response()->json([
             'message' => $module->name . ' successfully updated.',
             'module' => $module
@@ -140,6 +149,8 @@ class ModuleController extends Controller
         $name = $module->name;
 
         $module->delete();
+
+        \role()->syncSuperAdminRoleModules();
 
         return response()->json([
             'message' => $name . ' successfully deleted.'
@@ -160,6 +171,8 @@ class ModuleController extends Controller
         ]);
 
         Module::destroy($request->moduleIds);
+
+        \role()->syncSuperAdminRoleModules();
 
         return response()->json([
             'message' => 'Modules successfully deleted.'

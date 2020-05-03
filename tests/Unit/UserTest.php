@@ -37,7 +37,7 @@ class UserTest extends TestCase
             'name' => 'Super Admin',
         ]);
 
-        $user->assignRoles(\role()->all()->pluck('id')->toArray());
+        $user->assignRoles(Role::all()->pluck('id')->toArray());
 
         $this->assertCount(2, $user->roles);
     }
@@ -56,7 +56,7 @@ class UserTest extends TestCase
             'name' => 'Super Admin',
         ]);
 
-        $user->removeRoles(\role()->all()->pluck('id')->toArray());
+        $user->removeRoles(Role::all()->pluck('id')->toArray());
 
         $this->assertCount(0, $user->roles);
     }
