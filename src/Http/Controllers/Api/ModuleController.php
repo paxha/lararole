@@ -42,7 +42,7 @@ class ModuleController extends Controller
             $trashedModule->update($request->all());
 
             return response()->json([
-                'message' => $trashedModule->name . ' successfully restored.',
+                'message' => $trashedModule->name.' successfully restored.',
             ]);
         }
 
@@ -51,7 +51,7 @@ class ModuleController extends Controller
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name . ' successfully created.',
+            'message' => $module->name.' successfully created.',
         ], 201);
     }
 
@@ -64,7 +64,7 @@ class ModuleController extends Controller
     public function edit(Module $module)
     {
         return response()->json([
-            'module' => new \Lararole\Http\Resources\Module($module)
+            'module' => new \Lararole\Http\Resources\Module($module),
         ]);
     }
 
@@ -94,7 +94,7 @@ class ModuleController extends Controller
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name . ' successfully updated.',
+            'message' => $module->name.' successfully updated.',
             'module' => $module,
         ]);
     }
@@ -115,7 +115,7 @@ class ModuleController extends Controller
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $name . ' successfully deleted.',
+            'message' => $name.' successfully deleted.',
         ]);
     }
 
