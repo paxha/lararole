@@ -2,7 +2,6 @@
 
 namespace Lararole\Http\Controllers\Api;
 
-use Lararole\Facades\Role;
 use Lararole\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
