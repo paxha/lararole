@@ -10,7 +10,7 @@ function Home() {
         <div>
             <Breadcrumb style={{margin: '16px 0'}}>
                 <Breadcrumb.Item>
-                    <Link to="/">
+                    <Link to="/lararole">
                         <HomeOutlined/> Home
                     </Link>
                 </Breadcrumb.Item>

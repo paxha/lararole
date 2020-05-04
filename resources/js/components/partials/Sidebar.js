@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import {Layout, Menu} from "antd";
-import {DeleteOutlined, DeploymentUnitOutlined, HomeOutlined, TeamOutlined} from '@ant-design/icons';
+import {DeploymentUnitOutlined, HomeOutlined} from '@ant-design/icons';
 
 const {Sider} = Layout;
 
 function Sidebar() {
-    console.log(window.location.pathname.split('/'));
     const [collapsed, setCollapsed] = useState(false);
 
     function onCollapse() {
