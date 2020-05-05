@@ -29,6 +29,10 @@ class Module extends JsonResource
             $array['children'] = new ModuleCollection($this->children);
         }
 
+        if ($this->parent) {
+            $array['parent'] = $this->parent;
+        }
+
         return $array;
     }
 }

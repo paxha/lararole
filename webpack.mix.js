@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const webpack = require('webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +12,25 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.react('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.options({
+    terser: {
+        terserOptions: {
+            compress: {
+                drop_console: true,
+            },
+        },
+    },
+}).setPublicPath('public')
+    .react('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css')
+    .version()
+    .copy('public', '../../../public/vendor/lararole')
+    .webpackConfig({
+        resolve: {
+            symlinks: false,
+            alias: {
+                '@': path.resolve(__dirname, 'resources/js/'),
+            },
+        },
+        plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
+    });
