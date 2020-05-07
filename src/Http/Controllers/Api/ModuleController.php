@@ -2,10 +2,10 @@
 
 namespace Lararole\Http\Controllers\Api;
 
-use Lararole\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Lararole\Http\Resources\ModuleCollection;
+use Lararole\Models\Module;
 
 class ModuleController extends Controller
 {
@@ -101,7 +101,6 @@ class ModuleController extends Controller
 
         return response()->json([
             'message' => $module->name . ' successfully updated.',
-            'module' => $module,
         ]);
     }
 
@@ -134,8 +133,8 @@ class ModuleController extends Controller
     public function destroyMany(Request $request)
     {
         $request->validate([
-            'moduleIds' => ['required', 'array', 'min:1'],
-            'moduleIds.*.id' => ['required_with:moduleIds', 'exists:modules,id'],
+            'modules' => ['required', 'array', 'min:1'],
+            'modules.*.id' => ['required', 'exists:modules,id'],
         ]);
 
         Module::destroy($request->moduleIds);

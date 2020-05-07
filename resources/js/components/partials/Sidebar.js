@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import {Layout, Menu} from "antd";
-import {DeploymentUnitOutlined, HomeOutlined} from '@ant-design/icons';
+import {HomeOutlined, PartitionOutlined, UsergroupAddOutlined} from '@ant-design/icons';
 
 const {Sider} = Layout;
 
@@ -23,9 +23,15 @@ function Sidebar() {
                     </Link>
                 </Menu.Item>
                 <Menu.Item key="module">
-                    <Link to='/lararole/module' replace>
-                        <DeploymentUnitOutlined/>
+                    <Link to='/lararole/module'>
+                        <PartitionOutlined/>
                         <span>Module</span>
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key="role">
+                    <Link to='/lararole/role'>
+                        <UsergroupAddOutlined/>
+                        <span>Role</span>
                     </Link>
                 </Menu.Item>
             </Menu>

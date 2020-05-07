@@ -19,11 +19,7 @@ const columns = (setIsVisibleEditForm, setId, setName, setAlias, setIcon, setPar
                     setName(response.data.module.name);
                     setAlias(response.data.module.alias);
                     setIcon(response.data.module.icon);
-                    if (response.data.module.parent) {
-                        setParentModuleId(response.data.module.parent.id);
-                    } else {
-                        setParentModuleId(null);
-                    }
+                    setParentModuleId(response.data.module.module_id);
                 });
             }}>{text}</a>,
         },
@@ -61,11 +57,7 @@ const columns = (setIsVisibleEditForm, setId, setName, setAlias, setIcon, setPar
                         setName(response.data.module.name);
                         setAlias(response.data.module.alias);
                         setIcon(response.data.module.icon);
-                        if (response.data.module.parent) {
-                            setParentModuleId(response.data.module.parent.id);
-                        } else {
-                            setParentModuleId(null);
-                        }
+                        setParentModuleId(response.data.module.module_id);
                     });
                 }}>
                     <EditOutlined/> Edit
@@ -212,7 +204,7 @@ function Index() {
                 title="Are you sure delete this module?"
                 onConfirm={() => {
                     axios.delete('/lararole/api/modules/delete', {
-                        data: {moduleIds: selectedModuleIds}
+                        data: {modules: selectedModuleIds}
                     }).then(() => {
                         loadModules();
                     });

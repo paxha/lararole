@@ -5,6 +5,7 @@ import MyHeader from "./partials/MyHeader";
 import MyFooter from "./partials/MyFooter";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import ModuleIndex from "./module";
+import RoleIndex from "./role";
 import Sidebar from "./partials/Sidebar";
 import Home from "./Home";
 
@@ -20,6 +21,7 @@ function App() {
                     <Content style={{margin: '0 16px'}}>
                         <Route exact path="/lararole" component={Home}/>
                         <Route exact path="/lararole/module" component={ModuleIndex}/>
+                        <Route exact path="/lararole/role" component={RoleIndex}/>
                     </Content>
                     <MyFooter/>
                 </Layout>
