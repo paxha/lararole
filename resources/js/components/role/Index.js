@@ -127,75 +127,101 @@ const moduleColumns = (modules, setModules) => {
     function updateParentModule(modules, module) {
         let parentModule = getModule(modules, module.module_id);
 
-        let readSiblingsChecked = true;
-        let writeSiblingsChecked = true;
+        let hasSiblings = parentModule.children.length > 1;
+
+        let readChecked = module.readChecked;
+        let writeChecked = module.writeChecked;
+
+        let readIndeterminate = module.readIndeterminate;
+        let writeIndeterminate = module.writeIndeterminate;
+
+        let readSiblingsChecked = false;
+        let writeSiblingsChecked = false;
+
+        let readSiblingsIndeterminate = false;
+        let writeSiblingsIndeterminate = false;
 
         for (let i = 0; i < parentModule.children.length; i++) {
             if (parentModule.children[i].id !== module.id) {
-                if (!parentModule.children[i].readChecked) {
-                    readSiblingsChecked = false;
+                if (parentModule.children[i].readChecked) {
+                    readSiblingsChecked = true;
                 }
             }
         }
 
         for (let i = 0; i < parentModule.children.length; i++) {
             if (parentModule.children[i].id !== module.id) {
-                if (!parentModule.children[i].writeChecked) {
-                    writeSiblingsChecked = false;
+                if (parentModule.children[i].writeChecked) {
+                    writeSiblingsChecked = true;
                 }
             }
         }
 
-        if (module.readChecked) {
-            if (readSiblingsChecked) {
+        for (let i = 0; i < parentModule.children.length; i++) {
+            if (parentModule.children[i].id !== module.id) {
+                if (parentModule.children[i].readIndeterminate) {
+                    readSiblingsIndeterminate = true;
+                }
+            }
+        }
+
+        for (let i = 0; i < parentModule.children.length; i++) {
+            if (parentModule.children[i].id !== module.id) {
+                if (parentModule.children[i].writeIndeterminate) {
+                    writeSiblingsIndeterminate = true;
+                }
+            }
+        }
+
+        if (!hasSiblings) {
+            parentModule.readChecked = readChecked;
+
+            parentModule.readIndeterminate = readIndeterminate;
+
+            parentModule.writeChecked = writeChecked;
+            parentModule.writeIndeterminate = writeIndeterminate;
+        } else {
+            if (readChecked && readSiblingsChecked) {
                 parentModule.readChecked = true;
                 parentModule.readIndeterminate = false;
-            } else {
+            } else if (readChecked && !readSiblingsChecked) {
+                parentModule.readChecked = false;
+                parentModule.readIndeterminate = true;
+            } else if (!readChecked && readSiblingsChecked) {
                 parentModule.readChecked = false;
                 parentModule.readIndeterminate = true;
             }
-        } else if (module.readIndeterminate) {
-            parentModule.readIndeterminate = true;
-        } else {
-            parentModule.readChecked = false;
 
-            let siblingsChecked = false;
-
-            for (let i = 0; i < parentModule.children.length; i++) {
-                if (parentModule.children[i].id !== module.id) {
-                    if (parentModule.children[i].readChecked) {
-                        siblingsChecked = true;
-                    }
-                }
+            if (!readChecked && !readSiblingsChecked) {
+                parentModule.readChecked = false;
+                parentModule.readIndeterminate = false;
             }
 
-            parentModule.readIndeterminate = siblingsChecked;
-        }
+            if (readIndeterminate || readSiblingsIndeterminate) {
+                parentModule.readChecked = false;
+                parentModule.readIndeterminate = true;
+            }
 
-        if (module.writeChecked) {
-            if (writeSiblingsChecked) {
+            if (writeChecked && writeSiblingsChecked) {
                 parentModule.writeChecked = true;
                 parentModule.writeIndeterminate = false;
-            } else {
+            } else if (writeChecked && !writeSiblingsChecked) {
+                parentModule.writeChecked = false;
+                parentModule.writeIndeterminate = true;
+            } else if (!writeChecked && writeSiblingsChecked) {
                 parentModule.writeChecked = false;
                 parentModule.writeIndeterminate = true;
             }
-        } else if (module.writeIndeterminate) {
-            parentModule.writeIndeterminate = true;
-        } else {
-            parentModule.writeChecked = false;
 
-            let siblingsChecked = false;
-
-            for (let i = 0; i < parentModule.children.length; i++) {
-                if (parentModule.children[i].id !== module.id) {
-                    if (parentModule.children[i].writeChecked) {
-                        siblingsChecked = true;
-                    }
-                }
+            if (!writeChecked && !writeSiblingsChecked) {
+                parentModule.writeChecked = false;
+                parentModule.writeIndeterminate = false;
             }
 
-            parentModule.writeIndeterminate = siblingsChecked;
+            if (writeIndeterminate || writeSiblingsIndeterminate) {
+                parentModule.writeChecked = false;
+                parentModule.writeIndeterminate = true;
+            }
         }
 
         let updatedModules = updateModules(modules, parentModule);
@@ -385,13 +411,43 @@ function Index() {
                             Cancel
                         </Button>
                         <Button onClick={() => {
-                            axios.post('/lararole/api/role/create', {
-                                name,
-                                modules,
-                            }).then(() => {
-                                closeCreateForm();
-                                loadRoles();
-                            })
+                            console.log('name', name);
+                            console.log('modules', modules.map(module => {
+                                let array = [];
+
+                                getDeepModules(module);
+
+                                function getDeepModules(module) {
+                                    let object;
+                                    if (module.readChecked || module.readIndeterminate || module.writeChecked || module.writeIndeterminate) {
+                                        object = {
+                                            id: module.id,
+                                            permission: ((module.writeChecked || module.writeIndeterminate) ? 'write' : 'read')
+                                        }
+                                    }
+                                    if (object) {
+                                        array.push(object);
+                                    } else {
+                                        if (module.children) {
+                                            for (let i = 0; i < module.children.length; i++) {
+                                                if (module.children[i].children) {
+                                                    getDeepModules(module.children[i].children)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                return array;
+                            }));
+                            // axios.post('/lararole/api/role/create', {
+                            //     name,
+                            //     modules,
+                            // }).then(() => {
+                            //     closeCreateForm();
+                            //     loadRoles();
+                            // })
+
                         }} type="primary">
                             Create Role
                         </Button>
@@ -459,8 +515,8 @@ function Index() {
             </Drawer>
 
             <span style={{marginLeft: 8}}>
-                    {hasSelected ? `Selected ${selectedRoleIds.length} items` : ''}
-                    </span>
+                            {hasSelected ? `Selected ${selectedRoleIds.length} items` : ''}
+                            </span>
 
             <Table
                 columns={columns(setIsVisibleEditForm, setId, setName, setModules, setRoles)}
