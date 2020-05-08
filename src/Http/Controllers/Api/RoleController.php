@@ -4,6 +4,7 @@ namespace Lararole\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Lararole\Http\Resources\RoleCollection;
 use Lararole\Models\Role;
 
@@ -31,23 +32,50 @@ class RoleController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:modules'],
-            'modules' => ['nullable', 'array'],
-            'modules.*.id' => ['nullable', 'exists:modules,id'],
-            'modules.*.permission' => ['nullable', 'in:read,write'],
+            'modules' => ['required', 'array'],
+            'modules.*.module_id' => ['required', 'exists:modules,id'],
+            'modules.*.permission' => ['required', 'in:read,write'],
         ]);
 
         $trashedRole = Role::onlyTrashed()->whereName($request->name)->first();
 
         if ($trashedRole) {
-            $trashedRole->restore();
-            $trashedRole->update($request->all());
+            DB::beginTransaction();
+            try {
+                $trashedRole->restore();
+
+                $trashedRole->update($request->all());
+
+                $trashedRole->modules()->sync($request->modules);
+
+                DB::commit();
+            } catch (\Exception $exception) {
+                DB::rollBack();
+
+                return response()->json([
+                    'message' => $exception->getMessage(),
+                ], 500);
+            }
 
             return response()->json([
                 'message' => $trashedRole->name . ' successfully restored.',
             ]);
         }
 
-        $role = Role::create($request->all());
+        DB::beginTransaction();
+        try {
+            $role = Role::create($request->all());
+
+            $role->modules()->attach($request->modules);
+
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], 500);
+        }
 
         return response()->json([
             'message' => $role->name . ' successfully created.',

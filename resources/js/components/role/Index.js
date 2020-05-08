@@ -411,42 +411,31 @@ function Index() {
                             Cancel
                         </Button>
                         <Button onClick={() => {
-                            console.log('name', name);
-                            console.log('modules', modules.map(module => {
-                                let array = [];
+                            let selectedModules = [];
 
-                                getDeepModules(module);
-
-                                function getDeepModules(module) {
-                                    let object;
-                                    if (module.readChecked || module.readIndeterminate || module.writeChecked || module.writeIndeterminate) {
-                                        object = {
-                                            id: module.id,
-                                            permission: ((module.writeChecked || module.writeIndeterminate) ? 'write' : 'read')
-                                        }
+                            function getModulesArray(modules) {
+                                for (let i = 0; i < modules.length; i++) {
+                                    if (modules[i].readChecked || modules[i].writeChecked || modules[i].readIndeterminate || modules[i].writeIndeterminate) {
+                                        selectedModules.push({
+                                            module_id: modules[i].id,
+                                            permission: modules[i].writeChecked ? 'write' : 'read'
+                                        })
                                     }
-                                    if (object) {
-                                        array.push(object);
-                                    } else {
-                                        if (module.children) {
-                                            for (let i = 0; i < module.children.length; i++) {
-                                                if (module.children[i].children) {
-                                                    getDeepModules(module.children[i].children)
-                                                }
-                                            }
-                                        }
+                                    if (modules[i].children) {
+                                        getModulesArray(modules[i].children)
                                     }
                                 }
+                            }
 
-                                return array;
-                            }));
-                            // axios.post('/lararole/api/role/create', {
-                            //     name,
-                            //     modules,
-                            // }).then(() => {
-                            //     closeCreateForm();
-                            //     loadRoles();
-                            // })
+                            getModulesArray(modules)
+
+                            axios.post('/lararole/api/role/create', {
+                                name,
+                                modules: selectedModules,
+                            }).then(() => {
+                                closeCreateForm();
+                                loadRoles();
+                            })
 
                         }} type="primary">
                             Create Role

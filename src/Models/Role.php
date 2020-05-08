@@ -28,7 +28,7 @@ class Role extends Model
     {
         parent::boot();
 
-        if (config('lararole.attachAllChildren', true)) {
+        if (config('lararole.attachAllChildren', false)) {
             self::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
                 foreach ($pivotIdsAttributes as $key => $pivotIdsAttribute) {
                     if (Module::find($key)->nestedChildren()->count()) {
