@@ -1,5 +1,8 @@
 language: php
 
+notifications:
+  slack: lararole:TikTmihmJXbga2cTjLRV9ME0
+
 services:
   - mysql
   - postgresql
