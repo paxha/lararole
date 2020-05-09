@@ -36,6 +36,10 @@ class Module extends JsonResource
             $array['permission'] = $this->permission->permission;
         }
 
+        if ($this->roles) {
+            $array['roles'] = $this->roles;
+        }
+
         return $array;
     }
 }

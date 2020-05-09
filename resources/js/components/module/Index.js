@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Breadcrumb, Button, Drawer, Form, Input, Popconfirm, Table, TreeSelect} from 'antd';
+import {Breadcrumb, Button, Drawer, Form, Input, Popconfirm, Table, TreeSelect, Tag} from 'antd';
 import {DeleteOutlined, DeploymentUnitOutlined, EditOutlined, HomeOutlined, PlusOutlined} from '@ant-design/icons';
 
 import {Link} from "react-router-dom";
@@ -8,6 +8,7 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
     return [
         {
             title: 'Name',
+            width: 260,
             dataIndex: 'name',
             key: 'name',
             fixed: 'left',
@@ -31,6 +32,27 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
             title: 'Alias',
             dataIndex: 'alias',
             key: 'alias',
+        },
+        {
+            title: 'Roles',
+            width: 260,
+            dataIndex: 'roles',
+            key: 'roles',
+            render: roles => (
+                <>
+                    {
+                        roles.map(role => {
+                            let color = role.permission.permission === 'write' ? 'green' : 'gold';
+
+                            return (
+                                <Tag color={color} key={role.slug} style={{marginTop: 5}}>
+                                    {role.name}
+                                </Tag>
+                            );
+                        })
+                    }
+                </>
+            )
         },
         {
             title: 'Last Update',
@@ -457,7 +479,7 @@ function Index() {
                 columns={columns(setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules)}
                 rowSelection={rowSelection}
                 dataSource={modules}
-                scroll={{x: 1200}}/>
+                scroll={{x: 1400}}/>
         </div>
     );
 }
