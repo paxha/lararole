@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Breadcrumb, Button, Drawer, Form, Input, Popconfirm, Table, TreeSelect, Tag} from 'antd';
+import {Breadcrumb, Button, Drawer, Form, Input, Popconfirm, Table, Tag, TreeSelect} from 'antd';
 import {DeleteOutlined, DeploymentUnitOutlined, EditOutlined, HomeOutlined, PlusOutlined} from '@ant-design/icons';
 
 import {Link} from "react-router-dom";
@@ -42,7 +42,7 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
                 <>
                     {
                         roles.map(role => {
-                            let color = role.permission.permission === 'write' ? 'green' : 'gold';
+                            let color = role.permission.permission === 'write' ? 'geekblue' : 'cyan';
 
                             return (
                                 <Tag color={color} key={role.slug} style={{marginTop: 5}}>
