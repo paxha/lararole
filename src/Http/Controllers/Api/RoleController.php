@@ -31,7 +31,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:modules'],
+            'name' => ['required', 'string', 'max:255'],
             'modules' => ['required', 'array'],
             'modules.*.module_id' => ['required', 'exists:modules,id'],
             'modules.*.permission' => ['required', 'in:read,write'],
@@ -105,13 +105,27 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:modules'],
-            'modules' => ['nullable', 'array'],
-            'modules.*.id' => ['nullable', 'exists:modules,id'],
-            'modules.*.permission' => ['nullable', 'in:read,write'],
+            'name' => ['required', 'string', 'max:255'],
+            'modules' => ['required', 'array'],
+            'modules.*.module_id' => ['required', 'exists:modules,id'],
+            'modules.*.permission' => ['required', 'in:read,write'],
         ]);
 
-        $role->update($request->all());
+        DB::beginTransaction();
+        try {
+            $role->update($request->all());
+
+            $role->modules()->detach();
+            $role->modules()->attach($request->modules);
+
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], 500);
+        }
 
         return response()->json([
             'message' => $role->name . ' successfully updated.',
