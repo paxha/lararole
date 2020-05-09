@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Breadcrumb, Button, Checkbox, Drawer, Form, Input, Popconfirm, Table} from 'antd';
+import {Breadcrumb, Button, Checkbox, Drawer, Form, Input, Popconfirm, Table, Tag} from 'antd';
 import {DeleteOutlined, EditOutlined, HomeOutlined, PlusOutlined, UsergroupAddOutlined} from '@ant-design/icons';
 import {Link} from "react-router-dom";
 
@@ -171,7 +171,6 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles) => 
                 axios.get('/lararole/api/role/' + record.id + '/edit').then((response) => {
                     setId(response.data.role.id);
                     setName(response.data.role.name);
-                    setEditModules(response.data.role.modules);
                 });
             }}>{text}</a>,
         },
@@ -179,6 +178,27 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles) => 
             title: 'Slug',
             dataIndex: 'slug',
             key: 'slug',
+        },
+        {
+            title: 'Modules',
+            width: 300,
+            dataIndex: 'modules',
+            key: 'modules',
+            render: modules => (
+                <>
+                    {
+                        modules.map(module => {
+                            let color = !module.module_id ? 'geekblue' : 'cyan';
+
+                            return (
+                                <Tag color={color} key={module.slug} style={{marginTop: 5}}>
+                                    {module.name}
+                                </Tag>
+                            );
+                        })
+                    }
+                </>
+            )
         },
         {
             title: 'Last Update',
@@ -472,8 +492,13 @@ function Index() {
 
     const [id, setId] = useState(null);
     const [name, setName] = useState(null);
+    const [nameError, setNameError] = useState(null);
 
     const [modules, setModules] = useState([]);
+    const [modulesError, setModulesError] = useState(null);
+
+    const nameHasError = !!nameError;
+    const modulesHasError = !!modulesError;
 
     useEffect(() => {
         loadRoles();
@@ -608,13 +633,23 @@ function Index() {
 
                             getModulesArray(modules)
 
+                            setNameError(null)
+                            setModulesError(null)
+
                             axios.post('/lararole/api/role/create', {
                                 name,
                                 modules: selectedModules,
                             }).then(() => {
                                 closeCreateForm();
                                 loadRoles();
-                            })
+                            }).catch(error => {
+                                if (error.response.data.errors.name) {
+                                    setNameError(error.response.data.errors.name[0])
+                                }
+                                if (error.response.data.errors.modules) {
+                                    setModulesError(error.response.data.errors.modules[0])
+                                }
+                            });
 
                         }} type="primary">
                             Create Role
@@ -623,14 +658,22 @@ function Index() {
                 }
             >
                 <Form layout="vertical">
-                    <Form.Item label="Role Name">
+                    <Form.Item
+                        label="Role Name"
+                        validateStatus={nameHasError ? 'error' : null}
+                        help={nameHasError ? nameError : null}
+                    >
                         <Input placeholder="Manager, Editor etc..." value={name}
                                onChange={event => {
                                    setName(event.target.value)
                                }}/>
                     </Form.Item>
 
-                    <Form.Item label="Modules">
+                    <Form.Item
+                        label="Modules"
+                        validateStatus={modulesHasError ? 'error' : null}
+                        help={modulesHasError ? modulesError : null}
+                    >
                         <Table
                             columns={moduleColumns(modules, setModules)}
                             pagination={false}
@@ -676,13 +719,23 @@ function Index() {
 
                             getModulesArray(modules)
 
+                            setNameError(null);
+                            setModulesError(null);
+
                             axios.put('/lararole/api/role/' + id + '/update', {
                                 name,
                                 modules: selectedModules,
                             }).then((response) => {
                                 closeEditForm();
                                 loadRoles();
-                            })
+                            }).catch(error => {
+                                if (error.response.data.errors.name) {
+                                    setNameError(error.response.data.errors.name[0])
+                                }
+                                if (error.response.data.errors.modules) {
+                                    setModulesError(error.response.data.errors.modules[0])
+                                }
+                            });
                         }} type="primary">
                             Update Role
                         </Button>
@@ -690,14 +743,22 @@ function Index() {
                 }
             >
                 <Form layout="vertical">
-                    <Form.Item label="Module Name">
+                    <Form.Item
+                        label="Module Name"
+                        validateStatus={nameHasError ? 'error' : null}
+                        help={nameHasError ? nameError : null}
+                    >
                         <Input placeholder="Product Management, Order Processing etc..." value={name}
                                onChange={event => {
                                    setName(event.target.value)
                                }}/>
                     </Form.Item>
 
-                    <Form.Item label="Modules">
+                    <Form.Item
+                        label="Modules"
+                        validateStatus={modulesHasError ? 'error' : null}
+                        help={modulesHasError ? modulesError : null}
+                    >
                         <Table
                             columns={moduleColumns(modules, setModules)}
                             pagination={false}

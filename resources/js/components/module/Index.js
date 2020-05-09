@@ -259,8 +259,10 @@ function Index() {
                             Cancel
                         </Button>
                         <Button onClick={() => {
+                            setParentModuleIdError(null)
                             setNameError(null)
                             setAliasError(null)
+                            setIconError(null)
                             axios.post('/lararole/api/module/create', {
                                 module_id: parentModuleId,
                                 name,
@@ -361,6 +363,11 @@ function Index() {
                             Cancel
                         </Button>
                         <Button onClick={() => {
+                            setParentModuleIdError(null)
+                            setNameError(null)
+                            setAliasError(null)
+                            setIconError(null)
+
                             axios.put('/lararole/api/module/' + id + '/update', {
                                 module_id: parentModuleId,
                                 name,
