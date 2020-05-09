@@ -14,4 +14,4 @@ Route::post('role/create', 'RoleController@store');
 Route::get('role/{role}/edit', 'RoleController@edit');
 Route::put('role/{role}/update', 'RoleController@update');
 Route::delete('role/{role}/delete', 'RoleController@destroy');
-Route::delete('roles/role', 'RoleController@destroyMany');
+Route::delete('roles/delete', 'RoleController@destroyMany');

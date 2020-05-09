@@ -59,7 +59,7 @@ class Role extends Model
 
     public function users()
     {
-        return $this->belongsToMany(config('lararole.providers.users.model'))->withTimestamps();
+        return $this->belongsToMany(config('lararole.providers.users.model', \App\User::class))->withTimestamps();
     }
 
     public function modules()
