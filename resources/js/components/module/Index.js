@@ -4,7 +4,7 @@ import {DeleteOutlined, DeploymentUnitOutlined, EditOutlined, HomeOutlined, Plus
 
 import {Link} from "react-router-dom";
 
-const columns = (setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules) => {
+const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules) => {
     return [
         {
             title: 'Name',
@@ -45,12 +45,19 @@ const columns = (setIsVisibleEditForm, setId, setName, setAlias, setIcon, setPar
         },
         {
             title: '',
-            width: 160,
+            width: 260,
             key: 'action',
             fixed: 'right',
             render: (text, record) => (
                 <span>
                 <a style={{marginRight: 16}} onClick={function () {
+                    setIsVisibleCreateForm(true);
+                    setParentModuleId(record.id);
+                }}>
+                    <PlusOutlined/> New Child
+                    </a>
+
+                    <a style={{marginRight: 16}} onClick={function () {
                     setIsVisibleEditForm(true);
                     axios.get('/lararole/api/module/' + record.id + '/edit').then((response) => {
                         setId(response.data.module.id);
@@ -371,7 +378,7 @@ function Index() {
                     </span>
 
             <Table
-                columns={columns(setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules)}
+                columns={columns(setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules)}
                 rowSelection={rowSelection}
                 dataSource={modules}
                 scroll={{x: 1200}}/>
