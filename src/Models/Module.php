@@ -3,6 +3,7 @@
 namespace Lararole\Models;
 
 use Illuminate\Support\Str;
+use Lararole\Traits\Loggable;
 use Sluggable\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,7 +12,7 @@ use RecursiveRelationships\Traits\HasRecursiveRelationships;
 
 class Module extends Model
 {
-    use SoftDeletes, Sluggable, HasRecursiveRelationships, HasRelationships;
+    use SoftDeletes, Sluggable, HasRecursiveRelationships, HasRelationships, Loggable;
 
     protected $fillable = [
         'module_id', 'name', 'alias', 'icon',

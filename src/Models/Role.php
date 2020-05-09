@@ -45,6 +45,10 @@ class Role extends Model
                 }
             });
         }
+
+        self::deleting(function ($model) {
+            $model->users()->detach();
+        });
     }
 
     private static function attachAllChildModules($model, $moduleId, $permission)

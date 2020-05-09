@@ -6,7 +6,7 @@ trait Loggable
 {
     public static function bootLoggable()
     {
-        if (config('lararole.role.loggable', true)) {
+        if (config('lararole.loggable', false)) {
             self::creating(function ($model) {
                 if (auth()->check()) {
                     $user = auth()->user();
@@ -23,7 +23,6 @@ trait Loggable
             });
 
             self::deleting(function ($model) {
-                $model->users()->detach();
                 if (auth()->check()) {
                     $user = auth()->user();
                     $model->deleted_by = $user->id;
@@ -35,16 +34,16 @@ trait Loggable
 
     public function creator()
     {
-        return $this->belongsTo(config('lararole.providers.users.model'), 'created_by');
+        return $this->belongsTo(config('lararole.providers.users.model', \App\User::class), 'created_by');
     }
 
     public function updater()
     {
-        return $this->belongsTo(config('lararole.providers.users.model'), 'updated_by');
+        return $this->belongsTo(config('lararole.providers.users.model', \App\User::class), 'updated_by');
     }
 
     public function deleter()
     {
-        return $this->belongsTo(config('lararole.providers.users.model'), 'deleted_by');
+        return $this->belongsTo(config('lararole.providers.users.model', \App\User::class), 'deleted_by');
     }
 }

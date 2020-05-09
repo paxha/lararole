@@ -179,7 +179,7 @@ class RoleTest extends TestCase
 
     public function testLoggableTrue()
     {
-        Config::set('lararole.role.loggable', true);
+        Config::set('lararole.loggable', true);
 
         $user = User::create([
             'name' => 'Super Admin',
@@ -196,7 +196,7 @@ class RoleTest extends TestCase
 
     public function testLoggableFalse()
     {
-        Config::set('lararole.role.loggable', false);
+        Config::set('lararole.loggable', false);
 
         $user = User::create([
             'name' => 'Super Admin',
