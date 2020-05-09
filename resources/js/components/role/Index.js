@@ -236,13 +236,7 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
                         for (let i = 0; i < roleModules.length; i++) {
                             let roleModule = getModule(modules, roleModules[i].id)
 
-                            console.log('roleModules', roleModules);
-
-                            console.log('before roleModule', i, roleModules[i]);
-
                             let updatedRoleModule = updateModule(roleModule, false, false, roleModules[i].permission === 'read', roleModules[i].permission === 'write')
-
-                            console.log('after roleModule', i, roleModules[i]);
 
                             let updatedModules = updateModules(modules, updatedRoleModule);
 
@@ -574,11 +568,14 @@ function Index() {
         setModulesError(null);
     }
 
-    const openNotification = (message, description) => {
-        notification.open({
-            message: message,
-            description: description,
-        });
+    const openNotification = (message, description, type = 'success') => {
+        if (type === 'success') {
+            notification.success({
+                message: message,
+                description: description,
+                placement: 'bottomLeft',
+            });
+        }
     };
 
     return (

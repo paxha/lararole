@@ -23,6 +23,8 @@ class Module extends Model
 
         self::deleting(function ($model) {
             $model->children()->delete();
+
+            $model->roles()->detach();
         });
     }
 

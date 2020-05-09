@@ -231,11 +231,14 @@ function Index() {
         })
     }
 
-    const openNotification = (message, description) => {
-        notification.open({
-            message: message,
-            description: description,
-        });
+    const openNotification = (message, description, type = 'success') => {
+        if (type === 'success') {
+            notification.success({
+                message: message,
+                description: description,
+                placement: 'bottomLeft',
+            });
+        }
     };
 
     return (

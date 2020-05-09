@@ -47,6 +47,8 @@ class Role extends Model
         }
 
         self::deleting(function ($model) {
+            $model->modules()->detach();
+
             $model->users()->detach();
         });
     }
