@@ -2,10 +2,10 @@
 
 namespace Lararole\Http\Controllers\Api;
 
+use Lararole\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Lararole\Http\Resources\ModuleCollection;
-use Lararole\Models\Module;
 
 class ModuleController extends Controller
 {
@@ -43,7 +43,7 @@ class ModuleController extends Controller
             $trashedModule->update($request->all());
 
             return response()->json([
-                'message' => $trashedModule->name . ' successfully restored.',
+                'message' => $trashedModule->name.' successfully restored.',
             ]);
         }
 
@@ -52,7 +52,7 @@ class ModuleController extends Controller
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name . ' successfully created.',
+            'message' => $module->name.' successfully created.',
         ], 201);
     }
 
@@ -82,16 +82,16 @@ class ModuleController extends Controller
             'module_id' => ['nullable', 'exists:modules,id'],
             'name' => ['required', 'string', 'max:255'],
             'alias' => ['required', 'string', 'max:255'],
-            'icon' => ['nullable', 'string', 'max:255']
+            'icon' => ['nullable', 'string', 'max:255'],
         ]);
 
         if ($request->name !== $module->name) {
             $request->validate([
-                'name' => ['unique:modules']
+                'name' => ['unique:modules'],
             ]);
         }
 
-        if (!$request->module_id) {
+        if (! $request->module_id) {
             $request['module_id'] = null;
         }
 
@@ -100,7 +100,7 @@ class ModuleController extends Controller
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name . ' successfully updated.',
+            'message' => $module->name.' successfully updated.',
         ]);
     }
 
@@ -120,7 +120,7 @@ class ModuleController extends Controller
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $name . ' successfully deleted.',
+            'message' => $name.' successfully deleted.',
         ]);
     }
 

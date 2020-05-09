@@ -29,7 +29,7 @@ class Module extends Model
             if ($latestSlug) {
                 $pieces = explode('_', $latestSlug);
                 $number = intval(end($pieces));
-                $model->slug .= '_' . ($number + 1);
+                $model->slug .= '_'.($number + 1);
             }
         });
 
