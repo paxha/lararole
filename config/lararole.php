@@ -57,5 +57,5 @@ return [
 
     'loggable' => false,
 
-    'attachAllChildren' => true,
+    'attachAllChildren' => false,
 ];

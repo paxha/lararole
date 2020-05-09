@@ -37,10 +37,11 @@ class RoleFacadeTest extends TestCase
 
         $this->artisan('migrate:modules');
 
-        Role::syncSuperAdminRoleModules('super-admin');
+        Role::syncSuperAdminRoleModules();
 
         $role = \Lararole\Models\Role::whereSlug('super-admin')->first();
 
-        $this->assertCount(11, $role->modules);
+        $this->assertCount(0, $role->modules()->wherePivot('permission', 'read')->get());
+        $this->assertCount(11, $role->modules()->wherePivot('permission', 'write')->get());
     }
 }

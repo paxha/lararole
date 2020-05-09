@@ -2,7 +2,6 @@
 
 namespace Lararole\Models;
 
-use Illuminate\Support\Str;
 use Lararole\Traits\Loggable;
 use Sluggable\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
@@ -22,17 +21,6 @@ class Module extends Model
     {
         parent::boot();
 
-        self::creating(function ($model) {
-            $model->slug = Str::slug($model->name, '_');
-
-            $latestSlug = self::whereRaw("slug = '$model->slug'")->latest('id')->value('slug');
-            if ($latestSlug) {
-                $pieces = explode('_', $latestSlug);
-                $number = intval(end($pieces));
-                $model->slug .= '_' . ($number + 1);
-            }
-        });
-
         self::deleting(function ($model) {
             $model->children()->delete();
         });
@@ -41,6 +29,11 @@ class Module extends Model
     public function getParentKeyName()
     {
         return 'module_id';
+    }
+
+    public static function separator(): string
+    {
+        return '_';
     }
 
     public function createModules(array $modules)

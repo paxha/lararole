@@ -137,7 +137,7 @@ class ModuleController extends Controller
             'modules.*.id' => ['required', 'exists:modules,id'],
         ]);
 
-        Module::destroy($request->moduleIds);
+        Module::destroy($request->modules);
 
         \role()->syncSuperAdminRoleModules();
 

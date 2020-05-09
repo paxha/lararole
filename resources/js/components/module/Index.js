@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Breadcrumb, Button, Drawer, Form, Input, Popconfirm, Table, Tag, TreeSelect} from 'antd';
+import {Breadcrumb, Button, Drawer, Form, Input, Popconfirm, Table, Tag, TreeSelect, notification} from 'antd';
 import {DeleteOutlined, DeploymentUnitOutlined, EditOutlined, HomeOutlined, PlusOutlined} from '@ant-design/icons';
 
 import {Link} from "react-router-dom";
 
-const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules) => {
+const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules, openNotification) => {
     return [
         {
             title: 'Name',
@@ -95,9 +95,11 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
                     <Popconfirm
                         title="Are you sure delete this module?"
                         onConfirm={() => {
-                            axios.delete('/lararole/api/module/' + record.id + '/delete').then(() => {
-                                axios.get('/lararole/api/modules').then((response) => {
-                                    setModules(response.data.modules);
+                            axios.delete('/lararole/api/module/' + record.id + '/delete').then((response) => {
+                                openNotification(response.data.message, response.data.description);
+
+                                axios.get('/lararole/api/modules').then((modulesResponse) => {
+                                    setModules(modulesResponse.data.modules);
                                 });
                             })
                         }}
@@ -229,6 +231,13 @@ function Index() {
         })
     }
 
+    const openNotification = (message, description) => {
+        notification.open({
+            message: message,
+            description: description,
+        });
+    };
+
     return (
         <div>
             <Breadcrumb style={{margin: '16px 0'}}>
@@ -248,7 +257,8 @@ function Index() {
                 onConfirm={() => {
                     axios.delete('/lararole/api/modules/delete', {
                         data: {modules: selectedModuleIds}
-                    }).then(() => {
+                    }).then((response) => {
+                        openNotification(response.data.message, response.data.description);
                         loadModules();
                     });
                 }}
@@ -290,7 +300,8 @@ function Index() {
                                 name,
                                 alias,
                                 icon
-                            }).then(() => {
+                            }).then((response) => {
+                                openNotification(response.data.message, response.data.description);
                                 closeCreateForm();
                                 loadModules();
                             }).catch(error => {
@@ -396,6 +407,7 @@ function Index() {
                                 alias,
                                 icon
                             }).then((response) => {
+                                openNotification(response.data.message, response.data.description);
                                 closeEditForm();
                                 loadModules();
                             }).catch(error => {
@@ -476,7 +488,7 @@ function Index() {
                     </span>
 
             <Table
-                columns={columns(setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules)}
+                columns={columns(setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules, openNotification)}
                 rowSelection={rowSelection}
                 dataSource={modules}
                 scroll={{x: 1400}}/>

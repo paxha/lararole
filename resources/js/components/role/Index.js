@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Breadcrumb, Button, Checkbox, Drawer, Form, Input, Popconfirm, Table, Tag} from 'antd';
+import {Breadcrumb, Button, Checkbox, Drawer, Form, Input, notification, Popconfirm, Table, Tag} from 'antd';
 import {DeleteOutlined, EditOutlined, HomeOutlined, PlusOutlined, UsergroupAddOutlined} from '@ant-design/icons';
 import {Link} from "react-router-dom";
 
@@ -8,7 +8,7 @@ function useForceUpdate() {
     return () => setValue((value) => ++value); // update the state to force render
 }
 
-const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles) => {
+const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, openNotification) => {
     const forceUpdate = useForceUpdate();
 
     function getModule(modules, id) {
@@ -188,7 +188,7 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles) => 
                 <>
                     {
                         modules.map(module => {
-                            let color = !module.module_id ? 'geekblue' : 'cyan';
+                            let color = !module.module_id ? (module.permission === 'write' ? 'geekblue' : 'blue') : 'cyan';
 
                             return (
                                 <Tag color={color} key={module.slug} style={{marginTop: 5}}>
@@ -236,7 +236,13 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles) => 
                         for (let i = 0; i < roleModules.length; i++) {
                             let roleModule = getModule(modules, roleModules[i].id)
 
+                            console.log('roleModules', roleModules);
+
+                            console.log('before roleModule', i, roleModules[i]);
+
                             let updatedRoleModule = updateModule(roleModule, false, false, roleModules[i].permission === 'read', roleModules[i].permission === 'write')
+
+                            console.log('after roleModule', i, roleModules[i]);
 
                             let updatedModules = updateModules(modules, updatedRoleModule);
 
@@ -256,9 +262,10 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles) => 
                     <Popconfirm
                         title="Are you sure delete this module?"
                         onConfirm={() => {
-                            axios.delete('/lararole/api/role/' + record.id + '/delete').then(() => {
-                                axios.get('/lararole/api/roles').then((response) => {
-                                    setRoles(response.data.roles);
+                            axios.delete('/lararole/api/role/' + record.id + '/delete').then((response) => {
+                                openNotification(response.data.message, response.data.description);
+                                axios.get('/lararole/api/roles').then((rolesResponse) => {
+                                    setRoles(rolesResponse.data.roles);
                                 });
                             })
                         }}
@@ -563,7 +570,16 @@ function Index() {
         setId(null);
         setName(null);
         setModules(null);
+        setNameError(null);
+        setModulesError(null);
     }
+
+    const openNotification = (message, description) => {
+        notification.open({
+            message: message,
+            description: description,
+        });
+    };
 
     return (
         <div>
@@ -584,7 +600,8 @@ function Index() {
                 onConfirm={() => {
                     axios.delete('/lararole/api/roles/delete', {
                         data: {roles: selectedRoleIds}
-                    }).then(() => {
+                    }).then((response) => {
+                        openNotification(response.data.message, response.data.description);
                         loadRoles();
                     });
                 }}
@@ -641,7 +658,8 @@ function Index() {
                             axios.post('/lararole/api/role/create', {
                                 name,
                                 modules: selectedModules,
-                            }).then(() => {
+                            }).then((response) => {
+                                openNotification(response.data.message, response.data.description);
                                 closeCreateForm();
                                 loadRoles();
                             }).catch(error => {
@@ -728,6 +746,7 @@ function Index() {
                                 name,
                                 modules: selectedModules,
                             }).then((response) => {
+                                openNotification(response.data.message, response.data.description);
                                 closeEditForm();
                                 loadRoles();
                             }).catch(error => {
@@ -775,7 +794,7 @@ function Index() {
                     </span>
 
             <Table
-                columns={columns(setIsVisibleEditForm, setId, setName, setModules, setRoles)}
+                columns={columns(setIsVisibleEditForm, setId, setName, setModules, setRoles, openNotification)}
                 rowSelection={rowSelection}
                 dataSource={roles}/>
         </div>

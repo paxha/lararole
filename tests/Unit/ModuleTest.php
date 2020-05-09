@@ -2,6 +2,7 @@
 
 namespace Lararole\Tests\Unit;
 
+use Illuminate\Support\Facades\Config;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Illuminate\Http\Request;
@@ -54,5 +55,90 @@ class ModuleTest extends TestCase
 
         $this->assertCount(2, Module::whereSlug('product')->first()->users);
         $this->assertCount(1, Module::whereSlug('user_management')->first()->users);
+    }
+
+    public function testLoggableTrue()
+    {
+        Config::set('lararole.loggable', true);
+
+        $user = User::create([
+            'name' => 'Super Admin',
+        ]);
+
+        auth()->login($user);
+
+        $role = Module::create([
+            'name' => 'Super Admin',
+        ]);
+
+        $this->assertEquals(auth()->user()->id, $role->created_by);
+    }
+
+    public function testLoggableFalse()
+    {
+        Config::set('lararole.loggable', false);
+
+        $user = User::create([
+            'name' => 'Super Admin',
+        ]);
+
+        auth()->login($user);
+
+        $role = Module::create([
+            'name' => 'Super Admin',
+        ]);
+
+        $this->assertNotEquals(auth()->user()->id, $role->created_by);
+    }
+
+    public function testCreator()
+    {
+        $user = User::create([
+            'name' => 'Super Admin',
+        ]);
+
+        auth()->login($user);
+
+        $role = Module::create([
+            'name' => 'Product',
+        ]);
+
+        $this->assertEquals(auth()->user()->name, $role->creator->name);
+    }
+
+    public function testUpdater()
+    {
+        $user = User::create([
+            'name' => 'Product',
+        ]);
+
+        auth()->login($user);
+
+        $module = Module::create([
+            'name' => 'Product',
+        ]);
+
+        $module->update([
+            'name' => 'Product Updated',
+        ]);
+
+        $this->assertEquals(auth()->user()->name, $module->updater->name);
+    }
+
+    public function testDeleter()
+    {
+        $user = User::create([
+            'name' => 'Super Admin',
+        ]);
+
+        auth()->login($user);
+
+        $module = Module::create([
+            'name' => 'Product',
+        ]);
+
+        $module->delete();
+
+        $this->assertEquals(auth()->user()->name, $module->deleter->name);
     }
 }
