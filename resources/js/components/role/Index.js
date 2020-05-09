@@ -202,11 +202,13 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles) => 
         },
         {
             title: 'Last Update',
+            width: 130,
             dataIndex: 'updated_at',
             key: 'last_update',
         },
         {
             title: 'Created',
+            width: 130,
             dataIndex: 'created_at',
             key: 'created',
         },
