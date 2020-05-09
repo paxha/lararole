@@ -59,15 +59,15 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
                     </a>
 
                     <a style={{marginRight: 16}} onClick={function () {
-                    setIsVisibleEditForm(true);
-                    axios.get('/lararole/api/module/' + record.id + '/edit').then((response) => {
-                        setId(response.data.module.id);
-                        setName(response.data.module.name);
-                        setAlias(response.data.module.alias);
-                        setIcon(response.data.module.icon);
-                        setParentModuleId(response.data.module.module_id);
-                    });
-                }}>
+                        setIsVisibleEditForm(true);
+                        axios.get('/lararole/api/module/' + record.id + '/edit').then((response) => {
+                            setId(response.data.module.id);
+                            setName(response.data.module.name);
+                            setAlias(response.data.module.alias);
+                            setIcon(response.data.module.icon);
+                            setParentModuleId(response.data.module.module_id);
+                        });
+                    }}>
                     <EditOutlined/> Edit
                     </a>
                     <Popconfirm
@@ -93,12 +93,21 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
 function Index() {
     const [modules, setModules] = useState([]);
     const [parentModuleId, setParentModuleId] = useState(null);
+    const [parentModuleIdError, setParentModuleIdError] = useState(null);
     const [selectedModuleIds, setSelectedModuleIds] = useState([]);
 
     const [id, setId] = useState(null);
     const [name, setName] = useState(null);
+    const [nameError, setNameError] = useState(null);
     const [alias, setAlias] = useState(null);
+    const [aliasError, setAliasError] = useState(null);
     const [icon, setIcon] = useState(null);
+    const [iconError, setIconError] = useState(null);
+
+    const parentModuleIdHasError = !!parentModuleIdError;
+    const nameHasError = !!nameError;
+    const aliasHasError = !!aliasError;
+    const iconHasError = !!iconError;
 
     useEffect(() => {
         loadModules();
@@ -160,6 +169,10 @@ function Index() {
         setAlias(null);
         setIcon(null);
         setParentModuleId(null);
+        setParentModuleIdError(null);
+        setNameError(null);
+        setAliasError(null);
+        setIconError(null);
     }
 
     function mapModulesTreeData() {
@@ -246,6 +259,8 @@ function Index() {
                             Cancel
                         </Button>
                         <Button onClick={() => {
+                            setNameError(null)
+                            setAliasError(null)
                             axios.post('/lararole/api/module/create', {
                                 module_id: parentModuleId,
                                 name,
@@ -254,7 +269,20 @@ function Index() {
                             }).then(() => {
                                 closeCreateForm();
                                 loadModules();
-                            })
+                            }).catch(error => {
+                                if (error.response.data.errors.module_id) {
+                                    setParentModuleIdError(error.response.data.errors.module_id[0])
+                                }
+                                if (error.response.data.errors.name) {
+                                    setNameError(error.response.data.errors.name[0])
+                                }
+                                if (error.response.data.errors.alias) {
+                                    setAliasError(error.response.data.errors.alias[0])
+                                }
+                                if (error.response.data.errors.icon) {
+                                    setIconError(error.response.data.errors.icon[0])
+                                }
+                            });
                         }} type="primary">
                             Create Module
                         </Button>
@@ -262,7 +290,11 @@ function Index() {
                 }
             >
                 <Form layout="vertical">
-                    <Form.Item label="Choose Parent Module">
+                    <Form.Item
+                        label="Choose Parent Module"
+                        validateStatus={parentModuleIdHasError ? 'error' : null}
+                        help={parentModuleIdHasError ? parentModuleIdError : null}
+                    >
                         <TreeSelect
                             style={{width: '100%'}}
                             value={parentModuleId}
@@ -275,7 +307,11 @@ function Index() {
                         />
                     </Form.Item>
 
-                    <Form.Item label="Module Name">
+                    <Form.Item
+                        label="Module Name"
+                        validateStatus={nameHasError ? 'error' : null}
+                        help={nameHasError ? nameError : null}
+                    >
                         <Input placeholder="Product Management, Order Processing etc..." value={name}
                                onChange={event => {
                                    setName(event.target.value)
@@ -285,6 +321,8 @@ function Index() {
 
                     <Form.Item
                         label="Alias"
+                        validateStatus={aliasHasError ? 'error' : null}
+                        help={aliasHasError ? aliasError : null}
                     >
                         <Input placeholder="Product Management, Order Processing etc..." value={alias}
                                onChange={event => {
@@ -293,7 +331,10 @@ function Index() {
                     </Form.Item>
 
                     <Form.Item
-                        label="Icon">
+                        label="Icon"
+                        validateStatus={iconHasError ? 'error' : null}
+                        help={iconHasError ? iconError : null}
+                    >
                         <Input placeholder="fa fa-users etc..." value={icon} onChange={event => {
                             setIcon(event.target.value)
                         }}/>
@@ -328,7 +369,20 @@ function Index() {
                             }).then((response) => {
                                 closeEditForm();
                                 loadModules();
-                            })
+                            }).catch(error => {
+                                if (error.response.data.errors.module_id) {
+                                    setParentModuleIdError(error.response.data.errors.module_id[0])
+                                }
+                                if (error.response.data.errors.name) {
+                                    setNameError(error.response.data.errors.name[0])
+                                }
+                                if (error.response.data.errors.alias) {
+                                    setAliasError(error.response.data.errors.alias[0])
+                                }
+                                if (error.response.data.errors.icon) {
+                                    setIconError(error.response.data.errors.icon[0])
+                                }
+                            });
                         }} type="primary">
                             Update Module
                         </Button>
@@ -336,7 +390,11 @@ function Index() {
                 }
             >
                 <Form layout="vertical">
-                    <Form.Item label="Choose Parent Module">
+                    <Form.Item
+                        label="Choose Parent Module"
+                        validateStatus={parentModuleIdHasError ? 'error' : null}
+                        help={parentModuleIdHasError ? parentModuleIdError : null}
+                    >
                         <TreeSelect
                             style={{width: '100%'}}
                             value={parentModuleId}
@@ -350,7 +408,11 @@ function Index() {
                         />
                     </Form.Item>
 
-                    <Form.Item label="Module Name">
+                    <Form.Item
+                        label="Module Name"
+                        validateStatus={nameHasError ? 'error' : null}
+                        help={nameHasError ? nameError : null}
+                    >
                         <Input placeholder="Product Management, Order Processing etc..." value={name}
                                onChange={event => {
                                    setName(event.target.value)
@@ -359,6 +421,8 @@ function Index() {
 
                     <Form.Item
                         label="Alias"
+                        validateStatus={aliasHasError ? 'error' : null}
+                        help={aliasHasError ? aliasError : null}
                     >
                         <Input placeholder="Product Management, Order Processing etc..." value={alias}
                                onChange={event => {
@@ -367,7 +431,10 @@ function Index() {
                     </Form.Item>
 
                     <Form.Item
-                        label="Icon">
+                        label="Icon"
+                        validateStatus={iconHasError ? 'error' : null}
+                        help={iconHasError ? iconError : null}
+                    >
                         <Input placeholder="fa fa-users etc..." value={icon} onChange={event => {
                             setIcon(event.target.value)
                         }}/>
