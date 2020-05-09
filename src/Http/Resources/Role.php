@@ -21,7 +21,7 @@ class Role extends JsonResource
             'slug' => $this->slug,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
-            'modules' => new ModuleCollection($this->modules)
+            'modules' => new ModuleCollection($this->modules),
         ];
 
         return $array;

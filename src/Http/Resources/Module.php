@@ -26,7 +26,7 @@ class Module extends JsonResource
             'updated_at' => $this->updated_at->diffForHumans(),
         ];
 
-        if (!$this->permission) {
+        if (! $this->permission) {
             if ($this->children->count()) {
                 $array['children'] = new ModuleCollection($this->children);
             }
