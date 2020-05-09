@@ -8,7 +8,6 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
     return [
         {
             title: 'Name',
-            width: 250,
             dataIndex: 'name',
             key: 'name',
             fixed: 'left',
@@ -35,11 +34,13 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
         },
         {
             title: 'Last Update',
+            width: 130,
             dataIndex: 'updated_at',
             key: 'last_update',
         },
         {
             title: 'Created',
+            width: 130,
             dataIndex: 'created_at',
             key: 'created',
         },
