@@ -279,6 +279,7 @@ function Index() {
                         <Input placeholder="Product Management, Order Processing etc..." value={name}
                                onChange={event => {
                                    setName(event.target.value)
+                                   setAlias(event.target.value)
                                }}/>
                     </Form.Item>
 
