@@ -19,7 +19,8 @@ class Role
     public function syncSuperAdminRoleModules()
     {
         if ($this->hasSuperAdminRole()) {
-            $this->superAdminRole()->modules()->sync(config('lararole.attachAllChildren', false) ? Module::root()->get() : Module::all(), ['permission' => 'write']);
+            $this->superAdminRole()->modules()->detach();
+            $this->superAdminRole()->modules()->attach(config('lararole.attachAllChildren') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
         }
     }
 }
