@@ -2,6 +2,7 @@
 
 namespace Lararole;
 
+use Lararole\Http\Middleware\OnlySuperAdmin;
 use Lararole\Services\Role;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -36,35 +37,35 @@ class LararoleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/../database/factories');
+        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/../database/factories');
 
         /*Migrations Publishable*/
         $this->publishes([
-            __DIR__.'/../database/migrations' => database_path('migrations'),
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
         ], 'lararole-migrations');
         $this->registerMigrations();
 
         /*Config Publishable*/
         $this->publishes([
-            __DIR__.'/../config/lararole.php' => config_path('lararole.php'),
+            __DIR__ . '/../config/lararole.php' => config_path('lararole.php'),
         ], 'lararole-config');
 
         /*Views Publishable*/
         $this->publishes([
-            __DIR__.'/../resources/views/access_denied.blade.php' => base_path('resources/views'),
+            __DIR__ . '/../resources/views' => base_path('resources/views'),
         ], 'lararole-views');
         $this->registerViews();
 
         /*Routes Publishable*/
         $this->publishes([
-            __DIR__.'/Http/Controllers/ModuleController.php' => app_path('Http/Controllers/ModuleController.php'),
-            __DIR__.'/../routes/web.php' => base_path('routes/module.web.php'),
+            __DIR__ . '/Http/Controllers/ModuleController.php' => app_path('Http/Controllers/ModuleController.php'),
+            __DIR__ . '/../routes/web.php' => base_path('routes/module.web.php'),
         ], 'lararole-routes');
         $this->registerRoutes();
 
         /*Assets Publishable*/
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/lararole'),
+            __DIR__ . '/../public' => public_path('vendor/lararole'),
         ], 'lararole-assets');
 
         $this->commands([
@@ -81,7 +82,7 @@ class LararoleServiceProvider extends ServiceProvider
 
     protected function loadViews()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'lararole');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lararole');
     }
 
     /**
@@ -92,7 +93,7 @@ class LararoleServiceProvider extends ServiceProvider
     protected function registerMigrations()
     {
         if (Lararole::shouldRunMigrations()) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
     }
 
@@ -104,14 +105,14 @@ class LararoleServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         if (Lararole::shouldRunRoutes()) {
-            $this->loadRoutesFrom(__DIR__.'/../routes/module.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/module.php');
 
             Route::group($this->apiRoutesConfiguration(), function () {
-                $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+                $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
             });
 
             Route::group($this->webRoutesConfiguration(), function () {
-                $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
             });
         }
     }
@@ -130,7 +131,7 @@ class LararoleServiceProvider extends ServiceProvider
         return [
             'namespace' => 'Lararole\Http\Controllers\Api',
             'prefix' => 'lararole/api',
-            'middleware' => 'api',
+            'middleware' => 'web',
         ];
     }
 
@@ -142,7 +143,7 @@ class LararoleServiceProvider extends ServiceProvider
     protected function registerViews()
     {
         if (Lararole::shouldRunViews()) {
-            $this->loadViewsFrom(__DIR__.'/../resources/views', 'lararole');
+            $this->loadViewsFrom(__DIR__ . '/../resources/views', 'lararole');
         }
     }
 
@@ -155,5 +156,6 @@ class LararoleServiceProvider extends ServiceProvider
     {
         $this->app['router']->aliasMiddleware('permission.read', ModuleHasReadPermission::class);
         $this->app['router']->aliasMiddleware('permission.write', ModuleHasWritePermission::class);
+        $this->app['router']->aliasMiddleware('only-super-admin', OnlySuperAdmin::class);
     }
 }

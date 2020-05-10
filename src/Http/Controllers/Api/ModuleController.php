@@ -6,8 +6,9 @@ use Lararole\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Lararole\Http\Resources\ModuleCollection;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class ModuleController extends Controller
+class ModuleController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +17,10 @@ class ModuleController extends Controller
      */
     public function index()
     {
+        if ($this->user()->cant('viewAny', Module::class)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         return response()->json([
             'modules' => new ModuleCollection(Module::root()->orderByDesc('id')->get()),
         ]);
@@ -29,6 +34,10 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
+        if ($this->user()->cant('create', Module::class)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         $request->validate([
             'module_id' => ['nullable', 'exists:modules,id'],
             'name' => ['required', 'string', 'max:255', 'unique:modules'],
@@ -39,11 +48,15 @@ class ModuleController extends Controller
         $trashedModule = Module::onlyTrashed()->whereName($request->name)->first();
 
         if ($trashedModule) {
+            if ($this->user()->cant('restore', $trashedModule)) {
+                throw new HttpException(403, 'Access Denied!');
+            }
+
             $trashedModule->restore();
             $trashedModule->update($request->all());
 
             return response()->json([
-                'message' => $trashedModule->name.' successfully restored.',
+                'message' => $trashedModule->name . ' successfully restored.',
             ]);
         }
 
@@ -52,7 +65,7 @@ class ModuleController extends Controller
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name.' successfully created.',
+            'message' => $module->name . ' successfully created.',
         ], 201);
     }
 
@@ -64,6 +77,10 @@ class ModuleController extends Controller
      */
     public function edit(Module $module)
     {
+        if ($this->user()->cant('update', $module)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         return response()->json([
             'module' => new \Lararole\Http\Resources\Module($module),
         ]);
@@ -78,6 +95,10 @@ class ModuleController extends Controller
      */
     public function update(Request $request, Module $module)
     {
+        if ($this->user()->cant('update', $module)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         $request->validate([
             'module_id' => ['nullable', 'exists:modules,id'],
             'name' => ['required', 'string', 'max:255'],
@@ -91,7 +112,7 @@ class ModuleController extends Controller
             ]);
         }
 
-        if (! $request->module_id) {
+        if (!$request->module_id) {
             $request['module_id'] = null;
         }
 
@@ -100,7 +121,7 @@ class ModuleController extends Controller
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name.' successfully updated.',
+            'message' => $module->name . ' successfully updated.',
         ]);
     }
 
@@ -113,6 +134,10 @@ class ModuleController extends Controller
      */
     public function destroy(Module $module)
     {
+        if ($this->user()->cant('delete', $module)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         $name = $module->name;
 
         $module->delete();
@@ -120,7 +145,7 @@ class ModuleController extends Controller
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $name.' successfully deleted.',
+            'message' => $name . ' successfully deleted.',
         ]);
     }
 
@@ -132,6 +157,10 @@ class ModuleController extends Controller
      */
     public function destroyMany(Request $request)
     {
+        if ($this->user()->cant('deleteMany', Module::class)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         $request->validate([
             'modules' => ['required', 'array', 'min:1'],
             'modules.*.id' => ['required', 'exists:modules,id'],

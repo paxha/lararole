@@ -39,6 +39,6 @@ class AssignSuperAdminRoleCommand extends Command
     {
         config('lararole.providers.users.model')::find($this->option('user'))->assignSuperAdminRole();
 
-        $this->comment('Super Admin Role assigned to User');
+        $this->info('Super Admin Role assigned to User');
     }
 }

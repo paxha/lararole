@@ -14,13 +14,17 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
             fixed: 'left',
             render: (text, record) => <a onClick={function () {
                 setIsVisibleEditForm(true);
-                axios.get('/lararole/api/module/' + record.id + '/edit').then((response) => {
-                    setId(response.data.module.id);
-                    setName(response.data.module.name);
-                    setAlias(response.data.module.alias);
-                    setIcon(response.data.module.icon);
-                    setParentModuleId(response.data.module.module_id);
-                });
+                axios.get('/lararole/api/module/' + record.id + '/edit')
+                    .then(response => {
+                        setId(response.data.module.id);
+                        setName(response.data.module.name);
+                        setAlias(response.data.module.alias);
+                        setIcon(response.data.module.icon);
+                        setParentModuleId(response.data.module.module_id);
+                    })
+                    .catch(error => {
+                        openNotification(error.response.data.message, error.response.data.description, 'error');
+                    });
             }}>{text}</a>,
         },
         {
@@ -82,26 +86,38 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
 
                     <a style={{marginRight: 16}} onClick={function () {
                         setIsVisibleEditForm(true);
-                        axios.get('/lararole/api/module/' + record.id + '/edit').then((response) => {
-                            setId(response.data.module.id);
-                            setName(response.data.module.name);
-                            setAlias(response.data.module.alias);
-                            setIcon(response.data.module.icon);
-                            setParentModuleId(response.data.module.module_id);
-                        });
+                        axios.get('/lararole/api/module/' + record.id + '/edit')
+                            .then(response => {
+                                setId(response.data.module.id);
+                                setName(response.data.module.name);
+                                setAlias(response.data.module.alias);
+                                setIcon(response.data.module.icon);
+                                setParentModuleId(response.data.module.module_id);
+                            })
+                            .catch(error => {
+                                openNotification(error.response.data.message, error.response.data.description, 'error');
+                            });
                     }}>
                     <EditOutlined/> Edit
                     </a>
                     <Popconfirm
                         title="Are you sure delete this module?"
                         onConfirm={() => {
-                            axios.delete('/lararole/api/module/' + record.id + '/delete').then((response) => {
-                                openNotification(response.data.message, response.data.description);
+                            axios.delete('/lararole/api/module/' + record.id + '/delete')
+                                .then(response => {
+                                    openNotification(response.data.message, response.data.description);
 
-                                axios.get('/lararole/api/modules').then((modulesResponse) => {
-                                    setModules(modulesResponse.data.modules);
+                                    axios.get('/lararole/api/modules')
+                                        .then(modulesResponse => {
+                                            setModules(modulesResponse.data.modules);
+                                        })
+                                        .catch(modulesError => {
+                                            openNotification(modulesError.response.data.message, modulesError.response.data.description, 'error');
+                                        })
+                                })
+                                .catch(error => {
+                                    openNotification(error.response.data.message, error.response.data.description, 'error');
                                 });
-                            })
                         }}
                     >
                     <a>
@@ -139,9 +155,13 @@ function Index() {
 
     function loadModules() {
         setSelectedModuleIds([]);
-        axios.get('/lararole/api/modules').then((response) => {
-            setModules(response.data.modules);
-        });
+        axios.get('/lararole/api/modules')
+            .then(response => {
+                setModules(response.data.modules);
+            })
+            .catch(error => {
+                openNotification(error.response.data.message, error.response.data.description, 'error');
+            });
     }
 
     const rowSelection = {
@@ -238,6 +258,12 @@ function Index() {
                 description: description,
                 placement: 'bottomLeft',
             });
+        } else if (type === 'error') {
+            notification.error({
+                message: message,
+                description: description,
+                placement: 'bottomLeft',
+            })
         }
     };
 
@@ -260,10 +286,14 @@ function Index() {
                 onConfirm={() => {
                     axios.delete('/lararole/api/modules/delete', {
                         data: {modules: selectedModuleIds}
-                    }).then((response) => {
-                        openNotification(response.data.message, response.data.description);
-                        loadModules();
-                    });
+                    })
+                        .then(response => {
+                            openNotification(response.data.message, response.data.description);
+                            loadModules();
+                        })
+                        .catch(error => {
+                            openNotification(error.response.data.message, error.response.data.description, 'error');
+                        });
                 }}
             >
                 <Button type="danger" disabled={!hasSelected}>
@@ -303,24 +333,28 @@ function Index() {
                                 name,
                                 alias,
                                 icon
-                            }).then((response) => {
-                                openNotification(response.data.message, response.data.description);
-                                closeCreateForm();
-                                loadModules();
-                            }).catch(error => {
-                                if (error.response.data.errors.module_id) {
-                                    setParentModuleIdError(error.response.data.errors.module_id[0])
-                                }
-                                if (error.response.data.errors.name) {
-                                    setNameError(error.response.data.errors.name[0])
-                                }
-                                if (error.response.data.errors.alias) {
-                                    setAliasError(error.response.data.errors.alias[0])
-                                }
-                                if (error.response.data.errors.icon) {
-                                    setIconError(error.response.data.errors.icon[0])
-                                }
-                            });
+                            })
+                                .then(response => {
+                                    openNotification(response.data.message, response.data.description);
+                                    closeCreateForm();
+                                    loadModules();
+                                })
+                                .catch(error => {
+                                    openNotification(error.response.data.message, error.response.data.description, 'error');
+
+                                    if (error.response.data.errors.module_id) {
+                                        setParentModuleIdError(error.response.data.errors.module_id[0])
+                                    }
+                                    if (error.response.data.errors.name) {
+                                        setNameError(error.response.data.errors.name[0])
+                                    }
+                                    if (error.response.data.errors.alias) {
+                                        setAliasError(error.response.data.errors.alias[0])
+                                    }
+                                    if (error.response.data.errors.icon) {
+                                        setIconError(error.response.data.errors.icon[0])
+                                    }
+                                });
                         }} type="primary">
                             Create Module
                         </Button>
@@ -409,24 +443,28 @@ function Index() {
                                 name,
                                 alias,
                                 icon
-                            }).then((response) => {
-                                openNotification(response.data.message, response.data.description);
-                                closeEditForm();
-                                loadModules();
-                            }).catch(error => {
-                                if (error.response.data.errors.module_id) {
-                                    setParentModuleIdError(error.response.data.errors.module_id[0])
-                                }
-                                if (error.response.data.errors.name) {
-                                    setNameError(error.response.data.errors.name[0])
-                                }
-                                if (error.response.data.errors.alias) {
-                                    setAliasError(error.response.data.errors.alias[0])
-                                }
-                                if (error.response.data.errors.icon) {
-                                    setIconError(error.response.data.errors.icon[0])
-                                }
-                            });
+                            })
+                                .then(response => {
+                                    openNotification(response.data.message, response.data.description);
+                                    closeEditForm();
+                                    loadModules();
+                                })
+                                .catch(error => {
+                                    openNotification(error.response.data.message, error.response.data.description, 'error');
+
+                                    if (error.response.data.errors.module_id) {
+                                        setParentModuleIdError(error.response.data.errors.module_id[0])
+                                    }
+                                    if (error.response.data.errors.name) {
+                                        setNameError(error.response.data.errors.name[0])
+                                    }
+                                    if (error.response.data.errors.alias) {
+                                        setAliasError(error.response.data.errors.alias[0])
+                                    }
+                                    if (error.response.data.errors.icon) {
+                                        setIconError(error.response.data.errors.icon[0])
+                                    }
+                                });
                         }} type="primary">
                             Update Module
                         </Button>

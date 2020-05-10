@@ -164,14 +164,43 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
             dataIndex: 'name',
             key: 'name',
             render: (text, record) => <a onClick={function () {
-                axios.get('/lararole/api/modules').then((response) => {
-                    setModules(response.data.modules);
-                });
+                let roleModules = [];
+                let modules = [];
+
+                axios.get('/lararole/api/role/' + record.id + '/edit')
+                    .then(response => {
+                        setId(response.data.role.id);
+                        setName(response.data.role.name);
+                        roleModules = response.data.role.modules;
+                    })
+                    .catch(error => {
+                        openNotification(error.response.data.message, error.response.data.description, 'error');
+                    });
+
+                axios.get('/lararole/api/modules')
+                    .then(response => {
+                        modules = response.data.modules;
+
+                        for (let i = 0; i < roleModules.length; i++) {
+                            let roleModule = getModule(modules, roleModules[i].id)
+
+                            let updatedRoleModule = updateModule(roleModule, false, false, roleModules[i].permission === 'read', roleModules[i].permission === 'write')
+
+                            let updatedModules = updateModules(modules, updatedRoleModule);
+
+                            if (updatedRoleModule.module_id) {
+                                updatedModules = updateParentModule(updatedModules, updatedRoleModule)
+                            }
+                            setModules(updatedModules);
+                            forceUpdate();
+                        }
+
+                        setModules(response.data.modules);
+                    })
+                    .catch(error => {
+                        openNotification(error.response.data.message, error.response.data.description, 'error');
+                    });
                 setIsVisibleEditForm(true);
-                axios.get('/lararole/api/role/' + record.id + '/edit').then((response) => {
-                    setId(response.data.role.id);
-                    setName(response.data.role.name);
-                });
             }}>{text}</a>,
         },
         {
@@ -220,35 +249,42 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
             render: (text, record) => (
                 <span>
                 <a style={{marginRight: 16}} onClick={function () {
-
                     let roleModules = [];
                     let modules = [];
 
-                    axios.get('/lararole/api/role/' + record.id + '/edit').then((response) => {
-                        setId(response.data.role.id);
-                        setName(response.data.role.name);
-                        roleModules = response.data.role.modules;
-                    });
+                    axios.get('/lararole/api/role/' + record.id + '/edit')
+                        .then(response => {
+                            setId(response.data.role.id);
+                            setName(response.data.role.name);
+                            roleModules = response.data.role.modules;
+                        })
+                        .catch(error => {
+                            openNotification(error.response.data.message, error.response.data.description, 'error');
+                        });
 
-                    axios.get('/lararole/api/modules').then((response) => {
-                        modules = response.data.modules;
+                    axios.get('/lararole/api/modules')
+                        .then(response => {
+                            modules = response.data.modules;
 
-                        for (let i = 0; i < roleModules.length; i++) {
-                            let roleModule = getModule(modules, roleModules[i].id)
+                            for (let i = 0; i < roleModules.length; i++) {
+                                let roleModule = getModule(modules, roleModules[i].id)
 
-                            let updatedRoleModule = updateModule(roleModule, false, false, roleModules[i].permission === 'read', roleModules[i].permission === 'write')
+                                let updatedRoleModule = updateModule(roleModule, false, false, roleModules[i].permission === 'read', roleModules[i].permission === 'write')
 
-                            let updatedModules = updateModules(modules, updatedRoleModule);
+                                let updatedModules = updateModules(modules, updatedRoleModule);
 
-                            if (updatedRoleModule.module_id) {
-                                updatedModules = updateParentModule(updatedModules, updatedRoleModule)
+                                if (updatedRoleModule.module_id) {
+                                    updatedModules = updateParentModule(updatedModules, updatedRoleModule)
+                                }
+                                setModules(updatedModules);
+                                forceUpdate();
                             }
-                            setModules(updatedModules);
-                            forceUpdate();
-                        }
 
-                        setModules(response.data.modules);
-                    });
+                            setModules(response.data.modules);
+                        })
+                        .catch(error => {
+                            openNotification(error.response.data.message, error.response.data.description, 'error');
+                        });
                     setIsVisibleEditForm(true);
                 }}>
                     <EditOutlined/> Edit
@@ -256,12 +292,19 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
                     <Popconfirm
                         title="Are you sure delete this module?"
                         onConfirm={() => {
-                            axios.delete('/lararole/api/role/' + record.id + '/delete').then((response) => {
-                                openNotification(response.data.message, response.data.description);
-                                axios.get('/lararole/api/roles').then((rolesResponse) => {
-                                    setRoles(rolesResponse.data.roles);
-                                });
-                            })
+                            axios.delete('/lararole/api/role/' + record.id + '/delete')
+                                .then(response => {
+                                    openNotification(response.data.message, response.data.description);
+                                    axios.get('/lararole/api/roles')
+                                        .then(rolesResponse => {
+                                            setRoles(rolesResponse.data.roles);
+                                        }).catch(rolesError => {
+                                        openNotification(rolesError.response.data.message, rolesError.response.data.description, 'error');
+                                    });
+                                })
+                                .catch(error => {
+                                    openNotification(error.response.data.message, error.response.data.description, 'error');
+                                })
                         }}
                     >
                     <a>
@@ -509,8 +552,10 @@ function Index() {
 
     function loadRoles() {
         setSelectedRoleIds([]);
-        axios.get('/lararole/api/roles').then((response) => {
+        axios.get('/lararole/api/roles').then(response => {
             setRoles(response.data.roles);
+        }).catch(error => {
+            openNotification(error.response.data.message, error.response.data.description, 'error');
         });
     }
 
@@ -544,9 +589,13 @@ function Index() {
     const [isVisibleEditForm, setIsVisibleEditForm] = useState(false);
 
     function showCreateForm() {
-        axios.get('/lararole/api/modules').then((response) => {
-            setModules(response.data.modules);
-        });
+        axios.get('/lararole/api/modules')
+            .then(response => {
+                setModules(response.data.modules);
+            })
+            .catch(error => {
+                openNotification(error.response.data.message, error.response.data.description, 'error');
+            });
         setIsVisibleCreateForm(true);
     }
 
@@ -575,6 +624,12 @@ function Index() {
                 description: description,
                 placement: 'bottomLeft',
             });
+        } else if (type === 'error') {
+            notification.error({
+                message: message,
+                description: description,
+                placement: 'bottomLeft',
+            })
         }
     };
 
@@ -597,10 +652,14 @@ function Index() {
                 onConfirm={() => {
                     axios.delete('/lararole/api/roles/delete', {
                         data: {roles: selectedRoleIds}
-                    }).then((response) => {
-                        openNotification(response.data.message, response.data.description);
-                        loadRoles();
-                    });
+                    })
+                        .then(response => {
+                            openNotification(response.data.message, response.data.description);
+                            loadRoles();
+                        })
+                        .catch(error => {
+                            openNotification(error.response.data.message, error.response.data.description, 'error');
+                        });
                 }}
             >
                 <Button type="danger" disabled={!hasSelected}>
@@ -655,18 +714,22 @@ function Index() {
                             axios.post('/lararole/api/role/create', {
                                 name,
                                 modules: selectedModules,
-                            }).then((response) => {
-                                openNotification(response.data.message, response.data.description);
-                                closeCreateForm();
-                                loadRoles();
-                            }).catch(error => {
-                                if (error.response.data.errors.name) {
-                                    setNameError(error.response.data.errors.name[0])
-                                }
-                                if (error.response.data.errors.modules) {
-                                    setModulesError(error.response.data.errors.modules[0])
-                                }
-                            });
+                            })
+                                .then(response => {
+                                    openNotification(response.data.message, response.data.description);
+                                    closeCreateForm();
+                                    loadRoles();
+                                })
+                                .catch(error => {
+                                    openNotification(error.response.data.message, error.response.data.description, 'error');
+
+                                    if (error.response.data.errors.name) {
+                                        setNameError(error.response.data.errors.name[0])
+                                    }
+                                    if (error.response.data.errors.modules) {
+                                        setModulesError(error.response.data.errors.modules[0])
+                                    }
+                                });
 
                         }} type="primary">
                             Create Role
@@ -742,18 +805,22 @@ function Index() {
                             axios.put('/lararole/api/role/' + id + '/update', {
                                 name,
                                 modules: selectedModules,
-                            }).then((response) => {
-                                openNotification(response.data.message, response.data.description);
-                                closeEditForm();
-                                loadRoles();
-                            }).catch(error => {
-                                if (error.response.data.errors.name) {
-                                    setNameError(error.response.data.errors.name[0])
-                                }
-                                if (error.response.data.errors.modules) {
-                                    setModulesError(error.response.data.errors.modules[0])
-                                }
-                            });
+                            })
+                                .then(response => {
+                                    openNotification(response.data.message, response.data.description);
+                                    closeEditForm();
+                                    loadRoles();
+                                })
+                                .catch(error => {
+                                    openNotification(error.response.data.message, error.response.data.description, 'error');
+
+                                    if (error.response.data.errors.name) {
+                                        setNameError(error.response.data.errors.name[0])
+                                    }
+                                    if (error.response.data.errors.modules) {
+                                        setModulesError(error.response.data.errors.modules[0])
+                                    }
+                                });
                         }} type="primary">
                             Update Role
                         </Button>

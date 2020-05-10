@@ -41,7 +41,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Lararole\\LararoleServiceProvider"
+                "Lararole\\LararoleServiceProvider",
+                "Lararole\\LararoleAuthServiceProvider"
             ]
         }
     },

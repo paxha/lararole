@@ -2,13 +2,15 @@
 
 namespace Lararole\Http\Controllers\Api;
 
+use Lararole\Models\Module;
 use Lararole\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Lararole\Http\Resources\RoleCollection;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class RoleController extends Controller
+class RoleController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +19,10 @@ class RoleController extends Controller
      */
     public function index()
     {
+        if ($this->user()->cant('viewAny', Role::class)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         return response()->json([
             'roles' => new RoleCollection(Role::orderByDesc('id')->get()),
         ]);
@@ -30,6 +36,10 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        if ($this->user()->cant('create', Role::class)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'modules' => ['required', 'array'],
@@ -42,6 +52,10 @@ class RoleController extends Controller
         if ($trashedRole) {
             DB::beginTransaction();
             try {
+                if ($this->user()->cant('restore', $trashedRole)) {
+                    throw new HttpException(403, 'Access Denied!');
+                }
+
                 $trashedRole->restore();
 
                 $trashedRole->update($request->all());
@@ -58,7 +72,7 @@ class RoleController extends Controller
             }
 
             return response()->json([
-                'message' => $trashedRole->name.' successfully restored.',
+                'message' => $trashedRole->name . ' successfully restored.',
             ]);
         }
 
@@ -78,7 +92,7 @@ class RoleController extends Controller
         }
 
         return response()->json([
-            'message' => $role->name.' successfully created.',
+            'message' => $role->name . ' successfully created.',
         ], 201);
     }
 
@@ -90,6 +104,10 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        if ($this->user()->cant('update', $role)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         return response()->json([
             'role' => new \Lararole\Http\Resources\Role($role),
         ]);
@@ -104,6 +122,10 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
+        if ($this->user()->cant('update', $role)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'modules' => ['required', 'array'],
@@ -128,7 +150,7 @@ class RoleController extends Controller
         }
 
         return response()->json([
-            'message' => $role->name.' successfully updated.',
+            'message' => $role->name . ' successfully updated.',
         ]);
     }
 
@@ -140,12 +162,16 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
+        if ($this->user()->cant('delete', $role)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         $name = $role->name;
 
         $role->delete();
 
         return response()->json([
-            'message' => $name.' successfully deleted.',
+            'message' => $name . ' successfully deleted.',
         ]);
     }
 
@@ -157,6 +183,10 @@ class RoleController extends Controller
      */
     public function destroyMany(Request $request)
     {
+        if ($this->user()->cant('deleteMany', Role::class)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
         $request->validate([
             'roles' => ['required', 'array', 'min:1'],
             'roles.*.id' => ['required', 'exists:roles,id'],
