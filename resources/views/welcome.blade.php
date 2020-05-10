@@ -7,7 +7,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ __("Lararole") }}</title>
+
+    <!-- icon -->
+    <link rel="icon" href="{{ asset('vendor/lararole/lararole.ico') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('vendor/lararole/js/app.js') }}" defer></script>
