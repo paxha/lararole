@@ -28,7 +28,7 @@ class Role extends Model
     {
         parent::boot();
 
-        if (config('lararole.attachAllChildren', true)) {
+        if (config('lararole.attachAllChildren', false)) {
             self::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
                 foreach ($pivotIdsAttributes as $key => $pivotIdsAttribute) {
                     if (Module::find($key)->nestedChildren()->count()) {
@@ -45,6 +45,12 @@ class Role extends Model
                 }
             });
         }
+
+        self::deleting(function ($model) {
+            $model->modules()->detach();
+
+            $model->users()->detach();
+        });
     }
 
     private static function attachAllChildModules($model, $moduleId, $permission)
@@ -59,7 +65,7 @@ class Role extends Model
 
     public function users()
     {
-        return $this->belongsToMany(config('lararole.providers.users.model'))->withTimestamps();
+        return $this->belongsToMany(config('lararole.providers.users.model', \App\User::class))->withTimestamps();
     }
 
     public function modules()

@@ -2,42 +2,40 @@
 
 namespace Lararole\Models;
 
-use Illuminate\Support\Str;
+use Lararole\Traits\Loggable;
+use Sluggable\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 use RecursiveRelationships\Traits\HasRecursiveRelationships;
 
 class Module extends Model
 {
-    use HasRecursiveRelationships, HasRelationships;
+    use SoftDeletes, Sluggable, HasRecursiveRelationships, HasRelationships, Loggable;
 
     protected $fillable = [
-        'name', 'alias', 'icon',
+        'module_id', 'name', 'alias', 'icon',
     ];
 
     public static function boot()
     {
         parent::boot();
 
-        self::creating(function ($model) {
-            $model->slug = Str::slug($model->name, '_');
-
-            $latestSlug = self::whereRaw("slug = '$model->slug'")->latest('id')->value('slug');
-            if ($latestSlug) {
-                $pieces = explode('_', $latestSlug);
-                $number = intval(end($pieces));
-                $model->slug .= '_'.($number + 1);
-            }
-        });
-
         self::deleting(function ($model) {
             $model->children()->delete();
+
+            $model->roles()->detach();
         });
     }
 
     public function getParentKeyName()
     {
         return 'module_id';
+    }
+
+    public static function separator(): string
+    {
+        return '_';
     }
 
     public function createModules(array $modules)

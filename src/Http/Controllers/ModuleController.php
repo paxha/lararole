@@ -3,6 +3,7 @@
 namespace Lararole\Http\Controllers;
 
 use Lararole\Models\Module;
+use Illuminate\Routing\Controller;
 
 class ModuleController extends Controller
 {

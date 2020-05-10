@@ -23,6 +23,32 @@ class UserTest extends TestCase
         $this->assertCount(1, $user->roles);
     }
 
+    public function testIsSuperAdmin()
+    {
+        $this->artisan('migrate:modules');
+        $this->artisan('make:super-admin-role');
+
+        $superAdmin = User::create([
+            'name' => 'Super Admin',
+        ]);
+
+        $superAdmin->assignSuperAdminRole();
+
+        $this->assertTrue($superAdmin->isSuperAdmin());
+
+        $user = User::create([
+            'name' => 'User',
+        ]);
+
+        $role = Role::create([
+            'name' => 'Product',
+        ]);
+
+        $user->roles()->attach($role);
+
+        $this->assertFalse($user->isSuperAdmin());
+    }
+
     public function testAssignRoles()
     {
         Role::create([
@@ -37,7 +63,7 @@ class UserTest extends TestCase
             'name' => 'Super Admin',
         ]);
 
-        $user->assignRoles(\role()->all()->pluck('id')->toArray());
+        $user->assignRoles(Role::all()->pluck('id')->toArray());
 
         $this->assertCount(2, $user->roles);
     }
@@ -56,7 +82,7 @@ class UserTest extends TestCase
             'name' => 'Super Admin',
         ]);
 
-        $user->removeRoles(\role()->all()->pluck('id')->toArray());
+        $user->removeRoles(Role::all()->pluck('id')->toArray());
 
         $this->assertCount(0, $user->roles);
     }

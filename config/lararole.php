@@ -55,9 +55,7 @@ return [
         ],
     ],
 
-    'role' => [
-        'loggable' => false,
-    ],
+    'loggable' => false,
 
-    'attachAllChildren' => true,
+    'attachAllChildren' => false,
 ];

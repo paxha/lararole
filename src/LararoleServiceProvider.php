@@ -2,11 +2,13 @@
 
 namespace Lararole;
 
+use Lararole\Services\Role;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Sven\ArtisanView\Commands\MakeView;
-use Lararole\Containers\RoleServiceContainer;
+use Lararole\Http\Middleware\OnlySuperAdmin;
+use Lararole\Console\Commands\InstallCommand;
 use Lararole\Console\Commands\MakeViewsCommand;
-use Lararole\Containers\ModuleServiceContainer;
 use Lararole\Console\Commands\MigrateModulesCommand;
 use Lararole\Http\Middleware\ModuleHasReadPermission;
 use Lararole\Http\Middleware\ModuleHasWritePermission;
@@ -22,12 +24,8 @@ class LararoleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('module', function () {
-            return new ModuleServiceContainer();
-        });
-
         $this->app->bind('role', function () {
-            return new RoleServiceContainer();
+            return new Role();
         });
     }
 
@@ -41,39 +39,50 @@ class LararoleServiceProvider extends ServiceProvider
     {
         $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/../database/factories');
 
-        if ($this->app->runningInConsole()) {
-            /*Migrations Publishable*/
-            $this->registerMigrations();
-            $this->publishes([
-                __DIR__.'/../database/migrations' => database_path('migrations'),
-            ], 'lararole-migrations');
+        /*Migrations Publishable*/
+        $this->publishes([
+            __DIR__.'/../database/migrations' => database_path('migrations'),
+        ], 'lararole-migrations');
+        $this->registerMigrations();
 
-            /*Config Publishable*/
-            $this->publishes([
-                __DIR__.'/../config/lararole.php' => config_path('lararole.php'),
-            ], 'lararole-config');
+        /*Config Publishable*/
+        $this->publishes([
+            __DIR__.'/../config/lararole.php' => config_path('lararole.php'),
+        ], 'lararole-config');
 
-            /*Views Publishable*/
-            $this->publishes([
-                __DIR__.'/../resources/views' => base_path('resources/views'),
-            ], 'lararole-views');
+        /*Views Publishable*/
+        $this->publishes([
+            __DIR__.'/../resources/views' => base_path('resources/views'),
+        ], 'lararole-views');
+        $this->registerViews();
 
-            $this->registerRoutes();
-            $this->publishes([
-                __DIR__.'/Http/Controllers/ModuleController.php' => app_path('Http/Controllers/ModuleController.php'),
-                __DIR__.'/../routes/web.php' => base_path('routes/module.web.php'),
-            ], 'lararole-routes');
+        /*Routes Publishable*/
+        $this->publishes([
+            __DIR__.'/Http/Controllers/ModuleController.php' => app_path('Http/Controllers/ModuleController.php'),
+            __DIR__.'/../routes/web.php' => base_path('routes/module.web.php'),
+        ], 'lararole-routes');
+        $this->registerRoutes();
 
-            $this->commands([
-                MakeSuperAdminRoleCommand::class,
-                MakeView::class,
-                MakeViewsCommand::class,
-                MigrateModulesCommand::class,
-                AssignSuperAdminRoleCommand::class,
-            ]);
-        }
+        /*Assets Publishable*/
+        $this->publishes([
+            __DIR__.'/../public' => public_path('vendor/lararole'),
+        ], 'lararole-assets');
+
+        $this->commands([
+            MakeSuperAdminRoleCommand::class,
+            InstallCommand::class,
+            MakeView::class,
+            MakeViewsCommand::class,
+            MigrateModulesCommand::class,
+            AssignSuperAdminRoleCommand::class,
+        ]);
 
         $this->configureMiddleware();
+    }
+
+    protected function loadViews()
+    {
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'lararole');
     }
 
     /**
@@ -84,7 +93,7 @@ class LararoleServiceProvider extends ServiceProvider
     protected function registerMigrations()
     {
         if (Lararole::shouldRunMigrations()) {
-            return $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
     }
 
@@ -96,8 +105,34 @@ class LararoleServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         if (Lararole::shouldRunRoutes()) {
-            return $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+            $this->loadRoutesFrom(__DIR__.'/../routes/module.php');
+
+            Route::group($this->apiRoutesConfiguration(), function () {
+                $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+            });
+
+            Route::group($this->webRoutesConfiguration(), function () {
+                $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+            });
         }
+    }
+
+    private function webRoutesConfiguration()
+    {
+        return [
+            'namespace' => 'Lararole\Http\Controllers',
+            'prefix' => 'lararole',
+            'middleware' => 'web',
+        ];
+    }
+
+    private function apiRoutesConfiguration()
+    {
+        return [
+            'namespace' => 'Lararole\Http\Controllers\Api',
+            'prefix' => 'lararole/api',
+            'middleware' => 'web',
+        ];
     }
 
     /**
@@ -108,7 +143,7 @@ class LararoleServiceProvider extends ServiceProvider
     protected function registerViews()
     {
         if (Lararole::shouldRunViews()) {
-            return $this->loadViewsFrom(__DIR__.'/../resources/views');
+            $this->loadViewsFrom(__DIR__.'/../resources/views', 'lararole');
         }
     }
 
@@ -121,5 +156,6 @@ class LararoleServiceProvider extends ServiceProvider
     {
         $this->app['router']->aliasMiddleware('permission.read', ModuleHasReadPermission::class);
         $this->app['router']->aliasMiddleware('permission.write', ModuleHasWritePermission::class);
+        $this->app['router']->aliasMiddleware('only-super-admin', OnlySuperAdmin::class);
     }
 }
