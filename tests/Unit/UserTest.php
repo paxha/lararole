@@ -23,6 +23,32 @@ class UserTest extends TestCase
         $this->assertCount(1, $user->roles);
     }
 
+    public function testIsSuperAdmin()
+    {
+        $this->artisan('migrate:modules');
+        $this->artisan('make:super-admin-role');
+
+        $superAdmin = User::create([
+            'name' => 'Super Admin',
+        ]);
+
+        $superAdmin->assignSuperAdminRole();
+
+        $this->assertTrue($superAdmin->isSuperAdmin());
+
+        $user = User::create([
+            'name' => 'User',
+        ]);
+
+        $role = Role::create([
+            'name' => 'Product'
+        ]);
+
+        $user->roles()->attach($role);
+
+        $this->assertFalse($user->isSuperAdmin());
+    }
+
     public function testAssignRoles()
     {
         Role::create([

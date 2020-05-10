@@ -32,6 +32,11 @@ trait HasRoles
         return $this->hasManyDeep(Module::class, ['role_user', Role::class, 'module_role'])->withPivot('module_role', ['permission'], ModuleRole::class, 'permission');
     }
 
+    public function isSuperAdmin()
+    {
+        return $this->roles()->whereSlug('super-admin')->exists();
+    }
+
     public function assignRoles(array $roles)
     {
         $this->roles()->attach($roles);
