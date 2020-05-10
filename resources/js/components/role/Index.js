@@ -4,7 +4,7 @@ import { DeleteOutlined, EditOutlined, HomeOutlined, PlusOutlined, UsergroupAddO
 import { Link } from 'react-router-dom'
 
 function useForceUpdate () {
-  const [setValue] = useState(0) // integer state
+  const [value, setValue] = useState(0) // integer state
   return () => setValue((value) => ++value) // update the state to force render
 }
 
