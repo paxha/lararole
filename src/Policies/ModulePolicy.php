@@ -2,8 +2,8 @@
 
 namespace Lararole\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Lararole\Models\Module;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ModulePolicy
 {

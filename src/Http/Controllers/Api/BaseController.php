@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Lararole\Http\Controllers\Api;
-
 
 use Illuminate\Routing\Controller;
 
