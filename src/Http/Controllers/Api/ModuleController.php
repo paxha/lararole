@@ -4,7 +4,6 @@ namespace Lararole\Http\Controllers\Api;
 
 use Lararole\Models\Module;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Lararole\Http\Resources\ModuleCollection;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -56,7 +55,7 @@ class ModuleController extends BaseController
             $trashedModule->update($request->all());
 
             return response()->json([
-                'message' => $trashedModule->name . ' successfully restored.',
+                'message' => $trashedModule->name.' successfully restored.',
             ]);
         }
 
@@ -65,7 +64,7 @@ class ModuleController extends BaseController
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name . ' successfully created.',
+            'message' => $module->name.' successfully created.',
         ], 201);
     }
 
@@ -112,7 +111,7 @@ class ModuleController extends BaseController
             ]);
         }
 
-        if (!$request->module_id) {
+        if (! $request->module_id) {
             $request['module_id'] = null;
         }
 
@@ -121,7 +120,7 @@ class ModuleController extends BaseController
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name . ' successfully updated.',
+            'message' => $module->name.' successfully updated.',
         ]);
     }
 
@@ -145,7 +144,7 @@ class ModuleController extends BaseController
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $name . ' successfully deleted.',
+            'message' => $name.' successfully deleted.',
         ]);
     }
 

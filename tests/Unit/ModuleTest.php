@@ -2,12 +2,12 @@
 
 namespace Lararole\Tests\Unit;
 
-use Illuminate\Support\Facades\Config;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Illuminate\Http\Request;
 use Lararole\Tests\TestCase;
 use Lararole\Tests\Models\User;
+use Illuminate\Support\Facades\Config;
 
 class ModuleTest extends TestCase
 {

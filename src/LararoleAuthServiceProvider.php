@@ -2,11 +2,11 @@
 
 namespace Lararole;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Lararole\Models\Module;
 use Lararole\Models\Role;
-use Lararole\Policies\ModulePolicy;
+use Lararole\Models\Module;
 use Lararole\Policies\RolePolicy;
+use Lararole\Policies\ModulePolicy;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class LararoleAuthServiceProvider extends ServiceProvider
 {

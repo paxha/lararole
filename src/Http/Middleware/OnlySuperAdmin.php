@@ -3,7 +3,6 @@
 namespace Lararole\Http\Middleware;
 
 use Closure;
-use Lararole\Models\Module;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class OnlySuperAdmin

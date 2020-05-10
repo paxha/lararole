@@ -41,7 +41,7 @@ class UserTest extends TestCase
         ]);
 
         $role = Role::create([
-            'name' => 'Product'
+            'name' => 'Product',
         ]);
 
         $user->roles()->attach($role);

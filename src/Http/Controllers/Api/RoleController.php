@@ -2,10 +2,8 @@
 
 namespace Lararole\Http\Controllers\Api;
 
-use Lararole\Models\Module;
 use Lararole\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Lararole\Http\Resources\RoleCollection;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -72,7 +70,7 @@ class RoleController extends BaseController
             }
 
             return response()->json([
-                'message' => $trashedRole->name . ' successfully restored.',
+                'message' => $trashedRole->name.' successfully restored.',
             ]);
         }
 
@@ -92,7 +90,7 @@ class RoleController extends BaseController
         }
 
         return response()->json([
-            'message' => $role->name . ' successfully created.',
+            'message' => $role->name.' successfully created.',
         ], 201);
     }
 
@@ -150,7 +148,7 @@ class RoleController extends BaseController
         }
 
         return response()->json([
-            'message' => $role->name . ' successfully updated.',
+            'message' => $role->name.' successfully updated.',
         ]);
     }
 
@@ -171,7 +169,7 @@ class RoleController extends BaseController
         $role->delete();
 
         return response()->json([
-            'message' => $name . ' successfully deleted.',
+            'message' => $name.' successfully deleted.',
         ]);
     }
 
