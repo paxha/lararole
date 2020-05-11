@@ -92,7 +92,7 @@ class RoleController extends BaseController
             }
 
             return response()->json([
-                'message' => $trashedRole->name . ' successfully restored.',
+                'message' => $trashedRole->name.' successfully restored.',
             ]);
         }
 
@@ -112,7 +112,7 @@ class RoleController extends BaseController
         }
 
         return response()->json([
-            'message' => $role->name . ' successfully created.',
+            'message' => $role->name.' successfully created.',
         ], 201);
     }
 
@@ -170,7 +170,7 @@ class RoleController extends BaseController
         }
 
         return response()->json([
-            'message' => $role->name . ' successfully updated.',
+            'message' => $role->name.' successfully updated.',
         ]);
     }
 
@@ -191,7 +191,7 @@ class RoleController extends BaseController
         $role->delete();
 
         return response()->json([
-            'message' => $name . ' successfully deleted.',
+            'message' => $name.' successfully deleted.',
         ]);
     }
 
