@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { Breadcrumb, Button, Drawer, Form, Input, Popconfirm, Table, Tag, TreeSelect, notification } from 'antd'
-import { DeleteOutlined, DeploymentUnitOutlined, EditOutlined, HomeOutlined, PlusOutlined } from '@ant-design/icons'
+import { Breadcrumb, Button, Drawer, Form, Input, notification, Popconfirm, Switch, Table, TreeSelect } from 'antd'
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DeleteOutlined,
+  DeploymentUnitOutlined,
+  EditOutlined,
+  HomeOutlined,
+  PlusOutlined
+} from '@ant-design/icons'
 
 import { Link } from 'react-router-dom'
 
 const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules, openNotification) => {
+  const [isLoadingOf, setIsLoadingOf] = useState(null)
+
   return [
     {
       title: 'Name',
-      width: 260,
       dataIndex: 'name',
       key: 'name',
-      fixed: 'left',
       render: (text, record) => <a onClick={function () {
         setIsVisibleEditForm(true)
         axios.get('/lararole/api/module/' + record.id + '/edit')
@@ -28,53 +36,59 @@ const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, s
       }}>{text}</a>
     },
     {
-      title: 'Slug',
-      dataIndex: 'slug',
-      key: 'slug'
-    },
-    {
       title: 'Alias',
       dataIndex: 'alias',
-      key: 'alias'
+      key: 'alias',
+      render: (text, record) =>
+        <>
+          <strong>{text}</strong>
+          <br/>
+                ({record.slug})
+        </>
     },
     {
-      title: 'Roles',
-      width: 260,
-      dataIndex: 'roles',
-      key: 'roles',
-      render: roles => (
-        <>
-          {
-            roles.map(role => {
-              const color = role.permission.permission === 'write' ? 'geekblue' : 'cyan'
-
-              return (
-                <Tag color={color} key={role.slug} style={{ marginTop: 5 }}>
-                  {role.name}
-                </Tag>
-              )
-            })
-          }
-        </>
+      title: 'Active',
+      key: 'active',
+      render: (text, record) => (
+        <Switch
+          checkedChildren={<CheckOutlined />}
+          unCheckedChildren={<CloseOutlined />}
+          defaultChecked={!!record.active}
+          loading={isLoadingOf === record.id}
+          onChange={() => {
+            setIsLoadingOf(record.id)
+            axios.get('/lararole/api/module/' + record.id + '/toggle-active')
+              .then(response => {
+                setIsLoadingOf(null)
+                openNotification(response.data.message, response.data.description)
+                axios.get('/lararole/api/modules')
+                  .then(rolesResponse => {
+                    setModules(rolesResponse.data.modules)
+                  }).catch(rolesError => {
+                    openNotification(rolesError.response.data.message, rolesError.response.data.description, 'error')
+                  })
+              })
+              .catch(error => {
+                setIsLoadingOf(null)
+                openNotification(error.response.data.message, error.response.data.description, 'error')
+              })
+          }}
+        />
       )
     },
     {
       title: 'Last Update',
-      width: 130,
       dataIndex: 'updated_at',
       key: 'last_update'
     },
     {
       title: 'Created',
-      width: 130,
       dataIndex: 'created_at',
       key: 'created'
     },
     {
       title: '',
-      width: 260,
       key: 'action',
-      fixed: 'right',
       render: (text, record) => (
         <span>
           <a style={{ marginRight: 16 }} onClick={function () {
@@ -540,7 +554,8 @@ function Index () {
         columns={columns(setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules, openNotification)}
         rowSelection={rowSelection}
         dataSource={modules}
-        scroll={{ x: 1400 }}/>
+        tableLayout="auto"
+      />
     </div>
   )
 }

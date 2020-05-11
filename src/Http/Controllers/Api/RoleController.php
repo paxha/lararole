@@ -153,6 +153,25 @@ class RoleController extends BaseController
     }
 
     /**
+     * Toggle active the specified resource in storage.
+     *
+     * @param Role $role
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function toggleActive(Role $role)
+    {
+        if ($this->user()->cant('toggleActive', $role)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
+        $role->toggleActive();
+
+        return response()->json([
+            'message' => $role->name.' successfully '.($role->active ? 'activated' : 'deactivated').'.',
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param Role $role
