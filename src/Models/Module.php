@@ -2,6 +2,7 @@
 
 namespace Lararole\Models;
 
+use Lararole\Traits\Activable;
 use Lararole\Traits\Loggable;
 use Sluggable\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
@@ -11,15 +12,33 @@ use RecursiveRelationships\Traits\HasRecursiveRelationships;
 
 class Module extends Model
 {
-    use SoftDeletes, Sluggable, HasRecursiveRelationships, HasRelationships, Loggable;
+    use SoftDeletes, Activable, Sluggable, HasRecursiveRelationships, HasRelationships, Loggable;
 
     protected $fillable = [
         'module_id', 'name', 'alias', 'icon',
     ];
 
+    protected $guarded = [
+        'active',
+    ];
+
     public static function boot()
     {
         parent::boot();
+
+        self::updating(function ($model) {
+            if (!$model->active) {
+                foreach ($model->children as $child) {
+                    $child->active = false;
+                    $child->save();
+                }
+            } else {
+                if ($model->parent) {
+                    $model->parent->active = true;
+                    $model->parent->save();
+                }
+            }
+        });
 
         self::deleting(function ($model) {
             $model->children()->delete();
@@ -76,7 +95,7 @@ class Module extends Model
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class)->withPivot('permission')->as('permission')->withTimestamps();
+        return $this->belongsToMany(Role::class)->withPivot('permission')->as('permission')->withTimestamps()->whereActive(true);
     }
 
     public function user()

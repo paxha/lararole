@@ -125,6 +125,25 @@ class ModuleController extends BaseController
     }
 
     /**
+     * Toggle active the specified resource in storage.
+     *
+     * @param Module $module
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function toggleActive(Module $module)
+    {
+        if ($this->user()->cant('toggleActive', $module)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
+        $module->toggleActive();
+
+        return response()->json([
+            'message' => $module->name . ' successfully ' . ($module->active ? 'activated' : 'deactivated') . '.',
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param Module $module

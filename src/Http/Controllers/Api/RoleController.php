@@ -70,7 +70,7 @@ class RoleController extends BaseController
             }
 
             return response()->json([
-                'message' => $trashedRole->name.' successfully restored.',
+                'message' => $trashedRole->name . ' successfully restored.',
             ]);
         }
 
@@ -90,7 +90,7 @@ class RoleController extends BaseController
         }
 
         return response()->json([
-            'message' => $role->name.' successfully created.',
+            'message' => $role->name . ' successfully created.',
         ], 201);
     }
 
@@ -148,7 +148,26 @@ class RoleController extends BaseController
         }
 
         return response()->json([
-            'message' => $role->name.' successfully updated.',
+            'message' => $role->name . ' successfully updated.',
+        ]);
+    }
+
+    /**
+     * Toggle active the specified resource in storage.
+     *
+     * @param Role $role
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function toggleActive(Role $role)
+    {
+        if ($this->user()->cant('toggleActive', $role)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
+        $role->toggleActive();
+
+        return response()->json([
+            'message' => $role->name . ' successfully ' . ($role->active ? 'activated' : 'deactivated') . '.',
         ]);
     }
 
@@ -169,7 +188,7 @@ class RoleController extends BaseController
         $role->delete();
 
         return response()->json([
-            'message' => $name.' successfully deleted.',
+            'message' => $name . ' successfully deleted.',
         ]);
     }
 

@@ -56,6 +56,18 @@ class RolePolicy
     }
 
     /**
+     * Determine whether the user can toggle active the model.
+     *
+     * @param $user
+     * @param Role $role
+     * @return mixed
+     */
+    public function toggleActive($user, Role $role)
+    {
+        return $user->isSuperAdmin();
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param $user
