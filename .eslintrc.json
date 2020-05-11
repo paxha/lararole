@@ -23,6 +23,7 @@
     ],
     "rules": {
         "react/display-name": "off",
-        "no-undef": "warn"
+        "no-undef": "warn",
+        "no-unused-vars": "warn"
     }
 }

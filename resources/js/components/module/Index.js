@@ -144,6 +144,8 @@ function Index () {
   const [icon, setIcon] = useState(null)
   const [iconError, setIconError] = useState(null)
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const parentModuleIdHasError = !!parentModuleIdError
   const nameHasError = !!nameError
   const aliasHasError = !!aliasError
@@ -323,7 +325,8 @@ function Index () {
             >
                             Cancel
             </Button>
-            <Button onClick={() => {
+            <Button loading={isLoading} onClick={() => {
+              setIsLoading(true)
               setParentModuleIdError(null)
               setNameError(null)
               setAliasError(null)
@@ -335,11 +338,13 @@ function Index () {
                 icon
               })
                 .then(response => {
+                  setIsLoading(false)
                   openNotification(response.data.message, response.data.description)
                   closeCreateForm()
                   loadModules()
                 })
                 .catch(error => {
+                  setIsLoading(false)
                   openNotification(error.response.data.message, error.response.data.description, 'error')
 
                   if (error.response.data.errors.module_id) {
@@ -432,7 +437,8 @@ function Index () {
             >
                             Cancel
             </Button>
-            <Button onClick={() => {
+            <Button loading={isLoading} onClick={() => {
+              setIsLoading(true)
               setParentModuleIdError(null)
               setNameError(null)
               setAliasError(null)
@@ -445,11 +451,13 @@ function Index () {
                 icon
               })
                 .then(response => {
+                  setIsLoading(false)
                   openNotification(response.data.message, response.data.description)
                   closeEditForm()
                   loadModules()
                 })
                 .catch(error => {
+                  setIsLoading(false)
                   openNotification(error.response.data.message, error.response.data.description, 'error')
 
                   if (error.response.data.errors.module_id) {

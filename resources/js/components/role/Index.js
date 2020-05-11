@@ -543,6 +543,8 @@ function Index () {
   const [modules, setModules] = useState([])
   const [modulesError, setModulesError] = useState(null)
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const nameHasError = !!nameError
   const modulesHasError = !!modulesError
 
@@ -689,7 +691,8 @@ function Index () {
             >
                             Cancel
             </Button>
-            <Button onClick={() => {
+            <Button loading={isLoading} onClick={() => {
+              setIsLoading(true)
               const selectedModules = []
 
               function getModulesArray (modules) {
@@ -716,11 +719,13 @@ function Index () {
                 modules: selectedModules
               })
                 .then(response => {
+                  setIsLoading(false)
                   openNotification(response.data.message, response.data.description)
                   closeCreateForm()
                   loadRoles()
                 })
                 .catch(error => {
+                  setIsLoading(false)
                   openNotification(error.response.data.message, error.response.data.description, 'error')
 
                   if (error.response.data.errors.name) {
@@ -779,7 +784,8 @@ function Index () {
             >
                             Cancel
             </Button>
-            <Button onClick={() => {
+            <Button loading={isLoading} onClick={() => {
+              setIsLoading(true)
               const selectedModules = []
 
               function getModulesArray (modules) {
@@ -806,11 +812,13 @@ function Index () {
                 modules: selectedModules
               })
                 .then(response => {
+                  setIsLoading(false)
                   openNotification(response.data.message, response.data.description)
                   closeEditForm()
                   loadRoles()
                 })
                 .catch(error => {
+                  setIsLoading(false)
                   openNotification(error.response.data.message, error.response.data.description, 'error')
 
                   if (error.response.data.errors.name) {
