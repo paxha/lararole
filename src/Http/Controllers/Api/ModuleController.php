@@ -139,7 +139,7 @@ class ModuleController extends BaseController
         $module->toggleActive();
 
         return response()->json([
-            'message' => $module->name . ' successfully ' . ($module->active ? 'activated' : 'deactivated') . '.',
+            'message' => $module->name.' successfully '.($module->active ? 'activated' : 'deactivated').'.',
         ]);
     }
 
