@@ -2,8 +2,8 @@
 
 namespace Lararole\Models;
 
-use Lararole\Traits\Activable;
 use Lararole\Traits\Loggable;
+use Lararole\Traits\Activable;
 use Sluggable\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,7 +27,7 @@ class Module extends Model
         parent::boot();
 
         self::updating(function ($model) {
-            if (!$model->active) {
+            if (! $model->active) {
                 foreach ($model->children as $child) {
                     $child->active = false;
                     $child->save();
