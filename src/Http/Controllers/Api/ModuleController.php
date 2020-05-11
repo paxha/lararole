@@ -26,6 +26,27 @@ class ModuleController extends BaseController
     }
 
     /**
+     * Display a stats of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function stats()
+    {
+        if ($this->user()->cant('stats', Module::class)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
+        $stats['total'] = Module::count();
+        $stats['active'] = Module::whereActive(true)->count();
+        $stats['idle'] = Module::whereActive(false)->count();
+        $stats['trashed'] = Module::onlyTrashed()->count();
+
+        return response()->json([
+            'stats' => $stats,
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -55,7 +76,7 @@ class ModuleController extends BaseController
             $trashedModule->update($request->all());
 
             return response()->json([
-                'message' => $trashedModule->name.' successfully restored.',
+                'message' => $trashedModule->name . ' successfully restored.',
             ]);
         }
 
@@ -64,7 +85,7 @@ class ModuleController extends BaseController
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name.' successfully created.',
+            'message' => $module->name . ' successfully created.',
         ], 201);
     }
 
@@ -111,7 +132,7 @@ class ModuleController extends BaseController
             ]);
         }
 
-        if (! $request->module_id) {
+        if (!$request->module_id) {
             $request['module_id'] = null;
         }
 
@@ -120,7 +141,7 @@ class ModuleController extends BaseController
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $module->name.' successfully updated.',
+            'message' => $module->name . ' successfully updated.',
         ]);
     }
 
@@ -144,7 +165,7 @@ class ModuleController extends BaseController
         \role()->syncSuperAdminRoleModules();
 
         return response()->json([
-            'message' => $name.' successfully deleted.',
+            'message' => $name . ' successfully deleted.',
         ]);
     }
 
