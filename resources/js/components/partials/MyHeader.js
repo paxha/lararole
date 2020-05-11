@@ -5,7 +5,14 @@ const { Header } = Layout
 
 function MyHeader () {
   return (
-    <Header className="site-layout-background" style={{ padding: 0 }}/>
+    <Header
+      className="site-layout-background"
+      style={{
+        position: 'fixed',
+        zIndex: 1,
+        width: '100%'
+      }}
+    />
   )
 }
 

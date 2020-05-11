@@ -13,7 +13,17 @@ function Sidebar () {
   }
 
   return (
-    <Sider theme="light" collapsible collapsed={collapsed} onCollapse={onCollapse}>
+    <Sider
+      theme="light"
+      collapsed={collapsed}
+      onCollapse={onCollapse}
+      style={{
+        overflow: 'auto',
+        height: '100vh',
+        position: 'fixed',
+        left: 0
+      }}
+    >
       <div className="logo"/>
       <Menu defaultSelectedKeys={[window.location.pathname.split('/')[2] || 'home']} mode="inline">
         <Menu.Item key="home">

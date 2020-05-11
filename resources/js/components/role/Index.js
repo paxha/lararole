@@ -216,7 +216,7 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
               setIsVisibleEditForm(true)
             }}>{text}
           </a>
-            <br/>
+          <br/>
             ({record.slug})
         </>
     },
