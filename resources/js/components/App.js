@@ -16,9 +16,14 @@ function App () {
     <Layout style={{ minHeight: '100vh' }}>
       <Router>
         <Sidebar/>
-        <Layout className="site-layout">
+        <Layout
+          className="site-layout"
+          style={{
+            marginLeft: 200
+          }}
+        >
           <MyHeader/>
-          <Content style={{ margin: '0 16px' }}>
+          <Content style={{ margin: '64px 16px' }}>
             <Route exact path="/lararole" component={Home}/>
             <Route exact path="/lararole/module" component={ModuleIndex}/>
             <Route exact path="/lararole/role" component={RoleIndex}/>
