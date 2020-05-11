@@ -562,6 +562,7 @@ function Index () {
   const [modulesError, setModulesError] = useState(null)
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isDataLoading, setIsDataLoading] = useState(false)
 
   const nameHasError = !!nameError
   const modulesHasError = !!modulesError
@@ -571,10 +572,13 @@ function Index () {
   }, [])
 
   function loadRoles () {
+    setIsDataLoading(true)
     setSelectedRoleIds([])
     axios.get('/lararole/api/roles').then(response => {
       setRoles(response.data.roles)
+      setIsDataLoading(false)
     }).catch(error => {
+      setIsDataLoading(false)
       openNotification(error.response.data.message, error.response.data.description, 'error')
     })
   }
@@ -887,6 +891,7 @@ function Index () {
         rowSelection={rowSelection}
         dataSource={roles}
         tableLayout="auto"
+        loading={isDataLoading}
       />
     </div>
   )
