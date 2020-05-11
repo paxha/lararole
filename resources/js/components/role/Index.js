@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Breadcrumb, Button, Checkbox, Drawer, Form, Input, notification, Popconfirm, Table, Tag } from 'antd'
-import { DeleteOutlined, EditOutlined, HomeOutlined, PlusOutlined, UsergroupAddOutlined } from '@ant-design/icons'
+import { Breadcrumb, Button, Checkbox, Drawer, Form, Input, notification, Popconfirm, Switch, Table } from 'antd'
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  HomeOutlined,
+  PlusOutlined,
+  UsergroupAddOutlined
+} from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 
 function useForceUpdate () {
@@ -10,6 +18,8 @@ function useForceUpdate () {
 
 const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, openNotification) => {
   const forceUpdate = useForceUpdate()
+
+  const [isLoadingOf, setIsLoadingOf] = useState(null)
 
   function getModule (modules, id) {
     let module = _.find(modules, { id: id })
@@ -163,87 +173,95 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text, record) => <a onClick={function () {
-        let roleModules = []
-        let modules = []
-
-        axios.get('/lararole/api/role/' + record.id + '/edit')
-          .then(response => {
-            setId(response.data.role.id)
-            setName(response.data.role.name)
-            roleModules = response.data.role.modules
-          })
-          .catch(error => {
-            openNotification(error.response.data.message, error.response.data.description, 'error')
-          })
-
-        axios.get('/lararole/api/modules')
-          .then(response => {
-            modules = response.data.modules
-
-            for (let i = 0; i < roleModules.length; i++) {
-              const roleModule = getModule(modules, roleModules[i].id)
-
-              const updatedRoleModule = updateModule(roleModule, false, false, roleModules[i].permission === 'read', roleModules[i].permission === 'write')
-
-              let updatedModules = updateModules(modules, updatedRoleModule)
-
-              if (updatedRoleModule.module_id) {
-                updatedModules = updateParentModule(updatedModules, updatedRoleModule)
-              }
-              setModules(updatedModules)
-              forceUpdate()
-            }
-
-            setModules(response.data.modules)
-          })
-          .catch(error => {
-            openNotification(error.response.data.message, error.response.data.description, 'error')
-          })
-        setIsVisibleEditForm(true)
-      }}>{text}</a>
-    },
-    {
-      title: 'Slug',
-      dataIndex: 'slug',
-      key: 'slug'
-    },
-    {
-      title: 'Modules',
-      width: 300,
-      dataIndex: 'modules',
-      key: 'modules',
-      render: modules => (
+      render: (text, record) =>
         <>
-          {
-            modules.map(module => {
-              const color = !module.module_id ? (module.permission === 'write' ? 'geekblue' : 'blue') : 'cyan'
+          <a
+            onClick={function () {
+              let roleModules = []
+              let modules = []
 
-              return (
-                <Tag color={color} key={module.slug} style={{ marginTop: 5 }}>
-                  {module.name}
-                </Tag>
-              )
-            })
-          }
+              axios.get('/lararole/api/role/' + record.id + '/edit')
+                .then(response => {
+                  setId(response.data.role.id)
+                  setName(response.data.role.name)
+                  roleModules = response.data.role.modules
+                })
+                .catch(error => {
+                  openNotification(error.response.data.message, error.response.data.description, 'error')
+                })
+
+              axios.get('/lararole/api/modules')
+                .then(response => {
+                  modules = response.data.modules
+
+                  for (let i = 0; i < roleModules.length; i++) {
+                    const roleModule = getModule(modules, roleModules[i].id)
+
+                    const updatedRoleModule = updateModule(roleModule, false, false, roleModules[i].permission === 'read', roleModules[i].permission === 'write')
+
+                    let updatedModules = updateModules(modules, updatedRoleModule)
+
+                    if (updatedRoleModule.module_id) {
+                      updatedModules = updateParentModule(updatedModules, updatedRoleModule)
+                    }
+                    setModules(updatedModules)
+                    forceUpdate()
+                  }
+
+                  setModules(response.data.modules)
+                })
+                .catch(error => {
+                  openNotification(error.response.data.message, error.response.data.description, 'error')
+                })
+              setIsVisibleEditForm(true)
+            }}>{text}
+          </a>
+            <br/>
+            ({record.slug})
         </>
+    },
+    {
+      title: 'Active',
+      key: 'active',
+      render: (text, record) => (
+        <Switch
+          checkedChildren={<CheckOutlined />}
+          unCheckedChildren={<CloseOutlined />}
+          defaultChecked={!!record.active}
+          loading={isLoadingOf === record.id}
+          onChange={() => {
+            setIsLoadingOf(record.id)
+            axios.get('/lararole/api/role/' + record.id + '/toggle-active')
+              .then(response => {
+                setIsLoadingOf(null)
+                openNotification(response.data.message, response.data.description)
+                axios.get('/lararole/api/roles')
+                  .then(rolesResponse => {
+                    setRoles(rolesResponse.data.roles)
+                  }).catch(rolesError => {
+                    openNotification(rolesError.response.data.message, rolesError.response.data.description, 'error')
+                  })
+              })
+              .catch(error => {
+                setIsLoadingOf(null)
+                openNotification(error.response.data.message, error.response.data.description, 'error')
+              })
+          }}
+        />
       )
     },
     {
       title: 'Last Update',
-      width: 130,
       dataIndex: 'updated_at',
       key: 'last_update'
     },
     {
       title: 'Created',
-      width: 130,
       dataIndex: 'created_at',
       key: 'created'
     },
     {
       title: '',
-      width: 160,
       key: 'action',
       fixed: 'right',
       render: (text, record) => (
@@ -867,7 +885,9 @@ function Index () {
       <Table
         columns={columns(setIsVisibleEditForm, setId, setName, setModules, setRoles, openNotification)}
         rowSelection={rowSelection}
-        dataSource={roles}/>
+        dataSource={roles}
+        tableLayout="auto"
+      />
     </div>
   )
 }

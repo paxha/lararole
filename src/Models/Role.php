@@ -71,6 +71,6 @@ class Role extends Model
 
     public function modules()
     {
-        return $this->belongsToMany(Module::class)->withPivot('permission')->as('permission')->withTimestamps();
+        return $this->belongsToMany(Module::class)->withPivot('permission')->as('permission')->withTimestamps()->whereActive(true);
     }
 }

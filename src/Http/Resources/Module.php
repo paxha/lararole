@@ -22,6 +22,7 @@ class Module extends JsonResource
             'slug' => $this->slug,
             'alias' => $this->alias,
             'icon' => $this->icon,
+            'active' => $this->active,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
         ];

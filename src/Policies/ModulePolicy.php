@@ -67,6 +67,18 @@ class ModulePolicy
     }
 
     /**
+     * Determine whether the user can toggle active the model.
+     *
+     * @param $user
+     * @param Module $module
+     * @return mixed
+     */
+    public function toggleActive($user, Module $module)
+    {
+        return $user->isSuperAdmin();
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param $user
