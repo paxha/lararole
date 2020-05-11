@@ -27,6 +27,28 @@ class RoleController extends BaseController
     }
 
     /**
+     * Display a stats of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function stats()
+    {
+        if ($this->user()->cant('stats', Role::class)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
+        $stats['total'] = Role::count();
+        $stats['recent'] = Role::thisWeekReport()->count();
+        $stats['active'] = Role::whereActive(true)->count();
+        $stats['idle'] = Role::whereActive(false)->count();
+        $stats['trashed'] = Role::onlyTrashed()->count();
+
+        return response()->json([
+            'stats' => $stats,
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request

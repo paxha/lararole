@@ -26,6 +26,27 @@ class ModuleController extends BaseController
     }
 
     /**
+     * Display a stats of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function stats()
+    {
+        if ($this->user()->cant('stats', Module::class)) {
+            throw new HttpException(403, 'Access Denied!');
+        }
+
+        $stats['total'] = Module::count();
+        $stats['active'] = Module::whereActive(true)->count();
+        $stats['idle'] = Module::whereActive(false)->count();
+        $stats['trashed'] = Module::onlyTrashed()->count();
+
+        return response()->json([
+            'stats' => $stats,
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request

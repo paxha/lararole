@@ -19,7 +19,7 @@ trait HasRoles
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class)->withTimestamps();
+        return $this->belongsToMany(Role::class)->withTimestamps()->whereActive(true);
     }
 
     /**

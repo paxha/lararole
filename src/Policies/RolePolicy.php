@@ -21,6 +21,17 @@ class RolePolicy
     }
 
     /**
+     * Determine whether the user can view stats models.
+     *
+     * @param $user
+     * @return mixed
+     */
+    public function stats($user)
+    {
+        return $user->isSuperAdmin();
+    }
+
+    /**
      * Determine whether the user can view the model.
      *
      * @param $user

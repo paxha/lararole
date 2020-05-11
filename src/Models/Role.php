@@ -6,13 +6,14 @@ use Lararole\Traits\Loggable;
 use Lararole\Traits\Activable;
 use Lararole\Traits\HasModules;
 use Sluggable\Traits\Sluggable;
+use Reportable\Traits\Reportable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 
 class Role extends Model
 {
-    use SoftDeletes, Activable, Sluggable, PivotEventTrait, HasModules, Loggable;
+    use SoftDeletes, Activable, Sluggable, PivotEventTrait, HasModules, Loggable, Reportable;
 
     protected $fillable = [
         'name',
