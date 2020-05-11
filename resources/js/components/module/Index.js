@@ -159,6 +159,7 @@ function Index () {
   const [iconError, setIconError] = useState(null)
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isDataLoading, setIsDataLoading] = useState(false)
 
   const parentModuleIdHasError = !!parentModuleIdError
   const nameHasError = !!nameError
@@ -170,12 +171,15 @@ function Index () {
   }, [])
 
   function loadModules () {
+    setIsDataLoading(true)
     setSelectedModuleIds([])
     axios.get('/lararole/api/modules')
       .then(response => {
         setModules(response.data.modules)
+        setIsDataLoading(false)
       })
       .catch(error => {
+        setIsDataLoading(false)
         openNotification(error.response.data.message, error.response.data.description, 'error')
       })
   }
@@ -555,6 +559,7 @@ function Index () {
         rowSelection={rowSelection}
         dataSource={modules}
         tableLayout="auto"
+        loading={isDataLoading}
       />
     </div>
   )
