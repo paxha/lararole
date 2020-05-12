@@ -1,5 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { Breadcrumb, Button, Checkbox, Drawer, Form, Input, notification, Popconfirm, Switch, Table } from 'antd'
+import {
+  Badge,
+  Breadcrumb,
+  Button,
+  Checkbox,
+  Descriptions,
+  Drawer,
+  Form,
+  Input,
+  Modal,
+  notification,
+  Popconfirm,
+  Switch,
+  Table,
+  Tag,
+  Tooltip
+} from 'antd'
 import {
   CheckOutlined,
   CloseOutlined,
@@ -187,6 +203,19 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
     return updatedModules
   }
 
+  const [isShowDetailModal, setIsShowDetailModal] = useState(false)
+
+  const [selectedRole, setSelectedRole] = useState({})
+  const [selectedRoleModuleTags, setSelectedRoleModuleTags] = useState(null)
+
+  function showDetailModal () {
+    setIsShowDetailModal(true)
+  }
+
+  function hideDetailModal () {
+    setIsShowDetailModal(false)
+  }
+
   return [
     {
       title: 'Name',
@@ -194,49 +223,37 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
       key: 'name',
       render: (text, record) =>
         <>
-          <a
-            onClick={function () {
-              let roleModules = []
-              let modules = []
+          <a onClick={function () {
+            showDetailModal()
+            setSelectedRole(record)
+            const moduleTags = record.modules.map((module, index) => {
+              const color = (!module.module_id ? (module.permission === 'write' ? '#108ee9' : '#2db7f5') : (module.permission === 'write' ? 'geekblue' : 'blue'))
+              return <>
+                {!module.module_id ? (index > 0 ? <br/> : null) : null}
+                <Tooltip title={module.permission}>
+                  <Tag color={color} style={{ marginTop: 8 }}>{module.name}</Tag>
+                </Tooltip>
+              </>
+            })
 
-              axios.get('/lararole/api/role/' + record.id + '/edit')
-                .then(response => {
-                  setId(response.data.role.id)
-                  setName(response.data.role.name)
-                  roleModules = response.data.role.modules
-                })
-                .catch(error => {
-                  openNotification(error.response.data.message, error.response.data.description, 'error')
-                })
-
-              axios.get('/lararole/api/modules')
-                .then(response => {
-                  modules = response.data.modules
-
-                  for (let i = 0; i < roleModules.length; i++) {
-                    const roleModule = getModule(modules, roleModules[i].id)
-
-                    const updatedRoleModule = updateModule(roleModule, false, false, roleModules[i].permission === 'read', roleModules[i].permission === 'write')
-
-                    let updatedModules = updateModules(modules, updatedRoleModule)
-
-                    if (updatedRoleModule.module_id) {
-                      updatedModules = updateParentModule(updatedModules, updatedRoleModule)
-                    }
-                    setModules(updatedModules)
-                    forceUpdate()
-                  }
-
-                  setModules(response.data.modules)
-                })
-                .catch(error => {
-                  openNotification(error.response.data.message, error.response.data.description, 'error')
-                })
-              setIsVisibleEditForm(true)
-            }}>{text}
-          </a>
-          <br/>
-            ({record.slug})
+            setSelectedRoleModuleTags(moduleTags)
+          }}>{text}</a>
+          <Modal
+            centered
+            visible={isShowDetailModal}
+            onOk={hideDetailModal}
+            onCancel={hideDetailModal}
+            width={720}
+          >
+            <Descriptions title="Role Info" bordered>
+              <Descriptions.Item label="Name" span={2}>{selectedRole.name}</Descriptions.Item>
+              <Descriptions.Item label="Alias" span={2}>{selectedRole.slug}</Descriptions.Item>
+              <Descriptions.Item label="Last Update" span={2}>{selectedRole.created_at}</Descriptions.Item>
+              <Descriptions.Item label="Created" span={2}>{selectedRole.created_at}</Descriptions.Item>
+              <Descriptions.Item label="Status" span={3}><Badge status={selectedRole.active ? 'processing' : 'error'} text={selectedRole.active ? 'RUNNING' : 'IDLE'} /></Descriptions.Item>
+              <Descriptions.Item label="Roles" span={3}>{selectedRoleModuleTags}</Descriptions.Item>
+            </Descriptions>
+          </Modal>
         </>
     },
     {

@@ -1,5 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { Breadcrumb, Button, Drawer, Form, Input, notification, Popconfirm, Switch, Table, TreeSelect } from 'antd'
+import {
+  Badge,
+  Breadcrumb,
+  Button,
+  Descriptions,
+  Drawer,
+  Form,
+  Input,
+  Modal,
+  notification,
+  Popconfirm,
+  Switch,
+  Table,
+  Tag,
+  Tooltip,
+  TreeSelect
+} from 'antd'
 import {
   CheckOutlined,
   CloseOutlined,
@@ -14,26 +30,60 @@ import { Link } from 'react-router-dom'
 
 const columns = (setIsVisibleCreateForm, setIsVisibleEditForm, setId, setName, setAlias, setIcon, setParentModuleId, setModules, openNotification) => {
   const [isLoadingOf, setIsLoadingOf] = useState(null)
+  const [isShowDetailModal, setIsShowDetailModal] = useState(false)
+
+  const [selectedModule, setSelectedModule] = useState({})
+  const [selectedModuleRoleTags, setSelectedModuleRoleTags] = useState(null)
+
+  function showDetailModal () {
+    setIsShowDetailModal(true)
+  }
+
+  function hideDetailModal () {
+    setIsShowDetailModal(false)
+  }
 
   return [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text, record) => <a onClick={function () {
-        setIsVisibleEditForm(true)
-        axios.get('/lararole/api/module/' + record.id + '/edit')
-          .then(response => {
-            setId(response.data.module.id)
-            setName(response.data.module.name)
-            setAlias(response.data.module.alias)
-            setIcon(response.data.module.icon)
-            setParentModuleId(response.data.module.module_id)
-          })
-          .catch(error => {
-            openNotification(error.response.data.message, error.response.data.description, 'error')
-          })
-      }}>{text}</a>
+      render: (text, record) => (
+        <>
+          <a onClick={function () {
+            showDetailModal()
+            setSelectedModule(record)
+            const roleTags = record.roles.map(role => {
+              const color = role.permission.permission === 'write' ? 'geekblue' : 'blue'
+              return <>
+                <Tooltip title={role.permission.permission}>
+                  <Tag color={color}>{role.name}</Tag>
+                </Tooltip>
+              </>
+            })
+
+            setSelectedModuleRoleTags(roleTags)
+          }}>{text}</a>
+          <Modal
+            centered
+            visible={isShowDetailModal}
+            onOk={hideDetailModal}
+            onCancel={hideDetailModal}
+            width={720}
+          >
+            <Descriptions title="Module Info" bordered>
+              <Descriptions.Item label="Name" span={2}>{selectedModule.name}</Descriptions.Item>
+              <Descriptions.Item label="Alias" span={2}>{selectedModule.alias}</Descriptions.Item>
+              <Descriptions.Item label="Slug" span={2}>{selectedModule.slug}</Descriptions.Item>
+              <Descriptions.Item label="Icon" span={2}>{selectedModule.icon}</Descriptions.Item>
+              <Descriptions.Item label="Last Update" span={2}>{selectedModule.created_at}</Descriptions.Item>
+              <Descriptions.Item label="Created" span={2}>{selectedModule.created_at}</Descriptions.Item>
+              <Descriptions.Item label="Status" span={3}><Badge status={selectedModule.active ? 'processing' : 'error'} text={selectedModule.active ? 'RUNNING' : 'IDLE'} /></Descriptions.Item>
+              <Descriptions.Item label="Roles" span={3}>{selectedModuleRoleTags}</Descriptions.Item>
+            </Descriptions>
+          </Modal>
+        </>
+      )
     },
     {
       title: 'Alias',
