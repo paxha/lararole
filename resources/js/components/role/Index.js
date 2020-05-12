@@ -71,6 +71,9 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
     let readSiblingsChecked = false
     let writeSiblingsChecked = false
 
+    let readAllSiblingsChecked = true
+    let writeAllSiblingsChecked = true
+
     let readSiblingsIndeterminate = false
     let writeSiblingsIndeterminate = false
 
@@ -80,6 +83,9 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
           if (parentModule.children[i].readChecked) {
             readSiblingsChecked = true
           }
+          if (!parentModule.children[i].readChecked) {
+            readAllSiblingsChecked = false
+          }
         }
       }
 
@@ -87,6 +93,9 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
         if (parentModule.children[i].id !== module.id) {
           if (parentModule.children[i].writeChecked) {
             writeSiblingsChecked = true
+          }
+          if (!parentModule.children[i].writeChecked) {
+            writeAllSiblingsChecked = false
           }
         }
       }
@@ -117,8 +126,13 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
       parentModule.writeIndeterminate = writeIndeterminate
     } else {
       if (readChecked && readSiblingsChecked) {
-        parentModule.readChecked = true
-        parentModule.readIndeterminate = false
+        if (readAllSiblingsChecked) {
+          parentModule.readChecked = true
+          parentModule.readIndeterminate = false
+        } else {
+          parentModule.readChecked = false
+          parentModule.readIndeterminate = true
+        }
       } else if (readChecked && !readSiblingsChecked) {
         parentModule.readChecked = false
         parentModule.readIndeterminate = true
@@ -138,8 +152,13 @@ const columns = (setIsVisibleEditForm, setId, setName, setModules, setRoles, ope
       }
 
       if (writeChecked && writeSiblingsChecked) {
-        parentModule.writeChecked = true
-        parentModule.writeIndeterminate = false
+        if (writeAllSiblingsChecked) {
+          parentModule.writeChecked = true
+          parentModule.writeIndeterminate = false
+        } else {
+          parentModule.writeChecked = false
+          parentModule.writeIndeterminate = true
+        }
       } else if (writeChecked && !writeSiblingsChecked) {
         parentModule.writeChecked = false
         parentModule.writeIndeterminate = true
@@ -398,6 +417,9 @@ const moduleColumns = (modules, setModules) => {
     let readSiblingsChecked = false
     let writeSiblingsChecked = false
 
+    let readAllSiblingsChecked = true
+    let writeAllSiblingsChecked = true
+
     let readSiblingsIndeterminate = false
     let writeSiblingsIndeterminate = false
 
@@ -407,6 +429,9 @@ const moduleColumns = (modules, setModules) => {
           if (parentModule.children[i].readChecked) {
             readSiblingsChecked = true
           }
+          if (!parentModule.children[i].readChecked) {
+            readAllSiblingsChecked = false
+          }
         }
       }
 
@@ -414,6 +439,9 @@ const moduleColumns = (modules, setModules) => {
         if (parentModule.children[i].id !== module.id) {
           if (parentModule.children[i].writeChecked) {
             writeSiblingsChecked = true
+          }
+          if (!parentModule.children[i].writeChecked) {
+            writeAllSiblingsChecked = false
           }
         }
       }
@@ -444,8 +472,13 @@ const moduleColumns = (modules, setModules) => {
       parentModule.writeIndeterminate = writeIndeterminate
     } else {
       if (readChecked && readSiblingsChecked) {
-        parentModule.readChecked = true
-        parentModule.readIndeterminate = false
+        if (readAllSiblingsChecked) {
+          parentModule.readChecked = true
+          parentModule.readIndeterminate = false
+        } else {
+          parentModule.readChecked = false
+          parentModule.readIndeterminate = true
+        }
       } else if (readChecked && !readSiblingsChecked) {
         parentModule.readChecked = false
         parentModule.readIndeterminate = true
@@ -465,8 +498,13 @@ const moduleColumns = (modules, setModules) => {
       }
 
       if (writeChecked && writeSiblingsChecked) {
-        parentModule.writeChecked = true
-        parentModule.writeIndeterminate = false
+        if (writeAllSiblingsChecked) {
+          parentModule.writeChecked = true
+          parentModule.writeIndeterminate = false
+        } else {
+          parentModule.writeChecked = false
+          parentModule.writeIndeterminate = true
+        }
       } else if (writeChecked && !writeSiblingsChecked) {
         parentModule.writeChecked = false
         parentModule.writeIndeterminate = true
