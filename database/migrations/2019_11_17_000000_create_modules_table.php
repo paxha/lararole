@@ -20,6 +20,7 @@ class CreateModulesTable extends Migration
             $table->string('slug')->unique();
             $table->string('alias')->nullable();
             $table->string('icon')->nullable();
+            $table->integer('sequence')->nullable();
             $table->boolean('active')->default(true);
 
             $table->unsignedBigInteger('created_by')->nullable();

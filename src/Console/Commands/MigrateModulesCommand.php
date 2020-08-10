@@ -39,41 +39,50 @@ class MigrateModulesCommand extends Command
      */
     public function handle()
     {
-        if (! $this->option('sync')) {
-            foreach (config('lararole.modules') as $module) {
-                $m = Module::create([
-                    'name' => $module['name'],
-                    'icon' => @$module['icon'],
-                    'alias' => @$module['alias'] ?? $module['name'],
-                ]);
+        DB::beginTransaction();
+        try {
+            $i=1;
+            if (! $this->option('sync')) {
+                foreach (config('lararole.modules') as $module) {
+                    $m = Module::create([
+                        'name' => $module['name'],
+                        'icon' => @$module['icon'],
+                        'alias' => @$module['alias'] ?? $module['name'],
+                        'sequence' => $i++,
+                    ]);
+                    if (@$module['modules']) {
+                        $i = $m->createModules(@$module['modules'], $i++);
+                    }
+                }
 
-                if (@$module['modules']) {
-                    $m->createModules(@$module['modules']);
+                $this->info('All modules and sub modules migrated successful!');
+            } else {
+                foreach (config('lararole.modules') as $module) {
+
+                    $m = Module::updateOrCreate([
+                        'name' => $module['name'],
+                    ], [
+                        'icon' => @$module['icon'],
+                        'alias' => @$module['alias'] ?? $module['name'],
+                        'sequence' => $i++,
+                    ]);
+
+                    if (@$module['modules']) {
+                        $i = $m->updateOrCreateModules(@$module['modules'], $i++);
+                    }
+                }
+
+                $this->info('All modules synced!');
+
+                $super_admin_role = Role::whereSlug('super-admin')->first();
+                if ($super_admin_role) {
+                    $super_admin_role->modules()->detach();
+                    $super_admin_role->modules()->attach(config('lararole.attachAllChildren') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
                 }
             }
-
-            $this->info('All modules and sub modules migrated successful!');
-        } else {
-            foreach (config('lararole.modules') as $module) {
-                $m = Module::updateOrCreate([
-                    'name' => $module['name'],
-                ], [
-                    'icon' => @$module['icon'],
-                    'alias' => @$module['alias'] ?? $module['name'],
-                ]);
-
-                if (@$module['modules']) {
-                    $m->updateOrCreateModules(@$module['modules']);
-                }
-            }
-
-            $this->info('All modules synced!');
-
-            $super_admin_role = Role::whereSlug('super-admin')->first();
-            if ($super_admin_role) {
-                $super_admin_role->modules()->detach();
-                $super_admin_role->modules()->attach(config('lararole.attachAllChildren') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
-            }
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
         }
     }
 }
