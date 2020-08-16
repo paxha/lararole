@@ -11,11 +11,11 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
-env:
-  global:
-    - DB_CONNECTION=sqlite
-    - DB_DATABASE=":memory:"
-    - COVERAGE=yes
+# env:
+  # global:
+    # - DB_CONNECTION=sqlite
+    # - DB_DATABASE=":memory:"
+    # - COVERAGE=yes
 
 php:
   - 7.2
