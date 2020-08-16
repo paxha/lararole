@@ -5,6 +5,7 @@ namespace Lararole\Console\Commands;
 use Lararole\Models\Role;
 use Lararole\Models\Module;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class MigrateModulesCommand extends Command
 {
