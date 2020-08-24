@@ -11,11 +11,6 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
-php:
-  - 7.2
-  - 7.3
-  - 7.4snapshot
-
 matrix:
   include:
     - php: 7.2
