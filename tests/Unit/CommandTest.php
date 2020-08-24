@@ -13,7 +13,7 @@ class CommandTest extends TestCase
     private $moduleViews = [
         'modules.product.inventory.product_listing',
         'modules.product.brand',
-        'modules.user_management.user_1',
+        'modules.user_management.user',
         'modules.user_management.role',
         'modules.order_processing.new_orders',
         'modules.order_processing.dispatched',
@@ -27,7 +27,7 @@ class CommandTest extends TestCase
         'modules.order_processing',
     ];
 
-    private $new_modules = [
+    private $newModules = [
         [
             'name' => 'Product',
             'icon' => 'icon-product',
@@ -77,12 +77,52 @@ class CommandTest extends TestCase
         $this->assertCount(11, Module::all());
     }
 
+    public function testMigrateModulesWithSequenceCommand()
+    {
+        $this->artisan('migrate:modules');
+
+        $this->assertDatabaseHas('modules', [
+            'name' => 'Product',
+            'sequence' => 1,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Inventory',
+            'sequence' => 2,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Product Listing',
+            'sequence' => 3,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Brand',
+            'sequence' => 4,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'User Management',
+            'sequence' => 5,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'User',
+            'sequence' => 6,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Role',
+            'sequence' => 7,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Order Processing',
+            'sequence' => 8,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'New Orders',
+            'sequence' => 9,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Dispatched',
+            'sequence' => 10,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Others',
+            'sequence' => 11,
+        ]);
+    }
+
     public function testMigrateModulesWithSyncCommand()
     {
         $this->artisan('migrate:modules');
         $this->artisan('make:super-admin-role');
 
-        Config::set('lararole.modules', $this->new_modules);
+        Config::set('lararole.modules', $this->newModules);
 
         $this->artisan('migrate:modules --sync');
 
@@ -91,6 +131,140 @@ class CommandTest extends TestCase
         $superAdminRole = Role::whereSlug('super-admin')->first();
 
         $this->assertCount(12, $superAdminRole->modules);
+    }
+
+    public function testMigrateModulesWithSyncAndSequenceCommand()
+    {
+        $localModules = [
+            [
+                'name' => 'User Management',
+                'icon' => 'icon-user',
+                'modules' => [
+                    [
+                        'name' => 'User',
+                        'icon' => 'icon-user',
+                    ],
+                    [
+                        'name' => 'Role',
+                        'icon' => 'icon-role',
+                    ],
+                ],
+            ],
+            [
+                'name' => 'Product',
+                'icon' => 'icon-product',
+                'modules' => [
+                    ['name' => 'Brand'],
+                    [
+                        'name' => 'Inventory',
+                        'modules' => [
+                            ['name' => 'Product Listing'],
+                        ],
+                    ],
+                    ['name' => 'Supplier'],
+                ],
+            ],
+            [
+                'name' => 'Order Processing',
+                'icon' => 'icon-order',
+                'modules' => [
+                    ['name' => 'New Orders'],
+                    ['name' => 'Dispatched'],
+                ],
+            ],
+            [
+                'name' => 'Others',
+                'icon' => 'icon-others',
+            ],
+        ];
+
+        $this->artisan('migrate:modules');
+        $this->artisan('make:super-admin-role');
+
+        Config::set('lararole.modules', $this->newModules);
+
+        $this->artisan('migrate:modules --sync');
+
+        $this->assertDatabaseHas('modules', [
+            'name' => 'Product',
+            'sequence' => 1,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Inventory',
+            'sequence' => 2,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Product Listing',
+            'sequence' => 3,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Brand',
+            'sequence' => 4,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Supplier',
+            'sequence' => 5,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'User Management',
+            'sequence' => 6,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'User',
+            'sequence' => 7,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Role',
+            'sequence' => 8,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Order Processing',
+            'sequence' => 9,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'New Orders',
+            'sequence' => 10,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Dispatched',
+            'sequence' => 11,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Others',
+            'sequence' => 12,
+        ]);
+
+
+        Config::set('lararole.modules', $localModules);
+
+        $this->artisan('migrate:modules --sync');
+
+        $this->assertDatabaseHas('modules', [
+            'name' => 'User Management',
+            'sequence' => 1,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'User',
+            'sequence' => 2,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Role',
+            'sequence' => 3,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Product',
+            'sequence' => 4,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Brand',
+            'sequence' => 5,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Inventory',
+            'sequence' => 6,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Product Listing',
+            'sequence' => 7,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Supplier',
+            'sequence' => 8,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Order Processing',
+            'sequence' => 9,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'New Orders',
+            'sequence' => 10,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Dispatched',
+            'sequence' => 11,
+        ])->assertDatabaseHas('modules', [
+            'name' => 'Others',
+            'sequence' => 12,
+        ]);
     }
 
     public function testMakeViewsCommand()

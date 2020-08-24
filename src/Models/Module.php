@@ -15,7 +15,7 @@ class Module extends Model
     use SoftDeletes, Activable, Sluggable, HasRecursiveRelationships, HasRelationships, Loggable;
 
     protected $fillable = [
-        'module_id', 'name', 'alias', 'icon',
+        'module_id', 'name', 'alias', 'icon', 'sequence'
     ];
 
     protected $guarded = [
@@ -57,22 +57,24 @@ class Module extends Model
         return '_';
     }
 
-    public function createModules(array $modules)
+    public function createModules(array $modules, $i)
     {
+        
         foreach ($modules as $module) {
             $subModule = $this->children()->create([
                 'name' => $module['name'],
                 'icon' => @$module['icon'],
                 'alias' => @$module['alias'] ?? $module['name'],
+                'sequence' => $i++,
             ]);
-
             if (@$module['modules']) {
-                $subModule->createModules($module['modules']);
+                $i = $subModule->createModules($module['modules'], $i++);
             }
         }
+        return $i++;
     }
 
-    public function updateOrCreateModules(array $modules)
+    public function updateOrCreateModules(array $modules, $i)
     {
         foreach ($modules as $module) {
             $subModule = $this->children()->updateOrCreate([
@@ -80,12 +82,13 @@ class Module extends Model
             ], [
                 'icon' => @$module['icon'],
                 'alias' => @$module['alias'] ?? $module['name'],
+                'sequence' => $i++,
             ]);
-
             if (@$module['modules']) {
-                $subModule->updateOrCreateModules($module['modules']);
+                $i = $subModule->updateOrCreateModules($module['modules'], $i++);
             }
         }
+        return $i++;
     }
 
     public function users()
