@@ -13,7 +13,7 @@ class CommandTest extends TestCase
     private $moduleViews = [
         'modules.product.inventory.product_listing',
         'modules.product.brand',
-        'modules.user_management.user',
+        'modules.user_management.user_1',
         'modules.user_management.role',
         'modules.order_processing.new_orders',
         'modules.order_processing.dispatched',
