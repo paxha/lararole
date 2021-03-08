@@ -37,8 +37,6 @@ class LararoleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__.'/../database/factories');
-
         /*Migrations Publishable*/
         $this->publishes([
             __DIR__.'/../database/migrations' => database_path('migrations'),

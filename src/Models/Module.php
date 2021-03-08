@@ -2,13 +2,13 @@
 
 namespace Lararole\Models;
 
-use Lararole\Traits\Loggable;
-use Lararole\Traits\Activable;
-use Sluggable\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Staudenmeir\EloquentHasManyDeep\HasRelationships;
+use Lararole\Traits\Activable;
+use Lararole\Traits\Loggable;
 use RecursiveRelationships\Traits\HasRecursiveRelationships;
+use Sluggable\Traits\Sluggable;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class Module extends Model
 {
@@ -27,7 +27,7 @@ class Module extends Model
         parent::boot();
 
         self::updating(function ($model) {
-            if (! $model->active) {
+            if (!$model->active) {
                 foreach ($model->children as $child) {
                     $child->active = false;
                     $child->save();
@@ -59,7 +59,7 @@ class Module extends Model
 
     public function createModules(array $modules, $i)
     {
-        
+
         foreach ($modules as $module) {
             $subModule = $this->children()->create([
                 'name' => $module['name'],
