@@ -22,8 +22,6 @@ class LararoleSeeder extends Seeder
 
         Role::create(['name' => 'Super Admin'])->modules()->attach(config('lararole.attachAllChildren') ? Module::root()->get() : Module::all(), ['permission' => 'write']);
 
-        factory(Role::class, 3)->create();
-
         Role::where('slug', '!=', 'super-admin')->get()->each(function ($role) {
             $faker = Factory::create();
             $role->modules()->attach(Module::root()->get()->random()->pluck('id')->toArray(), ['permission' => $faker->randomElement(['read', 'write'])]);

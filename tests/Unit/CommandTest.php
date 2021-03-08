@@ -331,6 +331,6 @@ class CommandTest extends TestCase
 
         $this->assertCount(11, $superAdminRole->modules);
 
-        $this->assertCount(4, Role::all());
+        $this->assertCount(1, Role::all());
     }
 }
