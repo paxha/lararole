@@ -28,7 +28,7 @@
         "php": "^7.2.5|^8.0",
         "doctrine/dbal": "^2.10",
         "fico7489/laravel-pivot": "^3.0",
-        "laravel/framework": "^8.0",
+        "laravel/framework": "^8.0|^9.0",
         "laravel/legacy-factories": "^1.1",
         "paxha/artisan-view": "^3.4",
         "paxha/laravel-recursive-relationships": "^1.0",
